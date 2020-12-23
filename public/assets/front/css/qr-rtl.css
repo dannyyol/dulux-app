@@ -1,0 +1,23 @@
+body {
+    direction: rtl;
+}
+.qr-menu ul#pills-tab {
+    padding-right: 0;
+}
+.food-menu-area.food-menu-3-area .food-menu-items .single-menu-item {
+    text-align: right;
+}
+.flag.flag-2 span {
+    font-size: 17px;
+    margin-left: -6px;
+    margin-top: 15px;
+}
+.form-check-label {
+    padding-right: 20px;
+}
+.modal-header .close {
+    margin: -1rem auto -1rem -1rem;
+}
+.variation-label, .addon-label {
+    text-align: right;
+}
