@@ -96,13 +96,16 @@ $selLang = App\Models\Language::where('code', request()->input('language'))->fir
                           <td>
                             <input type="checkbox" class="bulk-check" data-val="{{$product->id}}">
                           </td>
-                          <td><img src="{{asset('assets/front/img/product/featured/'.$product->feature_image)}}" width="80"></td>
+                          {{-- <td><img src="{{asset('assets/front/img/product/featured/'.$product->feature_image)}}" width="80"></td> --}}
+                          <td><img src="{{$product->feature_image ? asset('assets/front/img/product/featured/'.$product->feature_image) : asset('assets/admin/img/noimage.jpg')}}" width="100" alt=""></td>
+
                           <td>{{convertUtf8(strlen($product->title)) > 200 ? convertUtf8(substr($product->title, 0, 200)) . '...' : convertUtf8($product->title)}}</td>
                           <td>{{$product->current_price}}</td>
                           <td>
-                            @if (!empty($product->category))
-                            {{convertUtf8($product->category ? $product->category->name : '')}}
-                            @endif
+                            
+                            {{-- @if (!empty($product->productColour->colourCategory->pcategory)) --}}
+                            {{convertUtf8($product->productColour->pcategory->name  ?? '')}}
+                            {{-- @endif --}}
                           </td>
                           <td><input type="checkbox" class="chackFeature" class="form-control" name="is_feature" data="{{$product->id}}" {{$product->is_feature == 1 ? 'checked' : ''}} value="1"></td>
                           <td><input type="checkbox" class="chackSpecial" class="form-control" name="is_special" data="{{$product->id}}" {{$product->is_special == 1 ? 'checked' : ''}} value="1"></td>

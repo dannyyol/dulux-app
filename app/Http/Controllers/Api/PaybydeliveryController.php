@@ -9,6 +9,9 @@ use App\Http\Helpers\MegaMailer;
 use App\Models\Language;
 use Illuminate\Support\Str;
 use App\Models\ProductOrder;
+use App\Models\CartItem;
+use App\Models\OrderItem;
+
 use App\Models\ShippingCharge;
 use App\Models\PaymentGateway;
 use PayPal\Api\Amount;
@@ -54,6 +57,9 @@ class PaybydeliveryController extends PaymentController
         // if (!Session::has('cart')) {
         //     return view('errors.404');
         // }
+        $received_data = json_decode(file_get_contents("php://input"));
+
+        // dd($request);
 
         $total = $this->orderTotal($request->shipping_charge);
         $request->validate([
@@ -92,21 +98,21 @@ class PaybydeliveryController extends PaymentController
 
         $order = new ProductOrder();
         $order->user_id = 1;
-        $order->billing_fname = $request->billing_fname;
-        $order->billing_lname = $request->billing_lname;
-        $order->billing_email = $request->billing_email;
-        $order->billing_address = $request->billing_address;
-        $order->billing_city = $request->billing_city;
-        $order->billing_country = $request->billing_country;
-        $order->billing_number = $request->billing_number;
-        $order->shpping_fname = $request->shpping_fname;
-        $order->shpping_lname = $request->shpping_lname;
-        $order->shpping_email = $request->shpping_email;
-        $order->shpping_address = $request->shpping_address;
-        $order->shpping_city = $request->shpping_city;
-        $order->shpping_country = $request->shpping_country;
-        $order->shpping_number = $request->shpping_number;
-        $order->order_notes = $request->order_notes;
+        $order->billing_fname = $received_data->form->billing_fname;
+        $order->billing_lname = $received_data->form->billing_lname;
+        $order->billing_email = $received_data->form->billing_email;
+        $order->billing_address = $received_data->form->billing_address;
+        $order->billing_city = $received_data->form->billing_city;
+        $order->billing_country = $received_data->form->billing_country;
+        $order->billing_number = $received_data->form->billing_number;
+        $order->shpping_fname = $received_data->form->shpping_fname;
+        $order->shpping_lname = $received_data->form->shpping_lname;
+        $order->shpping_email = $received_data->form->shpping_email;
+        $order->shpping_address = $received_data->form->shpping_address;
+        $order->shpping_city = $received_data->form->shpping_city;
+        $order->shpping_country = $received_data->form->shpping_country;
+        $order->shpping_number = $received_data->form->shpping_number;
+        $order->order_notes = $received_data->form->order_notes ?? '';
 
         $order->total = $total;
         $order->shipping_charge = 1.0; // round($shippig_charge, 2);
@@ -125,31 +131,54 @@ class PaybydeliveryController extends PaymentController
             $order['receipt'] = $receipt;
         }
 
-        if($order->save()){
-            $order_id = $order->id;
+        $cart_key = Session::get('cart_key');
+        $carts = CartItem::where(['cart_key'=>$cart_key['cart_key']])->get();
+        if($carts && !empty($received_data->cartTotal)){
+            if($order->save()){
+                $order_id = $order->id;
+                foreach($carts as $cart){
+                    $orderItem = new OrderItem;
+                    $orderItem->product_id=$cart->product_id;
+                    $orderItem->product_order_id = $order->id;
+                    $orderItem->title = $cart->product_name;
+                    $orderItem->qty = $cart->product_quantity;
+                    $orderItem->variations = $cart->variations;
+                    $orderItem->addons = $cart->addons;
+                    $orderItem->product_price = $cart->product_price;
+                    $orderItem->total = $received_data->cartTotal;
+                    $orderItem->save();
+                }
 
             $user = new User();
-            $user->fname = $request->billing_fname;
-            $user->lname = $request->billing_lname;
-            $user->username = $request->billing_fname . ' ' . $request->billing_lname;
-            $user->email = $request->billing_email;
-            $user->billing_email = $request->billing_email;
-            $user->billing_number = $request->billing_number;
+            $user->fname = $received_data->form->billing_fname;
+            $user->lname = $received_data->form->billing_lname;
+            $user->username = $received_data->form->billing_fname . ' ' . $received_data->form->billing_lname;
+            $user->email = $received_data->form->billing_email;
+            $user->billing_email = $received_data->form->billing_email;
+            $user->billing_number = $received_data->form->billing_number;
 
-            $user->billing_city = $request->billing_city;
-            $user->billing_country = $request->billing_country;
-            $user->billing_number = $request->billing_number;
-            $user->shpping_fname = $request->shpping_fname;
-            $user->shpping_lname = $request->shpping_lname;
-            $user->shpping_email = $request->shpping_email;
-            $user->shpping_address = $request->shpping_address;
-            $user->shpping_city = $request->shpping_city;
-            $user->shpping_country = $request->shpping_country;
-            $user->shpping_number = $request->shpping_number;
+            $user->billing_city = $received_data->form->billing_city;
+            $user->billing_country = $received_data->form->billing_country;
+            $user->billing_number = $received_data->form->billing_number;
+            $user->shpping_fname = $received_data->form->shpping_fname;
+            $user->shpping_lname = $received_data->form->shpping_lname;
+            $user->shpping_email = $received_data->form->shpping_email;
+            $user->shpping_address = $received_data->form->shpping_address;
+            $user->shpping_city = $received_data->form->shpping_city;
+            $user->shpping_country = $received_data->form->shpping_country;
+            $user->shpping_number = $received_data->form->shpping_number;
             $user->save();
+            $cart_key = Session::get('cart_key');
+            CartItem::where('cart_key', $cart_key['cart_key'])->delete();
 
-            return response()->json("user Saved Successfully");
+                return response()->json(["status_code"=>"AB", "message"=>"Order Saved Successfully"]);
+            }
+
+        } else {
+        return response()->json(["status_code"=>"AC", "message"=>"Your cart is empty"]);
         }
+
+        
 
 
 

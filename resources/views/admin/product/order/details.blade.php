@@ -310,7 +310,7 @@
                       <th>{{__('Product Title')}}</th>
                       <th>{{__('Price')}}</th>
                       <th>{{__('Quantity')}}</th>
-                      <th>{{__('Total')}}</th>
+                      {{-- <th>{{__('Total')}}</th> --}}
                    </tr>
                 </thead>
                 <tbody>
@@ -325,7 +325,7 @@
                               $variations = json_decode($item->variations, true);
                           @endphp
                           @if (!empty($variations))
-                            <strong class="mr-3">Variation:</strong> {{$variations["name"]}}
+                            <strong class="mr-3">Variation:</strong> {{$variations[0]['name']}} | {{$variations[0]['qty'] }} Qty
                             <br>
                           @endif
                           @php
@@ -335,7 +335,7 @@
                             <strong class="mr-3">Add On's:</strong>
 
                             @foreach ($addons as $addon)
-                                {{$addon["name"]}}
+                                {{$addon["name"]  }} | {{  $addon["qty"]}} Qty
                                 @if (!$loop->last)
                                 ,
                                 @endif
@@ -363,9 +363,16 @@
                         @endif
                       </td>
                       <td>{{$item->qty}}</td>
-                      <td><span>{{$order->currency_code_position == 'left' ? $order->currency_code : ''}}</span> {{$item->total}} <span>{{$order->currency_code_position == 'right' ? $order->currency_code : ''}}</span></td>
                    </tr>
+                   
                    @endforeach
+                   <tr>
+                       <td></td>
+                       <td></td>
+                       <td></td>
+                       <td><b> Total:</b></td>
+                        <td><span>{{$order->currency_code_position == 'left' ? $order->currency_code : ''}}</span> {{$item->total}} <span>{{$order->currency_code_position == 'right' ? $order->currency_code : ''}}</span></td>
+                   </tr>
                 </tbody>
              </table>
           </div>

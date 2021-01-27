@@ -1,838 +1,830 @@
 <template>
 
-<section class="col-sm-12 focus-outline mt-5">
-<div class="region region-content focus-outline">
+<section
+  class="html not-front not-logged-in no-sidebars page-colors-listing region-content i18n-en fl-en fl-colour-palettes fl-asgdlx jquery-once-1-processed jquery-once-2-processed flSearchClick-processed">
+  <div id="overlay"></div>
+  <div id="zone-content" class="zone-content focus-outline" v-if="!loading">
+    <div class="main-container container focus-outline">
+
+      <!-- /#page-header -->
+      <div class="row">
+        <section class="col-sm-12 focus-outline">
+          <!--   -->
+          <a id="main-content"></a>
+          <h1 class="page-header">Find a colour</h1>
+          <div class="region region-content focus-outline">
             <div id="full-form-wrapper" class="focus-outline">
-                <form class="flourish-colors-listing form-counter focus-outline"
-                    action="https://www.dulux.com.sg/en/colour-palettes" method="post"
-                    id="flourish-colors-listing-solr-form--2" accept-charset="UTF-8">
-                    <div class="focus-outline">
-                        <button style="display:none" id="edit-filters-reset-link--2"
-                            name="filters_reset_link" value="Reset Filters" type="button"
-                            class="btn btn-default form-submit ajax-processed" tabindex="25">Reset Filters</button>
-                        <button style="display:none;" id="edit-finish-filters-reset-link--2"
-                            name="finish_filters_reset_link" value="Reset Finish Filters" type="button"
-                            class="btn btn-default form-submit ajax-processed" tabindex="26">Reset Finish
-                            Filters</button>
-                        <button style="display:none" id="edit-surface-usage-filters-reset-link--2"
-                            name="surface_usage_filters_reset_link" value="Reset Surface Type Filters" type="button"
-                            class="btn btn-default form-submit ajax-processed" tabindex="27">Reset Surface Type
-                            Filters</button>
-                        <button style="display:none" id="edit-room-type-filters-reset-link--2"
-                            name="room_type_filters_reset_link" value="Reset Room Type Filters" type="button"
-                            class="btn btn-default form-submit ajax-processed" tabindex="28">Reset Room Type
-                            Filters</button>
-                        <button style="display:none" id="edit-product-type-filters-reset-link--2"
-                            name="finish_filters_reset_link" value="Reset Finish Filters" type="button"
-                            class="btn btn-default form-submit ajax-processed" tabindex="29">Reset Finish
-                            Filters</button>
-                        <div class="colour-palette-wrapper focus-outline">
-                            <div id="block-views-color-display-block" class="colors_fieldset">
-                                <h2 class="block__title block-title block-title text-center">Pick your colour palette
-                                </h2>
+              <section id="block-system-main" class="block block-system block--system-main clearfix focus-outline"
+                role="navigation">
+
+
+                <form class="flourish-colors-listing form-counter focus-outline" id="flourish-colors-listing-solr-form">
+                  <div class="focus-outline"><button style="display:none" id="edit-filters-reset-link"
+                      name="filters_reset_link" value="Reset Filters" type="button"
+                      class="btn btn-default form-submit ajax-processed" tabindex="25">Reset Filters</button>
+                    <button style="display:none" id="edit-finish-filters-reset-link" name="finish_filters_reset_link"
+                      value="Reset Finish Filters" type="button" class="btn btn-default form-submit ajax-processed"
+                      tabindex="26">Reset Finish Filters</button>
+                    <button style="display:none" id="edit-surface-usage-filters-reset-link"
+                      name="surface_usage_filters_reset_link" value="Reset Surface Type Filters" type="button"
+                      class="btn btn-default form-submit ajax-processed" tabindex="27">Reset Surface Type
+                      Filters</button>
+                    <button style="display:none" id="edit-room-type-filters-reset-link"
+                      name="room_type_filters_reset_link" value="Reset Room Type Filters" type="button"
+                      class="btn btn-default form-submit ajax-processed" tabindex="28">Reset Room Type Filters</button>
+                    <button style="display:none" id="edit-product-type-filters-reset-link"
+                      name="finish_filters_reset_link" value="Reset Finish Filters" type="button"
+                      class="btn btn-default form-submit ajax-processed" tabindex="29">Reset Finish Filters</button>
+                    <div class="colour-palette-wrapper focus-outline">
+                      <div id="block-views-color-display-block" class="colors_fieldset">
+                        <h2 class="block__title block-title block-title text-center">Pick your colour palette</h2>
+                      </div>
+                      <div class="row">
+                        
+
+                      </div>
+                      <div id="hue-selector" class="colors-hue-selectors clearfix">
+                        
+                         <div class="no-gutter col-xs-1" v-for="(cpalette, index) in cpalettes" :key="index" >
+                          <!-- <div class="cid-white  product-available color-box colors-hue-selector col-sm-12 col-xs-12 selected hue-selected-processed"
+                            tabindex="30">
+                            <div class="color-box-inner text-center">
+                              <svg class="icon icon-checkmark">
+                                <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                                  xlink:href="/profiles/flourish/themes/custom/flourish_rem/images/svg/defs/icons-symbol-defs.svg#icon-checkmark">
+                                </use>
+                              </svg>
+                              <span>
+                                <button
+                                  class="use-ajax-submit solr-color-box-button btn btn-default form-submit ajax-processed colorHue-processed flourish_google_tag_manager-processed"
+                                  style="opacity:0" title="White" id="edit-palette-white" name="color" value="white"
+                                  type="button" tabindex="31">white</button>
+                              </span>
+                              </div>
+                          </div> -->
+                          <!-- {{ cpalette.palette_name }} -->
+                          <div :class="['cid-' + cpalette.palette_name, selectedName == cpalette.palette_name ? 'selected':null]" class=" product-available color-box colors-hue-selector  col-sm-12 col-xs-12 hue-selected-processed"
+                            tabindex="32" style="background-color:blue !important" >
+                            <div class="color-box-inner text-center">
+                              <svg class="icon icon-checkmark">
+                                <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                                  xlink:href="/profiles/flourish/themes/custom/flourish_rem/images/svg/defs/icons-symbol-defs.svg#icon-checkmark">
+                                </use>
+                              </svg>
+                              <span>
+                                <button @click="fetchCategories(cpalette, $event)"
+                                  class="use-ajax-submit solr-color-box-button btn btn-default form-submit ajax-processed colorHue-processed flourish_google_tag_manager-processed"
+                                  style="opacity:0" :title="cpalette.palette_name " id="" name="color" :value="cpalette.palette_name"
+                                  type="button" tabindex="33">{{ cpalette.palette_name }}
+                                  </button>
+                              </span>
                             </div>
-                            <div id="hue-selector" class="colors-hue-selectors clearfix">
-                                <div class="no-gutter col-xs-2">
-                                    <div class="cid-white  selected product-available color-box colors-hue-selector col-sm-6 col-xs-12 hue-selected-processed"
-                                        tabindex="30">
-                                        <div class="color-box-inner text-center"><svg class="icon icon-checkmark">
-                                                <use xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                    xlink:href="/profiles/flourish/themes/custom/flourish_rem/images/svg/defs/icons-symbol-defs.svg#icon-checkmark">
-                                                </use>
-                                            </svg><span><button
-                                                    class="use-ajax-submit solr-color-box-button btn btn-default form-submit ajax-processed colorHue-processed flourish_google_tag_manager-processed"
-                                                    style="opacity:0" title="White" id="edit-palette-white--2"
-                                                    name="color" value="white" type="button"
-                                                    tabindex="31">white</button>
-                                            </span></div>
-                                    </div>
-                                    <div class="cid-red  product-available color-box colors-hue-selector col-sm-6 col-xs-12 hue-selected-processed"
-                                        tabindex="32">
-                                        <div class="color-box-inner text-center"><svg class="icon icon-checkmark">
-                                                <use xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                    xlink:href="/profiles/flourish/themes/custom/flourish_rem/images/svg/defs/icons-symbol-defs.svg#icon-checkmark">
-                                                </use>
-                                            </svg><span><button
-                                                    class="use-ajax-submit solr-color-box-button btn btn-default form-submit ajax-processed colorHue-processed flourish_google_tag_manager-processed"
-                                                    style="opacity:0" title="Red" id="edit-palette-red--2" name="color"
-                                                    value="red" type="button" tabindex="33">red</button>
-                                            </span></div>
-                                    </div>
-                                </div>
-                                <div class="no-gutter col-xs-2">
-                                    <div class="cid-orange  product-available color-box colors-hue-selector col-sm-6 col-xs-12 hue-selected-processed"
-                                        tabindex="34">
-                                        <div class="color-box-inner text-center"><svg class="icon icon-checkmark">
-                                                <use xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                    xlink:href="/profiles/flourish/themes/custom/flourish_rem/images/svg/defs/icons-symbol-defs.svg#icon-checkmark">
-                                                </use>
-                                            </svg><span><button
-                                                    class="use-ajax-submit solr-color-box-button btn btn-default form-submit ajax-processed colorHue-processed flourish_google_tag_manager-processed"
-                                                    style="opacity:0" title="Orange" id="edit-palette-orange--2"
-                                                    name="color" value="orange" type="button"
-                                                    tabindex="35">orange</button>
-                                            </span></div>
-                                    </div>
-                                    <div class="cid-yellow  product-available color-box colors-hue-selector col-sm-6 col-xs-12 hue-selected-processed"
-                                        tabindex="36">
-                                        <div class="color-box-inner text-center"><svg class="icon icon-checkmark">
-                                                <use xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                    xlink:href="/profiles/flourish/themes/custom/flourish_rem/images/svg/defs/icons-symbol-defs.svg#icon-checkmark">
-                                                </use>
-                                            </svg><span><button
-                                                    class="use-ajax-submit solr-color-box-button btn btn-default form-submit ajax-processed colorHue-processed flourish_google_tag_manager-processed"
-                                                    style="opacity:0" title="Yellow" id="edit-palette-yellow--2"
-                                                    name="color" value="yellow" type="button"
-                                                    tabindex="37">yellow</button>
-                                            </span></div>
-                                    </div>
-                                </div>
-                                <div class="no-gutter col-xs-2">
-                                    <div class="cid-teal  product-available color-box colors-hue-selector col-sm-6 col-xs-12 hue-selected-processed"
-                                        tabindex="38">
-                                        <div class="color-box-inner text-center"><svg class="icon icon-checkmark">
-                                                <use xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                    xlink:href="/profiles/flourish/themes/custom/flourish_rem/images/svg/defs/icons-symbol-defs.svg#icon-checkmark">
-                                                </use>
-                                            </svg><span><button
-                                                    class="use-ajax-submit solr-color-box-button btn btn-default form-submit ajax-processed colorHue-processed flourish_google_tag_manager-processed"
-                                                    style="opacity:0" title="Teal" id="edit-palette-teal--2"
-                                                    name="color" value="teal" type="button" tabindex="39">teal</button>
-                                            </span></div>
-                                    </div>
-                                    <div class="cid-violet  product-available color-box colors-hue-selector col-sm-6 col-xs-12 hue-selected-processed"
-                                        tabindex="40">
-                                        <div class="color-box-inner text-center"><svg class="icon icon-checkmark">
-                                                <use xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                    xlink:href="/profiles/flourish/themes/custom/flourish_rem/images/svg/defs/icons-symbol-defs.svg#icon-checkmark">
-                                                </use>
-                                            </svg><span><button
-                                                    class="use-ajax-submit solr-color-box-button btn btn-default form-submit ajax-processed colorHue-processed flourish_google_tag_manager-processed"
-                                                    style="opacity:0" title="Violet" id="edit-palette-violet--2"
-                                                    name="color" value="violet" type="button"
-                                                    tabindex="41">violet</button>
-                                            </span></div>
-                                    </div>
-                                </div>
-                                <div class="no-gutter col-xs-2">
-                                    <div class="cid-cool neutral  product-available color-box colors-hue-selector col-sm-6 col-xs-12 hue-selected-processed"
-                                        tabindex="42">
-                                        <div class="color-box-inner text-center"><svg class="icon icon-checkmark">
-                                                <use xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                    xlink:href="/profiles/flourish/themes/custom/flourish_rem/images/svg/defs/icons-symbol-defs.svg#icon-checkmark">
-                                                </use>
-                                            </svg><span><button
-                                                    class="use-ajax-submit solr-color-box-button btn btn-default form-submit ajax-processed colorHue-processed flourish_google_tag_manager-processed"
-                                                    style="opacity:0" title="Cool neutral"
-                                                    id="edit-palette-cool-neutral--2" name="color" value="cool neutral"
-                                                    type="button" tabindex="43">cool neutral</button>
-                                            </span></div>
-                                    </div>
-                                    <div class="cid-warm neutral  product-available color-box colors-hue-selector col-sm-6 col-xs-12 hue-selected-processed"
-                                        tabindex="44">
-                                        <div class="color-box-inner text-center"><svg class="icon icon-checkmark">
-                                                <use xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                    xlink:href="/profiles/flourish/themes/custom/flourish_rem/images/svg/defs/icons-symbol-defs.svg#icon-checkmark">
-                                                </use>
-                                            </svg><span><button
-                                                    class="use-ajax-submit solr-color-box-button btn btn-default form-submit ajax-processed colorHue-processed flourish_google_tag_manager-processed"
-                                                    style="opacity:0" title="Warm neutral"
-                                                    id="edit-palette-warm-neutral--2" name="color" value="warm neutral"
-                                                    type="button" tabindex="45">warm neutral</button>
-                                            </span></div>
-                                    </div>
-                                </div>
-                                <div class="no-gutter col-xs-2">
-                                    <div class="cid-gold  product-available color-box colors-hue-selector col-sm-6 col-xs-12 hue-selected-processed"
-                                        tabindex="46">
-                                        <div class="color-box-inner text-center"><svg class="icon icon-checkmark">
-                                                <use xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                    xlink:href="/profiles/flourish/themes/custom/flourish_rem/images/svg/defs/icons-symbol-defs.svg#icon-checkmark">
-                                                </use>
-                                            </svg><span><button
-                                                    class="use-ajax-submit solr-color-box-button btn btn-default form-submit ajax-processed colorHue-processed flourish_google_tag_manager-processed"
-                                                    style="opacity:0" title="Gold" id="edit-palette-gold--2"
-                                                    name="color" value="gold" type="button" tabindex="47">gold</button>
-                                            </span></div>
-                                    </div>
-                                    <div class="cid-lime  product-available color-box colors-hue-selector col-sm-6 col-xs-12 hue-selected-processed"
-                                        tabindex="48">
-                                        <div class="color-box-inner text-center"><svg class="icon icon-checkmark">
-                                                <use xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                    xlink:href="/profiles/flourish/themes/custom/flourish_rem/images/svg/defs/icons-symbol-defs.svg#icon-checkmark">
-                                                </use>
-                                            </svg><span><button
-                                                    class="use-ajax-submit solr-color-box-button btn btn-default form-submit ajax-processed colorHue-processed flourish_google_tag_manager-processed"
-                                                    style="opacity:0" title="Lime" id="edit-palette-lime--2"
-                                                    name="color" value="lime" type="button" tabindex="49">lime</button>
-                                            </span></div>
-                                    </div>
-                                </div>
-                                <div class="no-gutter col-xs-2">
-                                    <div class="cid-green  product-available color-box colors-hue-selector col-sm-6 col-xs-12 hue-selected-processed"
-                                        tabindex="50">
-                                        <div class="color-box-inner text-center"><svg class="icon icon-checkmark">
-                                                <use xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                    xlink:href="/profiles/flourish/themes/custom/flourish_rem/images/svg/defs/icons-symbol-defs.svg#icon-checkmark">
-                                                </use>
-                                            </svg><span><button
-                                                    class="use-ajax-submit solr-color-box-button btn btn-default form-submit ajax-processed colorHue-processed flourish_google_tag_manager-processed"
-                                                    style="opacity:0" title="Green" id="edit-palette-green--2"
-                                                    name="color" value="green" type="button"
-                                                    tabindex="51">green</button>
-                                            </span></div>
-                                    </div>
-                                    <div class="cid-blue  product-available color-box colors-hue-selector col-sm-6 col-xs-12 hue-selected-processed"
-                                        tabindex="52">
-                                        <div class="color-box-inner text-center"><svg class="icon icon-checkmark">
-                                                <use xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                    xlink:href="/profiles/flourish/themes/custom/flourish_rem/images/svg/defs/icons-symbol-defs.svg#icon-checkmark">
-                                                </use>
-                                            </svg><span><button
-                                                    class="use-ajax-submit solr-color-box-button btn btn-default form-submit ajax-processed colorHue-processed flourish_google_tag_manager-processed"
-                                                    style="opacity:0" title="Blue" id="edit-palette-blue--2"
-                                                    name="color" value="blue" type="button" tabindex="53">blue</button>
-                                            </span></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div id="filter-wrapper-clp"
-                                class="filter-wrapper filter-wrapper-clp filter-wrapper-fullwidth active">
-
-
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="col-sm-4 accordion" id="accordionExample">
-
-                                            <div class="card">
-                                                <div class="card-head card_head">
-                                                    <h2 class="mb-0 collapsed" data-toggle="collapse"
-                                                        data-target="#collapseOne" aria-expanded="false"
-                                                        aria-controls="collapseOne">
-                                                        Location
-                                                    </h2>
-                                                </div>
-                                                <div id="collapseOne" class="collapse" aria-labelledby="headingOne"
-                                                    data-parent="#accordionExample">
-                                                    <div class="card-body overflow-auto">
-
-                                                        <form action="#">
-                                                            <p>
-                                                                <input type="radio" id="test1" name="radio-group"
-                                                                    checked>
-                                                                <label for="test1">All</label>
-                                                            </p>
-                                                            <p>
-                                                                <input type="radio" id="test2" name="radio-group">
-                                                                <label for="test2">Bathroom</label>
-                                                            </p>
-                                                            <p>
-                                                                <input type="radio" id="test3" name="radio-group">
-                                                                <label for="test3">Bedroom</label>
-                                                            </p>
-
-                                                            <p>
-                                                                <input type="radio" id="test4" name="radio-group">
-                                                                <label for="test4">Dinning room</label>
-                                                            </p>
-
-                                                            <p>
-                                                                <input type="radio" id="test5" name="radio-group">
-                                                                <label for="test5">Hallway</label>
-                                                            </p>
-
-                                                            <p>
-                                                                <input type="radio" id="test6" name="radio-group">
-                                                                <label for="test6">Home Office</label>
-                                                            </p>
-
-                                                            <p>
-                                                                <input type="radio" id="test7" name="radio-group">
-                                                                <label for="test7">Kitchen</label>
-                                                            </p>
-
-                                                            <p>
-                                                                <input type="radio" id="test8" name="radio-group">
-                                                                <label for="test8">Kitchen</label>
-                                                            </p>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-
-
-
-                                        <div class="col-sm-4 accordion" id="accordionExample">
-
-                                            <div class="card">
-                                                <div class="card-head card_head">
-                                                    <h2 class="mb-0 collapsed" data-toggle="collapse"
-                                                        data-target="#collapseTwo" aria-expanded="false"
-                                                        aria-controls="collapseTwo">
-                                                        Surface
-                                                    </h2>
-                                                </div>
-                                                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
-                                                    data-parent="#accordionExample">
-                                                    <div class="card-body overflow-auto custom_checkbox">
-                                                        <form>
-                                                            <input type="checkbox" id="ceiling" name="ceiling"
-                                                                value="ceiling">
-                                                            <label for="ceiling">Ceiling</label>
-                                                            <input type="checkbox" id="door_frames" name="door_frames"
-                                                                value="Door frames">
-                                                            <label for="door_frames">Door Frames</label>
-                                                            <input type="checkbox" id="doors" name="doors"
-                                                                value="Doors">
-                                                            <label for="doors">Doors</label>
-                                                            <input type="checkbox" id="entrance_doors" name="fruit-4"
-                                                                value="Entrance doors">
-                                                            <label for="entrance_doors">Entrance doors</label>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-
-
-                                        <div class="col-sm-4 accordion" id="accordionExample">
-
-                                            <div class="card">
-                                                <div class="card-head card_head">
-                                                    <h2 class="mb-0 collapsed" data-toggle="collapse"
-                                                        data-target="#collapseThree" aria-expanded="false"
-                                                        aria-controls="collapseThree">
-                                                        Finish
-                                                    </h2>
-                                                </div>
-                                                <div id="collapseThree" class="collapse" aria-labelledby="headingTwo"
-                                                    data-parent="#accordionExample">
-                                                    <div class="card-body overflow-auto">
-
-                                                        <form action="#">
-                                                            <p>
-                                                                <input type="radio" id="test1" name="radio-group"
-                                                                    checked>
-                                                                <label for="test1">All</label>
-                                                            </p>
-                                                            <p>
-                                                                <input type="radio" id="test2" name="radio-group">
-                                                                <label for="test2">Low Sheen</label>
-                                                            </p>
-                                                            <p>
-                                                                <input type="radio" id="test3" name="radio-group">
-                                                                <label for="test3">Matt</label>
-                                                            </p>
-
-                                                            <p>
-                                                                <input type="radio" id="test4" name="radio-group">
-                                                                <label for="test4">High Gloss Finish</label>
-                                                            </p>
-
-                                                            <p>
-                                                                <input type="radio" id="test5" name="radio-group">
-                                                                <label for="test5">High Gloss</label>
-                                                            </p>
-
-                                                            <p>
-                                                                <input type="radio" id="test6" name="radio-group">
-                                                                <label for="test6">Semi Gloss</label>
-                                                            </p>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-
-
-
-
-                                    </div>
-                                </div>
-
-
-
-
-
-
-
-
-
-
-
-
-                                <div class="sharktooth brand-grey hidden-xs"></div>
-                                <div class="row colors-content">
-                                    <div class="store-links-solr tabs col-xs-12">
-                                        <span
-                                            class="store-links tab-link col-lg-6 col-md-6 col-sm-6 col-xs-6 boxshadow-class"
-                                            style="float:left" tabindex="88">
-                                            <button
-                                                class="colors-ready-to-buy use-ajax  btn btn-default form-submit ajax-processed flourish_google_tag_manager-processed"
-                                                style="opacity: 1; height: 58px;" id="edit-colors-ready-to-buy--2"
-                                                name="colors_ready_to_buy" value="Colours ready to buy" type="button"
-                                                tabindex="89">Colours ready to buy</button>
-                                        </span>
-                                        <span
-                                            class="store-links tab-link col-lg-6 col-md-6 col-sm-6 col-xs-6 boxshadow-class"
-                                            style="float:left" tabindex="90">
-                                            <button
-                                                class="colors-ready-to-mix use-ajax active btn btn-default form-submit ajax-processed flourish_google_tag_manager-processed"
-                                                style="opacity: 4; height: 58px;" id="edit-colors-ready-to-mix--2"
-                                                name="colors_ready_to_mix" value="Colours to be mixed in store"
-                                                type="button" tabindex="91">Colours to be mixed in store</button>
-                                        </span>
-                                    </div>
-
-
-
-
-
-
-
-
-
-
-
-                                    <div class="container-fluid colors-listing-box" id="color-box-container">
-                                        <div id="hue-container" class="col-md-12 colors clearfix fl-overflow-visible">
-                                            <p class="h1">
-                                                <span class="main-color-tab">Popular colours(22)</span>
-                                                <span class="link-gray pull-right hidden-xs sub-color-tab main">
-                                                    <button data-link="all"
-                                                        class="use-ajax btn btn-default form-submit ajax-processed flourish_google_tag_manager-processed"
-                                                        style="opacity:4" id="edit-show-colors-link--2"
-                                                        name="show_colors_link" value="See all colours (144)"
-                                                        type="button" tabindex="92">See all colours (144)</button>
-                                                </span>
-                                            </p>
-
-
-                                            <div id="popular-colors-list">
-                                                <div class="solr-pure-color-list">
-                                                    <div class="solr-pure-color-name">
-                                                    </div>
-                                                    
-                                                    <!-- Carousel -->
-                                                    <main>
-                                                    <!-- <div class=""> -->
-                                                        <div class="carousel slide" id="main-carousel"
-                                                            data-ride="carousel">
-                                                            <!-- <ol class="carousel-indicators">
-                                                                <li data-target="#main-carousel" data-slide-to="0"
-                                                                    class="active"></li>
-                                                                <li data-target="#main-carousel" data-slide-to="1">
-                                                                </li>
-                                                                <li data-target="#main-carousel" data-slide-to="2">
-                                                                </li>
-                                                                <li data-target="#main-carousel" data-slide-to="3">
-                                                                </li>
-                                                            </ol>/.carousel-indicators  -->
-
-                                                            <div class="carousel-inner">
-                                                                <div class="carousel-item active">
-
-
-                                                                    <div class="container_carousel">
-                                                                                                                                                <h2 class="color-type">White</h2>
-
-
-                                                                    <div
-                                                                        class="rowBox col-xs-3 col-sm-2 col-md-2 col-lg-2">
-                                                                        <a class="color-box-child  color-box-child-1190594 colorBox-processed flourish_google_tag_manager-processed"  v-b-modal.modal-center
-                                                                            style="background:#F4F0E4"
-                                                                            data-title="Crisp Linen 61yy 89/040"
-                                                                            data-id="F4F0E4" data-colorid="1190594"
-                                                                            alt="Crisp Linen 61yy 89/040"
-                                                                            tabindex="93">
-                                                                            <p class="cnme color-text"
-                                                                                data-rgb="F4F0E4"
-                                                                                style="color: rgb(102,102,102); stroke: rgb(102,102,102)">
-                                                                                Crisp Linen 61yy 89/040</p>
-                                                                        </a>
-                                                                    </div>
-                                                                    <div
-                                                                        class="rowBox col-xs-3 col-sm-2 col-md-2 col-lg-2">
-                                                                        <a class="color-box-child  color-box-child-1035494 colorBox-processed flourish_google_tag_manager-processed"
-                                                                            style="background:#F2EAD9"
-                                                                            data-title="Terrace White 53yy 87/070"
-                                                                            data-id="F2EAD9" data-colorid="1035494"
-                                                                            alt="Terrace White 53yy 87/070"
-                                                                            tabindex="94">
-                                                                            <p class="cnme color-text"
-                                                                                data-rgb="F2EAD9"
-                                                                                style="color: rgb(102,102,102); stroke: rgb(102,102,102)">
-                                                                                Terrace White 53yy 87/070</p>
-                                                                        </a>
-                                                                    </div>
-
-                                                                    <div
-                                                                        class="rowBox col-xs-3 col-sm-2 col-md-2 col-lg-2">
-                                                                        <a class="color-box-child  color-box-child-1190555 colorBox-processed flourish_google_tag_manager-processed"
-                                                                            style="background:#F2E8D9"
-                                                                            data-title="Almond Wisp 20yy 83/075"
-                                                                            data-id="F2E8D9" data-colorid="1190555"
-                                                                            alt="Almond Wisp 20yy 83/075"
-                                                                            tabindex="95">
-                                                                            <p class="cnme color-text"
-                                                                                data-rgb="F2E8D9"
-                                                                                style="color: rgb(102,102,102); stroke: rgb(102,102,102)">
-                                                                                Almond Wisp 20yy 83/075</p>
-                                                                        </a>
-                                                                    </div>
-                                                                    <div
-                                                                        class="rowBox col-xs-3 col-sm-2 col-md-2 col-lg-2">
-                                                                        <a class="color-box-child  color-box-child-1190574 colorBox-processed flourish_google_tag_manager-processed"
-                                                                            style="background:#F1E9DC"
-                                                                            data-title="Baker White 40yy 83/064"
-                                                                            data-id="F1E9DC" data-colorid="1190574"
-                                                                            alt="Baker White 40yy 83/064"
-                                                                            tabindex="96">
-                                                                            <p class="cnme color-text"
-                                                                                data-rgb="F1E9DC"
-                                                                                style="color: rgb(102,102,102); stroke: rgb(102,102,102)">
-                                                                                Baker White 40yy 83/064</p>
-                                                                        </a>
-                                                                    </div>
-                                                                    <div
-                                                                        class="rowBox col-xs-3 col-sm-2 col-md-2 col-lg-2">
-                                                                        <a class="color-box-child  color-box-child-1036371 colorBox-processed flourish_google_tag_manager-processed"
-                                                                            style="background:#F0EEE3"
-                                                                            data-title="Fencepost 81yy 87/031"
-                                                                            data-id="F0EEE3" data-colorid="1036371"
-                                                                            alt="Fencepost 81yy 87/031"
-                                                                            tabindex="97">
-                                                                            <p class="cnme color-text"
-                                                                                data-rgb="F0EEE3"
-                                                                                style="color: rgb(102,102,102); stroke: rgb(102,102,102)">
-                                                                                Fencepost 81yy 87/031</p>
-                                                                        </a>
-                                                                    </div>
-                                                                    <div
-                                                                        class="rowBox col-xs-3 col-sm-2 col-md-2 col-lg-2">
-                                                                        <a class="color-box-child  color-box-child-1190595 colorBox-processed flourish_google_tag_manager-processed"
-                                                                            style="background:#F0EDE2"
-                                                                            data-title="New Divine White 66yy 85/045"
-                                                                            data-id="F0EDE2" data-colorid="1190595"
-                                                                            alt="New Divine White 66yy 85/045"
-                                                                            tabindex="98">
-                                                                            <p class="cnme color-text"
-                                                                                data-rgb="F0EDE2"
-                                                                                style="color: rgb(102,102,102); stroke: rgb(102,102,102)">
-                                                                                New Divine White 66yy 85/045</p>
-                                                                        </a>
-                                                                    </div>
-                                                                    <div
-                                                                        class="rowBox col-xs-3 col-sm-2 col-md-2 col-lg-2">
-                                                                        <a class="color-box-child  color-box-child-1036597 colorBox-processed flourish_google_tag_manager-processed"
-                                                                            style="background:#EFEDE2"
-                                                                            data-title="Belgium Lace 82yy 85/038"
-                                                                            data-id="EFEDE2" data-colorid="1036597"
-                                                                            alt="Belgium Lace 82yy 85/038"
-                                                                            tabindex="99">
-                                                                            <p class="cnme color-text"
-                                                                                data-rgb="EFEDE2"
-                                                                                style="color: rgb(102,102,102); stroke: rgb(102,102,102)">
-                                                                                Belgium Lace 82yy 85/038</p>
-                                                                        </a>
-                                                                    </div>
-                                                                    <div
-                                                                        class="rowBox col-xs-3 col-sm-2 col-md-2 col-lg-2">
-                                                                        <a class="color-box-child  color-box-child-1190573 colorBox-processed flourish_google_tag_manager-processed"
-                                                                            style="background:#EFE9DF"
-                                                                            data-title="Treasured Moment 40yy 83/043"
-                                                                            data-id="EFE9DF" data-colorid="1190573"
-                                                                            alt="Treasured Moment 40yy 83/043"
-                                                                            tabindex="100">
-                                                                            <p class="cnme color-text"
-                                                                                data-rgb="EFE9DF"
-                                                                                style="color: rgb(102,102,102); stroke: rgb(102,102,102)">
-                                                                                Treasured Moment 40yy 83/043</p>
-                                                                        </a>
-                                                                    </div>
-                                                                    <div
-                                                                        class="rowBox col-xs-3 col-sm-2 col-md-2 col-lg-2">
-                                                                        <a class="color-box-child  color-box-child-1036003 colorBox-processed flourish_google_tag_manager-processed"
-                                                                            style="background:#EEEFEA"
-                                                                            data-title="White On White 30gy 88/014"
-                                                                            data-id="EEEFEA" data-colorid="1036003"
-                                                                            alt="White On White 30gy 88/014"
-                                                                            tabindex="101">
-                                                                            <p class="cnme color-text"
-                                                                                data-rgb="EEEFEA"
-                                                                                style="color: rgb(102,102,102); stroke: rgb(102,102,102)">
-                                                                                White On White 30gy 88/014</p>
-                                                                        </a></div>
-                                                                    <div
-                                                                        class="rowBox col-xs-3 col-sm-2 col-md-2 col-lg-2">
-                                                                        <a class="color-box-child  color-box-child-1190618 colorBox-processed flourish_google_tag_manager-processed"
-                                                                            style="background:#EEE7DF"
-                                                                            data-title="Tender Aria 90yr 83/035"
-                                                                            data-id="EEE7DF" data-colorid="1190618"
-                                                                            alt="Tender Aria 90yr 83/035"
-                                                                            tabindex="102">
-                                                                            <p class="cnme color-text"
-                                                                                data-rgb="EEE7DF"
-                                                                                style="color: rgb(102,102,102); stroke: rgb(102,102,102)">
-                                                                                Tender Aria 90yr 83/035</p>
-                                                                        </a></div>
-                                                                    <div
-                                                                        class="rowBox col-xs-3 col-sm-2 col-md-2 col-lg-2">
-                                                                        <a class="color-box-child  color-box-child-1190584 colorBox-processed flourish_google_tag_manager-processed"
-                                                                            style="background:#E9E7E6"
-                                                                            data-title="Winter Hills 50rb 83/005"
-                                                                            data-id="E9E7E6" data-colorid="1190584"
-                                                                            alt="Winter Hills 50rb 83/005"
-                                                                            tabindex="103">
-                                                                            <p class="cnme color-text"
-                                                                                data-rgb="E9E7E6"
-                                                                                style="color: rgb(102,102,102); stroke: rgb(102,102,102)">
-                                                                                Winter Hills 50rb 83/005</p>
-                                                                        </a>
-                                                                    </div>
-
-                                                                    </div>
-                                                                </div>
-
-                                                                
-                                                                <div class="carousel-item mt-n4">
-                                                                    <div class="container_carousel">
-                                                                        <div class="solr-muted-color-list">
-                                                                        <div class="solr-muted-color-name">
-                                                                            <h2 class="color-type muted_clrs">Soft
-                                                                                White</h2>
-                                                                        </div>
-                                                                        <div
-                                                                            class="rowBox col-xs-3 col-sm-2 col-md-2 col-lg-2">
-                                                                            <a class="color-box-child  color-box-child-1190554 colorBox-processed flourish_google_tag_manager-processed"
-                                                                                style="background:#EFE8DF"
-                                                                                data-title="Pristine Porcelain 20yy 83/038"
-                                                                                data-id="EFE8DF"
-                                                                                data-colorid="1190554"
-                                                                                alt="Pristine Porcelain 20yy 83/038"
-                                                                                tabindex="104">
-                                                                                <p class="cnme color-text"
-                                                                                    data-rgb="EFE8DF"
-                                                                                    style="color: rgb(102,102,102); stroke: rgb(102,102,102)">
-                                                                                    Pristine Porcelain 20yy 83/038
-                                                                                </p>
-                                                                            </a></div>
-                                                                        <div
-                                                                            class="rowBox col-xs-3 col-sm-2 col-md-2 col-lg-2">
-                                                                            <a class="color-box-child  color-box-child-1036701 colorBox-processed flourish_google_tag_manager-processed"
-                                                                                style="background:#EDE8E2"
-                                                                                data-title="Marshmallow 80yr 83/017"
-                                                                                data-id="EDE8E2"
-                                                                                data-colorid="1036701"
-                                                                                alt="Marshmallow 80yr 83/017"
-                                                                                tabindex="105">
-                                                                                <p class="cnme color-text"
-                                                                                    data-rgb="EDE8E2"
-                                                                                    style="color: rgb(102,102,102); stroke: rgb(102,102,102)">
-                                                                                    Marshmallow 80yr 83/017</p>
-                                                                            </a></div>
-                                                                        <div
-                                                                            class="rowBox col-xs-3 col-sm-2 col-md-2 col-lg-2">
-                                                                            <a class="color-box-child  color-box-child-1190616 colorBox-processed flourish_google_tag_manager-processed"
-                                                                                style="background:#ECE8E5"
-                                                                                data-title="Pale Shadow 90rr 83/009"
-                                                                                data-id="ECE8E5"
-                                                                                data-colorid="1190616"
-                                                                                alt="Pale Shadow 90rr 83/009"
-                                                                                tabindex="106">
-                                                                                <p class="cnme color-text"
-                                                                                    data-rgb="ECE8E5"
-                                                                                    style="color: rgb(102,102,102); stroke: rgb(102,102,102)">
-                                                                                    Pale Shadow 90rr 83/009</p>
-                                                                            </a></div>
-                                                                        <div
-                                                                            class="rowBox col-xs-3 col-sm-2 col-md-2 col-lg-2">
-                                                                            <a class="color-box-child  color-box-child-1190572 colorBox-processed flourish_google_tag_manager-processed"
-                                                                                style="background:#EBE8E1"
-                                                                                data-title="Minimalist White 40yy 83/021"
-                                                                                data-id="EBE8E1"
-                                                                                data-colorid="1190572"
-                                                                                alt="Minimalist White 40yy 83/021"
-                                                                                tabindex="107">
-                                                                                <p class="cnme color-text"
-                                                                                    data-rgb="EBE8E1"
-                                                                                    style="color: rgb(102,102,102); stroke: rgb(102,102,102)">
-                                                                                    Minimalist White 40yy 83/021</p>
-                                                                            </a></div>
-                                                                        <div
-                                                                            class="rowBox col-xs-3 col-sm-2 col-md-2 col-lg-2">
-                                                                            <a class="color-box-child  color-box-child-1190623 colorBox-processed flourish_google_tag_manager-processed"
-                                                                                style="background:#E8E0D8"
-                                                                                data-title="Soft Fleece 98yr 78/041"
-                                                                                data-id="E8E0D8"
-                                                                                data-colorid="1190623"
-                                                                                alt="Soft Fleece 98yr 78/041"
-                                                                                tabindex="108">
-                                                                                <p class="cnme color-text"
-                                                                                    data-rgb="E8E0D8"
-                                                                                    style="color: rgb(102,102,102); stroke: rgb(102,102,102)">
-                                                                                    Soft Fleece 98yr 78/041</p>
-                                                                            </a>
-
-                                                                        </div>
-                                                                        <div
-                                                                            class="rowBox col-xs-3 col-sm-2 col-md-2 col-lg-2">
-                                                                            <a class="color-box-child  color-box-child-1035497 colorBox-processed flourish_google_tag_manager-processed"
-                                                                                style="background:#E4E7E9"
-                                                                                data-title="Barcelona Rain 59bb 81/022"
-                                                                                data-id="E4E7E9"
-                                                                                data-colorid="1035497"
-                                                                                alt="Barcelona Rain 59bb 81/022"
-                                                                                tabindex="109">
-                                                                                <p class="cnme color-text"
-                                                                                    data-rgb="E4E7E9"
-                                                                                    style="color: rgb(102,102,102); stroke: rgb(102,102,102)">
-                                                                                    Barcelona Rain 59bb 81/022</p>
-                                                                            </a></div>
-                                                                        <div
-                                                                            class="rowBox col-xs-3 col-sm-2 col-md-2 col-lg-2">
-                                                                            <a class="color-box-child  color-box-child-1190570 colorBox-processed flourish_google_tag_manager-processed"
-                                                                                style="background:#E3DDD2"
-                                                                                data-title="Southern Shadow 40yy 74/056"
-                                                                                data-id="E3DDD2"
-                                                                                data-colorid="1190570"
-                                                                                alt="Southern Shadow 40yy 74/056"
-                                                                                tabindex="110">
-                                                                                <p class="cnme color-text"
-                                                                                    data-rgb="E3DDD2"
-                                                                                    style="color: rgb(102,102,102); stroke: rgb(102,102,102)">
-                                                                                    Southern Shadow 40yy 74/056</p>
-                                                                            </a></div>
-                                                                        <div
-                                                                            class="rowBox col-xs-3 col-sm-2 col-md-2 col-lg-2">
-                                                                            <a class="color-box-child  color-box-child-2121780 colorBox-processed flourish_google_tag_manager-processed"
-                                                                                style="background:#DFDAD5"
-                                                                                data-title="White Bucks 10yy 72/021"
-                                                                                data-id="DFDAD5"
-                                                                                data-colorid="2121780"
-                                                                                alt="White Bucks 10yy 72/021"
-                                                                                tabindex="111">
-                                                                                <p class="cnme color-text"
-                                                                                    data-rgb="DFDAD5"
-                                                                                    style="color: rgb(102,102,102); stroke: rgb(102,102,102)">
-                                                                                    White Bucks 10yy 72/021</p>
-                                                                            </a></div>
-                                                                        <div
-                                                                            class="rowBox col-xs-3 col-sm-2 col-md-2 col-lg-2">
-                                                                            <a class="color-box-child  color-box-child-1035131 colorBox-processed flourish_google_tag_manager-processed"
-                                                                                style="background:#DFDAD5"
-                                                                                data-title="White Bucks 10yy 72/021"
-                                                                                data-id="DFDAD5"
-                                                                                data-colorid="1035131"
-                                                                                alt="White Bucks 10yy 72/021"
-                                                                                tabindex="112">
-                                                                                <p class="cnme color-text"
-                                                                                    data-rgb="DFDAD5"
-                                                                                    style="color: rgb(102,102,102); stroke: rgb(102,102,102)">
-                                                                                    White Bucks 10yy 72/021</p>
-                                                                            </a>
-                                                                        </div>
-                                                                        <div
-                                                                            class="rowBox col-xs-3 col-sm-2 col-md-2 col-lg-2">
-                                                                            <a class="color-box-child  color-box-child-1035519 colorBox-processed flourish_google_tag_manager-processed"
-                                                                                style="background:#DBDCE2"
-                                                                                data-title="Violet Veil 70bb 74/040"
-                                                                                data-id="DBDCE2"
-                                                                                data-colorid="1035519"
-                                                                                alt="Violet Veil 70bb 74/040"
-                                                                                tabindex="113">
-                                                                                <p class="cnme color-text"
-                                                                                    data-rgb="DBDCE2"
-                                                                                    style="color: rgb(102,102,102); stroke: rgb(102,102,102)">
-                                                                                    Violet Veil 70bb 74/040</p>
-                                                                            </a></div>
-                                                                        <div
-                                                                            class="rowBox col-xs-3 col-sm-2 col-md-2 col-lg-2">
-                                                                            <a class="color-box-child  color-box-child-1190528 colorBox-processed flourish_google_tag_manager-processed"
-                                                                                style="background:#D8D8D7"
-                                                                                data-title="Snowfield 00nn 72/000"
-                                                                                data-id="D8D8D7"
-                                                                                data-colorid="1190528"
-                                                                                alt="Snowfield 00nn 72/000"
-                                                                                tabindex="114">
-                                                                                <p class="cnme color-text"
-                                                                                    data-rgb="D8D8D7"
-                                                                                    style="color: rgb(102,102,102); stroke: rgb(102,102,102)">
-                                                                                    Snowfield 00nn 72/000</p>
-                                                                            </a></div>
-                                                                    </div>
-                                                                    </div>
-
-                                                                </div>
-                                                                
-                                                            </div><!-- /.carousel-inner -->
-
-                                                            <a href="#main-carousel" class="carousel-control-prev"
-                                                                data-slide="prev">
-                                                                <span class="carousel-control-prev-icon"></span>
-                                                                <span class="sr-only" aria-hidden="true">Prev</span>
-                                                            </a>
-                                                            <a href="#main-carousel" class="carousel-control-next"
-                                                                data-slide="next">
-                                                                <span class="carousel-control-next-icon"></span>
-                                                                <span class="sr-only" aria-hidden="true">Next</span>
-                                                            </a>
-                                                        </div><!-- /.carousel -->
-                                                    </main>
-                                                    <!-- End of carousel -->
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <input type="hidden" name="form_build_id"
-                                        value="form-boNDJL6EUlWlgB-tBnzvzdPbNHmHdlz0VD90Ng1qxSg" tabindex="116">
-                                    <input type="hidden" name="form_id" value="flourish_colors_listing_solr_form"
-                                        tabindex="117">
-                                </div>
-                            </div>
+                          </div>
                         </div>
+                        <!--<div class="no-gutter col-xs-2">
+                          <div
+                            class="cid-orange  product-available color-box colors-hue-selector col-sm-6 col-xs-12 hue-selected-processed"
+                            tabindex="34">
+                            <div class="color-box-inner text-center"><svg class="icon icon-checkmark">
+                                <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                                  xlink:href="/profiles/flourish/themes/custom/flourish_rem/images/svg/defs/icons-symbol-defs.svg#icon-checkmark">
+                                </use>
+                              </svg><span><button
+                                  class="use-ajax-submit solr-color-box-button btn btn-default form-submit ajax-processed colorHue-processed flourish_google_tag_manager-processed"
+                                  style="opacity:0" title="Orange" id="edit-palette-orange" name="color" value="orange"
+                                  type="button" tabindex="35">orange</button>
+                              </span></div>
+                          </div>
+                          <div
+                            class="cid-yellow  product-available color-box colors-hue-selector col-sm-6 col-xs-12 hue-selected-processed"
+                            tabindex="36">
+                            <div class="color-box-inner text-center"><svg class="icon icon-checkmark">
+                                <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                                  xlink:href="/profiles/flourish/themes/custom/flourish_rem/images/svg/defs/icons-symbol-defs.svg#icon-checkmark">
+                                </use>
+                              </svg><span><button
+                                  class="use-ajax-submit solr-color-box-button btn btn-default form-submit ajax-processed colorHue-processed flourish_google_tag_manager-processed"
+                                  style="opacity:0" title="Yellow" id="edit-palette-yellow" name="color" value="yellow"
+                                  type="button" tabindex="37">yellow</button>
+                              </span></div>
+                          </div>
+                        </div>
+                        <div class="no-gutter col-xs-2">
+                          <div
+                            class="cid-teal  product-available color-box colors-hue-selector col-sm-6 col-xs-12 hue-selected-processed"
+                            tabindex="38">
+                            <div class="color-box-inner text-center"><svg class="icon icon-checkmark">
+                                <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                                  xlink:href="/profiles/flourish/themes/custom/flourish_rem/images/svg/defs/icons-symbol-defs.svg#icon-checkmark">
+                                </use>
+                              </svg><span><button
+                                  class="use-ajax-submit solr-color-box-button btn btn-default form-submit ajax-processed colorHue-processed flourish_google_tag_manager-processed"
+                                  style="opacity:0" title="Teal" id="edit-palette-teal" name="color" value="teal"
+                                  type="button" tabindex="39">teal</button>
+                              </span></div>
+                          </div>
+                          <div
+                            class="cid-violet  product-available color-box colors-hue-selector col-sm-6 col-xs-12 hue-selected-processed"
+                            tabindex="40">
+                            <div class="color-box-inner text-center"><svg class="icon icon-checkmark">
+                                <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                                  xlink:href="/profiles/flourish/themes/custom/flourish_rem/images/svg/defs/icons-symbol-defs.svg#icon-checkmark">
+                                </use>
+                              </svg><span><button
+                                  class="use-ajax-submit solr-color-box-button btn btn-default form-submit ajax-processed colorHue-processed flourish_google_tag_manager-processed"
+                                  style="opacity:0" title="Violet" id="edit-palette-violet" name="color" value="violet"
+                                  type="button" tabindex="41">violet</button>
+                              </span></div>
+                          </div>
+                        </div>
+                        <div class="no-gutter col-xs-2">
+                          <div
+                            class="cid-cool neutral  product-available color-box colors-hue-selector col-sm-6 col-xs-12 hue-selected-processed"
+                            tabindex="42">
+                            <div class="color-box-inner text-center"><svg class="icon icon-checkmark">
+                                <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                                  xlink:href="/profiles/flourish/themes/custom/flourish_rem/images/svg/defs/icons-symbol-defs.svg#icon-checkmark">
+                                </use>
+                              </svg><span><button
+                                  class="use-ajax-submit solr-color-box-button btn btn-default form-submit ajax-processed colorHue-processed flourish_google_tag_manager-processed"
+                                  style="opacity:0" title="Cool neutral" id="edit-palette-cool-neutral" name="color"
+                                  value="cool neutral" type="button" tabindex="43">cool neutral</button>
+                              </span></div>
+                          </div>
+                          <div
+                            class="cid-warm neutral  product-available color-box colors-hue-selector col-sm-6 col-xs-12 hue-selected-processed"
+                            tabindex="44">
+                            <div class="color-box-inner text-center"><svg class="icon icon-checkmark">
+                                <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                                  xlink:href="/profiles/flourish/themes/custom/flourish_rem/images/svg/defs/icons-symbol-defs.svg#icon-checkmark">
+                                </use>
+                              </svg><span><button
+                                  class="use-ajax-submit solr-color-box-button btn btn-default form-submit ajax-processed colorHue-processed flourish_google_tag_manager-processed"
+                                  style="opacity:0" title="Warm neutral" id="edit-palette-warm-neutral" name="color"
+                                  value="warm neutral" type="button" tabindex="45">warm neutral</button>
+                              </span></div>
+                          </div>
+                        </div>
+                        <div class="no-gutter col-xs-2">
+                          <div
+                            class="cid-gold  product-available color-box colors-hue-selector col-sm-6 col-xs-12 hue-selected-processed"
+                            tabindex="46">
+                            <div class="color-box-inner text-center"><svg class="icon icon-checkmark">
+                                <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                                  xlink:href="/profiles/flourish/themes/custom/flourish_rem/images/svg/defs/icons-symbol-defs.svg#icon-checkmark">
+                                </use>
+                              </svg><span><button
+                                  class="use-ajax-submit solr-color-box-button btn btn-default form-submit ajax-processed colorHue-processed flourish_google_tag_manager-processed"
+                                  style="opacity:0" title="Gold" id="edit-palette-gold" name="color" value="gold"
+                                  type="button" tabindex="47">gold</button>
+                              </span></div>
+                          </div>
+                          <div
+                            class="cid-lime  product-available color-box colors-hue-selector col-sm-6 col-xs-12 hue-selected-processed"
+                            tabindex="48">
+                            <div class="color-box-inner text-center"><svg class="icon icon-checkmark">
+                                <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                                  xlink:href="/profiles/flourish/themes/custom/flourish_rem/images/svg/defs/icons-symbol-defs.svg#icon-checkmark">
+                                </use>
+                              </svg><span><button
+                                  class="use-ajax-submit solr-color-box-button btn btn-default form-submit ajax-processed colorHue-processed flourish_google_tag_manager-processed"
+                                  style="opacity:0" title="Lime" id="edit-palette-lime" name="color" value="lime"
+                                  type="button" tabindex="49">lime</button>
+                              </span></div>
+                          </div>
+                        </div>
+                        <div class="no-gutter col-xs-2">
+                          <div
+                            class="cid-green  product-available color-box colors-hue-selector col-sm-6 col-xs-12 hue-selected-processed"
+                            tabindex="50">
+                            <div class="color-box-inner text-center"><svg class="icon icon-checkmark">
+                                <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                                  xlink:href="/profiles/flourish/themes/custom/flourish_rem/images/svg/defs/icons-symbol-defs.svg#icon-checkmark">
+                                </use>
+                              </svg><span><button
+                                  class="use-ajax-submit solr-color-box-button btn btn-default form-submit ajax-processed colorHue-processed flourish_google_tag_manager-processed"
+                                  style="opacity:0" title="Green" id="edit-palette-green" name="color" value="green"
+                                  type="button" tabindex="51">green</button>
+                              </span></div>
+                          </div>
+                          <div
+                            class="cid-blue  product-available color-box colors-hue-selector col-sm-6 col-xs-12 hue-selected-processed"
+                            tabindex="52">
+                            <div class="color-box-inner text-center"><svg class="icon icon-checkmark">
+                                <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                                  xlink:href="/profiles/flourish/themes/custom/flourish_rem/images/svg/defs/icons-symbol-defs.svg#icon-checkmark">
+                                </use>
+                              </svg><span><button
+                                  class="use-ajax-submit solr-color-box-button btn btn-default form-submit ajax-processed colorHue-processed flourish_google_tag_manager-processed"
+                                  style="opacity:0" title="Blue" id="edit-palette-blue" name="color" value="blue"
+                                  type="button" tabindex="53">blue</button>
+                              </span></div>
+                          </div>
+                        </div> -->
+                        
+
+
+                        
+                        <br><br><br><br>
+                        <div class="row mt-5 justify-content-md-center d-none d-sm-none d-md-flex" style="">
+                          <div class="">
+                            <div class="col-sm-4" v-for="(filterItem, index) in filterItems" :key="index">
+                            <dropdown  :close-on-click="true" ref="dropdown" :class="dropdown" :class-name="'my-class'" :unscroll="'main'" :before-open="callback">
+                            <template slot="btn">{{ filterItem.name.toLowerCase() == "Product Type".toLowerCase() ? "Location" : filterItem.name }}</template>
+                            <!-- <div v-for="(sub, index) in filterItem.subcategory" :key="index"> -->
+                            <template slot="body">
+                              <form action="#" class="filter-form">
+
+                                <p>
+                                  <input
+                                    type="radio"
+                                    :id="filterItem.id"
+                                    name="q"
+                                    value="All"
+                                    @click="filterProductColour(filterItem.id, $event)"
+                                  />
+                                  <label :for="filterItem.id"
+                                    >All</label
+                                  >
+                                </p>
+                                                     
+
+                                <div v-for="(sub, index) in filterItem.items" :key="index">
+                                <p>
+                                  <input
+                                    type="radio"
+                                    :id="sub.id"
+                                    name="q"
+                                    :value="sub.id"
+                                      @click="filterProductColour(filterItem.id, $event)"
+                                  />
+                                  <label :for="sub.id"
+                                    >{{ sub.name }}</label
+                                  >
+                                </p>
+                                </div>
+                              </form>
+
+                              
+                            </template>
+                            <!-- </div> -->
+                          </dropdown>
+
+                          </div>
+
+                          <!-- <div class="col-sm-4">
+                            <dropdown :class="dropdown" :class-name="'my-class'" :unscroll="'main'" :before-open="callback">
+                            <template slot="btn">Surface</template>
+                            <template slot="body">Callback called!</template>
+                          </dropdown>
+
+                          </div>
+
+                          <div class="col-sm-4">
+                            <dropdown :class="dropdown" :class-name="'my-class'" :unscroll="'main'" :before-open="callback">
+                            <template slot="btn">Finish</template>
+                            <template slot="body">Callback called!</template>
+                          </dropdown>
+
+                          </div> -->
+                          </div>
+                        </div>
+
+                      </div>
+                      <ColourFilterModal :filterItems="filterItems" :filterProductColour="filterProductColour" :modalClose="modalClose" />
+
+                      
+                      <!-- gggggggggggggggggg -->
+                      <div class="filter-section bar-desktop">
+                        <div class="bar-title">My filters</div>
+                        <div id="filter-selections" class="filter-labels"></div>
+                          <a href="https://www.dulux.com.sg/en/colour-palettes#"
+                            class="filter-reset inline-text-link primary btn-clear" tabindex="83"
+                            style="display: none;">Clear all</a>
+                        </div>
+                      <div class="results-bar">
+                        <a href="https://www.dulux.com.sg/en/colour-palettes#"
+                          class="filter-reset inline-text-link primary btn-clear" tabindex="84"
+                          style="display: none;">Clear all</a>
+                        <button id="filter_results_btn" class="bttn primary bttn-auto-width pull-right"
+                          tabindex="85">Show
+                          144 results</button>
+                      </div>
+
+                      <section class="filtering focus-outline">
+                          <div class="row focus-outline filter-zone" style="display: block;">
+                            <div class=" focus-outline">
+                              <section id="color-box-container" class="col-sm-12 focus-outline color-box-type-grid">
+                                <div class="color-travels no-padding focus-outline">
+                                  <ul class="color-travels-options focus-outline">
+                                    <li class="first travel-list focus-outline">
+                                      <a href="#" data-type="list" title="List View" class="travel-list-view travel-option"  :class="color_box_type == 'list' ? 'on' : '' " @click="listView()">List View</a>
+                                    </li>
+                                    <li class="first travel-grid focus-outline">
+                                      <a href="#" data-type="grid" title="Grid View" class="travel-grid-view travel-option" :class="color_box_type == 'grid' ? 'on' : '' " @click="gridView()">Grid View</a>
+                                    </li>
+                                  </ul>
+                                </div>
+                                <div class="icon-plus-text ipt-icon-settings right focus-outline" @click="showPopUp()">Filters
+                                  <!-- <svg class="icon icon-settings"> -->
+                                    <svg class="icon icon-settings" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+                                        width="80" height="80"
+                                        viewBox="0 0 172 172"
+                                        style=" fill:#000000;"><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,172v-172h172v172z" fill="none"></path><g fill="#2fc48d"><path d="M10.32,24.08c-1.89469,0 -3.44,1.54531 -3.44,3.44v13.76c0,1.89469 1.54531,3.44 3.44,3.44h13.76c1.89469,0 3.44,-1.54531 3.44,-3.44v-13.76c0,-1.89469 -1.54531,-3.44 -3.44,-3.44zM40.635,27.52c-3.80281,0.17469 -6.73219,3.39969 -6.5575,7.2025c0.17469,3.80281 3.39969,6.73219 7.2025,6.5575h116.96c2.48594,0.04031 4.78375,-1.26312 6.03344,-3.41312c1.26313,-2.13656 1.26313,-4.79719 0,-6.93375c-1.24969,-2.15 -3.5475,-3.45344 -6.03344,-3.41313h-116.96c-0.215,-0.01344 -0.43,-0.01344 -0.645,0zM10.32,58.48c-1.89469,0 -3.44,1.54531 -3.44,3.44v13.76c0,1.89469 1.54531,3.44 3.44,3.44h13.76c1.89469,0 3.44,-1.54531 3.44,-3.44v-13.76c0,-1.89469 -1.54531,-3.44 -3.44,-3.44zM40.635,61.92c-3.80281,0.17469 -6.73219,3.39969 -6.5575,7.2025c0.17469,3.80281 3.39969,6.73219 7.2025,6.5575h116.96c2.48594,0.04031 4.78375,-1.26312 6.03344,-3.41312c1.26313,-2.13656 1.26313,-4.79719 0,-6.93375c-1.24969,-2.15 -3.5475,-3.45344 -6.03344,-3.41313h-116.96c-0.215,-0.01344 -0.43,-0.01344 -0.645,0zM10.32,92.88c-1.89469,0 -3.44,1.53188 -3.44,3.44v13.76c0,1.90813 1.54531,3.44 3.44,3.44h13.76c1.89469,0 3.44,-1.53187 3.44,-3.44v-13.76c0,-1.90812 -1.54531,-3.44 -3.44,-3.44zM40.635,96.32c-3.80281,0.17469 -6.73219,3.39969 -6.5575,7.2025c0.17469,3.80281 3.39969,6.73219 7.2025,6.5575h116.96c2.48594,0.04031 4.78375,-1.26312 6.03344,-3.41312c1.26313,-2.13656 1.26313,-4.79719 0,-6.93375c-1.24969,-2.15 -3.5475,-3.45344 -6.03344,-3.41313h-116.96c-0.215,-0.01344 -0.43,-0.01344 -0.645,0zM10.32,127.28c-1.89469,0 -3.44,1.53188 -3.44,3.44v13.76c0,1.90813 1.54531,3.44 3.44,3.44h13.76c1.89469,0 3.44,-1.53187 3.44,-3.44v-13.76c0,-1.90812 -1.54531,-3.44 -3.44,-3.44zM40.635,130.72c-3.80281,0.17469 -6.73219,3.39969 -6.5575,7.2025c0.17469,3.80281 3.39969,6.73219 7.2025,6.5575h116.96c2.48594,0.04031 4.78375,-1.26312 6.03344,-3.41312c1.26313,-2.13656 1.26313,-4.79719 0,-6.93375c-1.24969,-2.15 -3.5475,-3.45344 -6.03344,-3.41313h-116.96c-0.215,-0.01344 -0.43,-0.01344 -0.645,0z"></path></g></g></svg>
+                                </div>
+                                <span class="count-label totalInputCount">0</span>
+                              </section>
+                            </div>
+                        <br>
+                        </div>
+                        <div class="sharktooth small white visible-xs"></div>
+
+                      </section>
+
+                    </div>
+                    <div class="sharktooth brand-grey hidden-xs"></div>
+                    <div class="row colors-content focus-outline">
+                    <div class="store-links-solr tabs col-xs-12"><span
+                          class="store-links tab-link col-lg-6 col-md-6 col-sm-6 col-xs-6 boxshadow-class"
+                          style="float:left">
+                          <button @click="clickStage1(palette_id)" :class="toggleStage1 ? 'btn_toggle active' : ''"
+                            class="colors-ready-to-buy use-ajax  btn btn-default form-submit ajax-processed flourish_google_tag_manager-processed"
+                            :style="{opacity: '1', height: '58px'}" 
+                            id="edit-colors-ready-to-buy" name="colors_ready_to_buy"
+                            value="Colours ready to buy" type="button" :disabled="isActive1">Colours ready to buy
+                          </button>
+                        </span><span class="store-links tab-link col-lg-6 col-md-6 col-sm-6 col-xs-6 boxshadow-class"
+                          style="float:left" >
+                          <button
+                            class="colors-ready-to-mix btn btn-default" @click="clickStage2(palette_id)" :class="toggleStage2 ? 'btn_toggle active' : ''"
+                            :style="{opacity: '4', height: '58px'}" 
+                            id="edit-colors-ready-to-mix" name="colors_ready_to_mix"
+                            value="Colours to be mixed in store" type="button" :disabled="isActive2">Colours to be mixed in
+                            store</button>
+                        </span>
                     </div>
 
+                    <!-- <div class="container-fluid colors-listing-box color-box-type-list focus-outline" id="color-box-container" style="">	<div id="hue-container" class="col-md-12 colors clearfix fl-overflow-visible focus-outline"><p class="h1 focus-outline"><span class="main-color-tab">Popular colours(33)</span><span class="link-gray pull-right hidden-xs sub-color-tab main"><button data-link="all" class="use-ajax btn btn-default form-submit ajax-processed flourish_google_tag_manager-processed" style="opacity:4" id="edit-show-colors-link" name="show_colors_link" value="See all colours (223)" type="button">See all colours (223)</button>
+</span></p><div id="popular-colors-list" class="focus-outline"><div class="solr-pure-color-list focus-outline"><div class="solr-pure-color-name focus-outline"><h2 class="color-type focus-outline">Orange</h2></div><div class="rowBox col-xs-3 col-sm-2 col-md-2 col-lg-2"><a class="color-box-child color-box-child-1035832 colorBox-processed flourish_google_tag_manager-processed" style="background:#FEC68D" data-title="Apricot Nectar 36yy 66/349" data-id="FEC68D" data-colorid="1035832" alt="Apricot Nectar 36yy 66/349"><p class="cnme color-text" data-rgb="FEC68D" style="color: rgb(102,102,102); stroke: rgb(102,102,102)">Apricot Nectar 36yy 66/349</p></a></div><div class="rowBox col-xs-3 col-sm-2 col-md-2 col-lg-2"><a class="color-box-child color-box-child-1035025 colorBox-processed flourish_google_tag_manager-processed" style="background:#F8D6B3" data-title="Peach Sorbet 06yy 75/218" data-id="F8D6B3" data-colorid="1035025" alt="Peach Sorbet 06yy 75/218"><p class="cnme color-text" data-rgb="F8D6B3" style="color: rgb(102,102,102); stroke: rgb(102,102,102)">Peach Sorbet 06yy 75/218</p></a></div><div class="rowBox col-xs-3 col-sm-2 col-md-2 col-lg-2"><a class="color-box-child color-box-child-1036170 colorBox-processed flourish_google_tag_manager-processed" style="background:#F5DFC4" data-title="Taffy Pull 20yy 78/146" data-id="F5DFC4" data-colorid="1036170" alt="Taffy Pull 20yy 78/146"><p class="cnme color-text" data-rgb="F5DFC4" style="color: rgb(102,102,102); stroke: rgb(102,102,102)">Taffy Pull 20yy 78/146</p></a></div><div class="rowBox col-xs-3 col-sm-2 col-md-2 col-lg-2"><a class="color-box-child color-box-child-1036461 colorBox-processed flourish_google_tag_manager-processed" style="background:#F5A265" data-title="Sea Fan 86yr 49/493" data-id="F5A265" data-colorid="1036461" alt="Sea Fan 86yr 49/493"><p class="cnme color-text" data-rgb="F5A265" style="color: rgb(102,102,102); stroke: rgb(102,102,102)">Sea Fan 86yr 49/493</p></a></div><div class="rowBox col-xs-3 col-sm-2 col-md-2 col-lg-2"><a class="color-box-child color-box-child-1190545 colorBox-processed flourish_google_tag_manager-processed" style="background:#F4E8DA" data-title="White Peach 10yy 83/071" data-id="F4E8DA" data-colorid="1190545" alt="White Peach 10yy 83/071"><p class="cnme color-text" data-rgb="F4E8DA" style="color: rgb(102,102,102); stroke: rgb(102,102,102)">White Peach 10yy 83/071</p></a></div><div class="rowBox col-xs-3 col-sm-2 col-md-2 col-lg-2"><a class="color-box-child color-box-child-1190620 colorBox-processed flourish_google_tag_manager-processed" style="background:#F4E5D9" data-title="Cotton Field 90yr 83/070" data-id="F4E5D9" data-colorid="1190620" alt="Cotton Field 90yr 83/070"><p class="cnme color-text" data-rgb="F4E5D9" style="color: rgb(102,102,102); stroke: rgb(102,102,102)">Cotton Field 90yr 83/070</p></a></div><div class="rowBox col-xs-3 col-sm-2 col-md-2 col-lg-2 focus-outline"><a class="color-box-child color-box-child-1190546 colorBox-processed flourish_google_tag_manager-processed focus-outline" style="background:#F4E4D2" data-title="Peach Orchid 10yy 83/100" data-id="F4E4D2" data-colorid="1190546" alt="Peach Orchid 10yy 83/100"><p class="cnme color-text focus-outline" data-rgb="F4E4D2" style="color: rgb(102,102,102); stroke: rgb(102,102,102)">Peach Orchid 10yy 83/100</p></a></div><div class="rowBox col-xs-3 col-sm-2 col-md-2 col-lg-2"><a class="color-box-child color-box-child-1190617 colorBox-processed flourish_google_tag_manager-processed" style="background:#F3D4BD" data-title="Bali Sand 90yr 72/159" data-id="F3D4BD" data-colorid="1190617" alt="Bali Sand 90yr 72/159"><p class="cnme color-text" data-rgb="F3D4BD" style="color: rgb(102,102,102); stroke: rgb(102,102,102)">Bali Sand 90yr 72/159</p></a></div><div class="rowBox col-xs-3 col-sm-2 col-md-2 col-lg-2"><a class="color-box-child color-box-child-1036601 colorBox-processed flourish_google_tag_manager-processed" style="background:#F2B895" data-title="Peach Swirl 80yr 57/293" data-id="F2B895" data-colorid="1036601" alt="Peach Swirl 80yr 57/293"><p class="cnme color-text" data-rgb="F2B895" style="color: rgb(102,102,102); stroke: rgb(102,102,102)">Peach Swirl 80yr 57/293</p></a></div><div class="rowBox col-xs-3 col-sm-2 col-md-2 col-lg-2"><a class="color-box-child color-box-child-1190612 colorBox-processed flourish_google_tag_manager-processed" style="background:#F0C8B0" data-title="Antelope Tan 80yr 65/185" data-id="F0C8B0" data-colorid="1190612" alt="Antelope Tan 80yr 65/185"><p class="cnme color-text" data-rgb="F0C8B0" style="color: rgb(102,102,102); stroke: rgb(102,102,102)">Antelope Tan 80yr 65/185</p></a></div><div class="rowBox col-xs-3 col-sm-2 col-md-2 col-lg-2"><a class="color-box-child color-box-child-1190611 colorBox-processed flourish_google_tag_manager-processed" style="background:#ECA779" data-title="Ripe Peach 80yr 49/382" data-id="ECA779" data-colorid="1190611" alt="Ripe Peach 80yr 49/382"><p class="cnme color-text" data-rgb="ECA779" style="color: rgb(102,102,102); stroke: rgb(102,102,102)">Ripe Peach 80yr 49/382</p></a></div><div class="rowBox col-xs-3 col-sm-2 col-md-2 col-lg-2"><a class="color-box-child color-box-child-1036710 colorBox-processed flourish_google_tag_manager-processed" style="background:#E2712B" data-title="Orangery 70yr 30/651" data-id="E2712B" data-colorid="1036710" alt="Orangery 70yr 30/651"><p class="cnme color-text" data-rgb="E2712B" style="color: rgb(255,255,255); stroke: rgb(255,255,255)">Orangery 70yr 30/651</p></a></div><div class="rowBox col-xs-3 col-sm-2 col-md-2 col-lg-2"><a class="color-box-child color-box-child-1036178 colorBox-processed flourish_google_tag_manager-processed" style="background:#E16553" data-title="Bongo Jazz 28yr 29/561" data-id="E16553" data-colorid="1036178" alt="Bongo Jazz 28yr 29/561"><p class="cnme color-text" data-rgb="E16553" style="color: rgb(255,255,255); stroke: rgb(255,255,255)">Bongo Jazz 28yr 29/561</p></a></div><div class="rowBox col-xs-3 col-sm-2 col-md-2 col-lg-2"><a class="color-box-child color-box-child-1036078 colorBox-processed flourish_google_tag_manager-processed" style="background:#D4623C" data-title="Bonnie Belle 50yr 25/556" data-id="D4623C" data-colorid="1036078" alt="Bonnie Belle 50yr 25/556"><p class="cnme color-text" data-rgb="D4623C" style="color: rgb(255,255,255); stroke: rgb(255,255,255)">Bonnie Belle 50yr 25/556</p></a></div><div class="rowBox col-xs-3 col-sm-2 col-md-2 col-lg-2"><a class="color-box-child color-box-child-1035964 colorBox-processed flourish_google_tag_manager-processed" style="background:#C8402F" data-title="Party Place 31yr 18/648" data-id="C8402F" data-colorid="1035964" alt="Party Place 31yr 18/648"><p class="cnme color-text" data-rgb="C8402F" style="color: rgb(255,255,255); stroke: rgb(255,255,255)">Party Place 31yr 18/648</p></a></div><div class="rowBox col-xs-3 col-sm-2 col-md-2 col-lg-2"><a class="color-box-child color-box-child-1035117 colorBox-processed flourish_google_tag_manager-processed" style="background:#A34140" data-title="Old Flame 10yr 13/437" data-id="A34140" data-colorid="1035117" alt="Old Flame 10yr 13/437"><p class="cnme color-text" data-rgb="A34140" style="color: rgb(255,255,255); stroke: rgb(255,255,255)">Old Flame 10yr 13/437</p></a></div></div><div class="solr-muted-color-list"><div class="solr-muted-color-name"><h2 class="color-type muted_clrs">Soft Orange</h2></div><div class="rowBox col-xs-3 col-sm-2 col-md-2 col-lg-2"><a class="color-box-child color-box-child-1034851 colorBox-processed flourish_google_tag_manager-processed" style="background:#F3DDC9" data-title="Peachtree 00yy 77/124" data-id="F3DDC9" data-colorid="1034851" alt="Peachtree 00yy 77/124"><p class="cnme color-text" data-rgb="F3DDC9" style="color: rgb(102,102,102); stroke: rgb(102,102,102)">Peachtree 00yy 77/124</p></a></div><div class="rowBox col-xs-3 col-sm-2 col-md-2 col-lg-2"><a class="color-box-child color-box-child-1190531 colorBox-processed flourish_google_tag_manager-processed" style="background:#F0E8DF" data-title="Spanish White 00yy 83/034" data-id="F0E8DF" data-colorid="1190531" alt="Spanish White 00yy 83/034"><p class="cnme color-text" data-rgb="F0E8DF" style="color: rgb(102,102,102); stroke: rgb(102,102,102)">Spanish White 00yy 83/034</p></a></div><div class="rowBox col-xs-3 col-sm-2 col-md-2 col-lg-2"><a class="color-box-child color-box-child-1036169 colorBox-processed flourish_google_tag_manager-processed" style="background:#EFDFCB" data-title="Rice Flakes 20yy 77/110" data-id="EFDFCB" data-colorid="1036169" alt="Rice Flakes 20yy 77/110"><p class="cnme color-text" data-rgb="EFDFCB" style="color: rgb(102,102,102); stroke: rgb(102,102,102)">Rice Flakes 20yy 77/110</p></a></div><div class="rowBox col-xs-3 col-sm-2 col-md-2 col-lg-2"><a class="color-box-child color-box-child-1035091 colorBox-processed flourish_google_tag_manager-processed" style="background:#EFCCAB" data-title="Orange Pekoe 00yy 67/212" data-id="EFCCAB" data-colorid="1035091" alt="Orange Pekoe 00yy 67/212"><p class="cnme color-text" data-rgb="EFCCAB" style="color: rgb(102,102,102); stroke: rgb(102,102,102)">Orange Pekoe 00yy 67/212</p></a></div><div class="rowBox col-xs-3 col-sm-2 col-md-2 col-lg-2"><a class="color-box-child color-box-child-1036230 colorBox-processed flourish_google_tag_manager-processed" style="background:#EED0AC" data-title="Just Peachy 20yy 67/216" data-id="EED0AC" data-colorid="1036230" alt="Just Peachy 20yy 67/216"><p class="cnme color-text" data-rgb="EED0AC" style="color: rgb(102,102,102); stroke: rgb(102,102,102)">Just Peachy 20yy 67/216</p></a></div><div class="rowBox col-xs-3 col-sm-2 col-md-2 col-lg-2"><a class="color-box-child color-box-child-1190530 colorBox-processed flourish_google_tag_manager-processed" style="background:#E8DBCE" data-title="Little Linda 00yy 75/071" data-id="E8DBCE" data-colorid="1190530" alt="Little Linda 00yy 75/071"><p class="cnme color-text" data-rgb="E8DBCE" style="color: rgb(102,102,102); stroke: rgb(102,102,102)">Little Linda 00yy 75/071</p></a></div><div class="rowBox col-xs-3 col-sm-2 col-md-2 col-lg-2"><a class="color-box-child color-box-child-1035128 colorBox-processed flourish_google_tag_manager-processed" style="background:#E6B580" data-title="Golden Wheat 10yy 53/337" data-id="E6B580" data-colorid="1035128" alt="Golden Wheat 10yy 53/337"><p class="cnme color-text" data-rgb="E6B580" style="color: rgb(102,102,102); stroke: rgb(102,102,102)">Golden Wheat 10yy 53/337</p></a></div><div class="rowBox col-xs-3 col-sm-2 col-md-2 col-lg-2"><a class="color-box-child color-box-child-1036694 colorBox-processed flourish_google_tag_manager-processed" style="background:#D99F7A" data-title="Whole Wheat 80yr 44/311" data-id="D99F7A" data-colorid="1036694" alt="Whole Wheat 80yr 44/311"><p class="cnme color-text" data-rgb="D99F7A" style="color: rgb(102,102,102); stroke: rgb(102,102,102)">Whole Wheat 80yr 44/311</p></a></div><div class="rowBox col-xs-3 col-sm-2 col-md-2 col-lg-2"><a class="color-box-child color-box-child-1190529 colorBox-processed flourish_google_tag_manager-processed" style="background:#D2A074" data-title="Corsican Treasure 00yy 43/304" data-id="D2A074" data-colorid="1190529" alt="Corsican Treasure 00yy 43/304"><p class="cnme color-text" data-rgb="D2A074" style="color: rgb(102, 102, 102); stroke: rgb(255, 255, 255);">Corsican Treasure 00yy 43/304</p></a></div><div class="rowBox col-xs-3 col-sm-2 col-md-2 col-lg-2"><a class="color-box-child color-box-child-1036731 colorBox-processed flourish_google_tag_manager-processed" style="background:#C49A7A" data-title="Rolling Hills 90yr 38/239" data-id="C49A7A" data-colorid="1036731" alt="Rolling Hills 90yr 38/239"><p class="cnme color-text" data-rgb="C49A7A" style="color: rgb(255,255,255); stroke: rgb(255,255,255)">Rolling Hills 90yr 38/239</p></a></div><div class="rowBox col-xs-3 col-sm-2 col-md-2 col-lg-2"><a class="color-box-child color-box-child-1036709 colorBox-processed flourish_google_tag_manager-processed" style="background:#C2794F" data-title="Southern Tip 70yr 27/404" data-id="C2794F" data-colorid="1036709" alt="Southern Tip 70yr 27/404"><p class="cnme color-text" data-rgb="C2794F" style="color: rgb(255,255,255); stroke: rgb(255,255,255)">Southern Tip 70yr 27/404</p></a></div><div class="rowBox col-xs-3 col-sm-2 col-md-2 col-lg-2"><a class="color-box-child color-box-child-1190605 colorBox-processed flourish_google_tag_manager-processed" style="background:#AE6335" data-title="Copper Coin 70yr 19/432" data-id="AE6335" data-colorid="1190605" alt="Copper Coin 70yr 19/432"><p class="cnme color-text" data-rgb="AE6335" style="color: rgb(255,255,255); stroke: rgb(255,255,255)">Copper Coin 70yr 19/432</p></a></div><div class="rowBox col-xs-3 col-sm-2 col-md-2 col-lg-2"><a class="color-box-child color-box-child-2121778 colorBox-processed flourish_google_tag_manager-processed" style="background:#9E7043" data-title="Bitter Creek 00yy 21/321" data-id="9E7043" data-colorid="2121778" alt="Bitter Creek 00yy 21/321"><p class="cnme color-text" data-rgb="9E7043" style="color: rgb(255,255,255); stroke: rgb(255,255,255)">Bitter Creek 00yy 21/321</p></a></div><div class="rowBox col-xs-3 col-sm-2 col-md-2 col-lg-2"><a class="color-box-child color-box-child-1034738 colorBox-processed flourish_google_tag_manager-processed" style="background:#9E7043" data-title="Bitter Creek 00yy 21/321" data-id="9E7043" data-colorid="1034738" alt="Bitter Creek 00yy 21/321"><p class="cnme color-text" data-rgb="9E7043" style="color: rgb(255,255,255); stroke: rgb(255,255,255)">Bitter Creek 00yy 21/321</p></a></div><div class="rowBox col-xs-3 col-sm-2 col-md-2 col-lg-2"><a class="color-box-child color-box-child-2121770 colorBox-processed flourish_google_tag_manager-processed" style="background:#976856" data-title="Soft Copper 50yr 18/223" data-id="976856" data-colorid="2121770" alt="Soft Copper 50yr 18/223"><p class="cnme color-text" data-rgb="976856" style="color: rgb(255,255,255); stroke: rgb(255,255,255)">Soft Copper 50yr 18/223</p></a></div><div class="rowBox col-xs-3 col-sm-2 col-md-2 col-lg-2"><a class="color-box-child color-box-child-1190604 colorBox-processed flourish_google_tag_manager-processed" style="background:#84563C" data-title="Gingerbread House 70yr 13/259" data-id="84563C" data-colorid="1190604" alt="Gingerbread House 70yr 13/259"><p class="cnme color-text" data-rgb="84563C" style="color: rgb(255,255,255); stroke: rgb(255,255,255)">Gingerbread House 70yr 13/259</p></a></div><div class="rowBox col-xs-3 col-sm-2 col-md-2 col-lg-2"><a class="color-box-child color-box-child-1034768 colorBox-processed flourish_google_tag_manager-processed" style="background:#70563E" data-title="Brown Study 00yy 12/173" data-id="70563E" data-colorid="1034768" alt="Brown Study 00yy 12/173"><p class="cnme color-text" data-rgb="70563E" style="color: rgb(255,255,255); stroke: rgb(255,255,255)">Brown Study 00yy 12/173</p></a></div></div></div><div class="color-lister-bottom-new colors-listing-box-bottom"><h2>I can't find the right colour</h2><button data-link="all" class="btn-normal-curve sub-color-tab use-ajax btn btn-default form-submit ajax-processed flourish_google_tag_manager-processed" style="opacity:4" id="edit-show-right-colors" name="show_right_colors" value="See all colours (223)" type="button">See all colours (223)</button>
+</div></div></div> -->
 
-                        <b-modal id="modal-center" centered hide-header="true" hide-footer="true">
-        <div class="" style="margin-bottom:50px !important;">
-            <p>Crisp Linen 61yy 89/040</p>
-        </div>
-        <div class="" style="float: right !important;">
-            <small class="d-flex justify-content-end">
-                <a href="#" class="pb-2 more_about_this_color" style="">More about this colour</a>
-            </small>
-            
-            <router-link to="/api/menu" class="btn btn-light" style="font-size:16px !important;" @click="createSession()">I'd like to find a product in this colour</router-link>
-        </div>
-    </b-modal>
-                </form>
-            </div>
-        </div>
+                    <div :class="color_box_type == 'list' ? 'color-box-type-list' : ''" class="container-fluid focus-outline" id="color-box-container">
+                      
+                        <div v-if="!loadCategories">
+                            <div id="hue-container" class="col-md-12 colors clearfix fl-overflow-visible focus-outline" v-if="!loadFilterColour">
+                            <p v-if="!hidePopular" class="h1"><span class="main-color-tab">Popular colours({{ popularColorCount }})</span><span
+                                class="link-gray pull-right hidden-xs sub-color-tab main">
+                                <button v-if="isSeeAll" class=" btn btn-default"
+                                  style="opacity:4" id="edit-show-colors-link" name="show_colors_link"
+                                  value="See all colours (144)" type="button" @click="seeAllColours(palette_id)">See all colours({{ countAllcolour }})</button>
+                                  <button v-else class=" btn btn-default"
+                                  style="opacity:4" id="edit-show-colors-link" name="show_colors_link"
+                                  :value="selectedName" type="button" @click="fetchCategories(cpalette, $event)">See only popular colours({{ popularColorCount }})</button>
+                              </span></p>
+                            <div id="popular-colors-list" class="focus-outline">
+                              <div class="solr-pure-color-list" v-for="(ccategory, ind) in ccategories" :key="ind">
+                                <div class="solr-pure-color-name">
+                                 
+                                  <h2 style="margin-top:15px !important;margin-bottom:10px !important;" class="color-type">{{ ccategory.category_name }}</h2>
+                                  <!-- {width: local_products.length == 1 ? '250px !important' : '100%'}" -->
+                                </div>
+                                <div v-if="ccategory.product_colours.length > 0">
+                                  <div class="rowBox col-xs-3 col-sm-2 col-md-2 col-lg-2" v-for="(ccolor, index) in ccategory.product_colours" :key="index">
+                                    <a class="color-box-child  color-box-child-1190594 colorBox-processed flourish_google_tag_manager-processed" data-toggle="modal" :data-target="'#colorModal'+ccolor.id"
+                                            :style="{background:ccolor.colour_code}" :data-title="ccolor.colour_name" :alt="ccolor.colour_name">
+                                      <p class="cnme color-text" >{{ ccolor.colour_name }}</p>
+                                    </a>
+                                    <div>
+                                    <ColorModal :ccolor="ccolor" :ccategory="ccategory" :cpalette="cpalette"/>
+                                  </div>
+                                  </div>
+                                  
+                                </div>
+                                <div v-else>
+                                  <h4 v-if="!hideNoColorIsFound" align="center">No Colour is found </h4>
+                                  <br><br><br><br>
+
+                                </div>
+                                
+                              </div>
+                            </div>
+                            <div v-if="!hidePopular" class="color-lister-bottom-new colors-listing-box-bottom focus-outline"><h2>I can't find the right colour</h2>
+                              <button v-if="isSeeAll" data-link="popular" class="btn-normal-curve sub-color-tab use-ajax btn btn-default form-submit ajax-processed flourish_google_tag_manager-processed" style="opacity:4" id="edit-show-right-colors--2" @click="seeAllColours(palette_id)" type="button" tabindex="316">See all colours ({{ countAllcolour }})</button> 
+                              <button v-else data-link="popular" class="btn-normal-curve sub-color-tab use-ajax btn btn-default form-submit ajax-processed flourish_google_tag_manager-processed" style="opacity:4" id="edit-show-right-colors--2" name="show_right_colors" @click="fetchCategories(cpalette, selectedName)" type="button" tabindex="316">See only Popular colours ({{ popularColorCount }})</button>                        
+                            </div>
+                            </div>
+                            
+                            <div v-else>
+                                <div class="spinner-image" role="status"></div>
+                            </div>
+                        </div>
+                        <div v-else>
+                            <div class="spinner-image" role="status"></div>
+                        </div>
+                      </div>
+                </div>
+                </div>
+            </form>
+
+          
+        </section>        
+    </div>
+</div>
+
+
+        
+
+
+
+        </section>
+      </div>
+    </div>
+    
+  </div>
+
+  <div class="" v-else>
+    <div class="spinner-image" role="status"></div>
+  </div>
 </section>
 
 <!-- end of modal -->
 </template>
+<!-- <div
+        class="spinner-image"
+        style="width: 10rem; height: 10rem;position:fixed;top:50%;left:50%"
+        role="status"
+      >
+      </div> -->
+<style>
+#modal-center:last-of-type{
+  /* display: none !important; */
+}
+.bp-dropdown__body{
+  top: 65px;
+  width: 15rem;
+    padding: 2rem;
+    font-size: 12px;
+      position: fixed !important;
+      /* display: none; */
 
+}
+.btn-normal-curve {
+    border: 2px solid #2FC48D !important;
+    border-radius: 0 10px !important;
+}
+.my-class-bp__btn{
+  font-family: 'open_sans_regular',arial,sans-serif;
+
+    font-weight: 600;
+    font-size: 14px;
+    background: #fff;
+    /* display: block; */
+    border-width: 0px 0px 1px 0px;
+    border-style:solid;
+    border-color: #e1e1e1;
+    cursor: pointer;
+    padding: 10px 5px 10px 20px;
+    margin:auto;
+    text-align: center;
+
+}
+
+.svg.bp-dropdown__icon.bp-dropdown__icon--bottom {
+    /* padding-left: 60px; */
+}
+.bp-dropdown__icon {
+    display: inline-block;
+    width: 80px;
+    height: 25px;
+    overflow: visible;
+    transition: transform .1s ease;
+
+}
+
+.my-class-bp__btn--active {
+  background: #fff;
+}
+
+.my-class-bp__body {
+  width: 15rem; 
+  padding: 2rem; 
+  font-size: 12px;
+  font-weight: 500;
+}
+
+</style>
+
+
+<style scoped>
+
+    @import 'style_c_1.css';
+    @import'style_c_4.css';
+
+</style>
 <script>
- export default{
-     data() {
-            return {
-            }
-        },
-        methods: {
-            createSession(){
-                // alert("daniel")
-                axios.get('/api/create-session/')
-            .then(() => {
-                Fire.$emit('AfterCreated');
-            })
-            .catch()
-            }
-        },
- }
+import Vue from 'vue';
+import Dropdown from 'bp-vuejs-dropdown';
+import ColorModal from '../frontend/modals/ColorModal'
+import ColourFilterModal from '../frontend/modals/ColourFilterModal'
+
+export default {
+    components: { Dropdown, ColorModal, ColourFilterModal},
+
+  data() {
+    return {
+      white:{
+        id: 4,
+      },
+      isActive1: false,
+      isActive2: true,
+      color_box_type:'grid',
+      hidePopular:false,
+      toggleStage1: false,
+      toggleStage2: true,
+      modalClose:false,
+      selectedName: 'white',
+      loading:true,
+      palette_id : null,
+      subId:null,
+      cpalettes:[],
+      cpalette:null,
+      pcolours:[],
+      ccategories:[],
+      popularColorCount:null,
+      countAllcolour: null,
+      loadCategories:false,
+      allColours : [],
+      isSeeAll:true,
+      filterItems:[],
+      clicked:[],
+      loadFilterColour:false,
+      filterColour: null,
+      hideNoColorIsFound : false
+      // categories:[],
+
+     
+    };
+  },
+  
+  methods: {
+    listView(){
+      return this.color_box_type = 'list'
+    },
+    gridView(){
+      return this.color_box_type = 'grid'
+    },
+    clickStage2(paletteId){
+      this.ccategories =[]
+      this.loadCategories = true;
+
+      if(this.loadCategories == true){
+          document.getElementById("overlay").style.display = "block";
+        } 
+      
+      axios.get('/api/colour-stage-2/'+paletteId)
+      .then((response) => {
+        this.hidePopular = false;
+        this.toggleStage2 = true
+        this.toggleStage1 = false
+        this.loadCategories = false;
+
+        this.isActive1 = false,
+        this.isActive2 = true,
+
+        this.ccategories = response.data.ccategories
+      })
+      .catch((error)=>{
+
+      })
+  },
+  clickStage1(paletteId){
+    this.ccategories =[]
+    this.loadCategories = true;
+
+    if(this.loadCategories == true){
+        document.getElementById("overlay").style.display = "block";
+      } 
+    axios.get('/api/colour-stage-1/'+paletteId)
+    .then((response) => {
+      this.hidePopular = true;
+      this.toggleStage1 = true
+      this.toggleStage2 = false
+      this.isActive1 = true,
+      this.isActive2 = false,
+      this.loadCategories = false;
+      this.ccategories = response.data.ccategories
+      
+    })
+    .catch((error)=>{
+
+    })
+    },
+    showPopUp(){
+      document.getElementsByClassName("filter-wrapper")[0].style.display = "block"
+    },
+    filterProductColour(pcat_id, evt) {
+      this.ccategories =[]
+
+      this.loadFilterColour = true
+      
+      if(this.loadFilterColour == true){
+          document.getElementById("overlay").style.display = "block";
+        } 
+      this.filterColour = evt.target.value
+        axios
+        .post("/api/filter-product-colour/"+this.palette_id +"/"+ pcat_id, this.filterColour)
+        .then((response) => {
+              this.ccategories = response.data
+              this.loadFilterColour =false
+                    this.hideNoColorIsFound = true
+              document.getElementsByClassName("filter-wrapper")[0].style.display = "none"
+        })
+    },
+    loadFilterCategory(id){
+      axios.get('/api/category-lists/'+id)
+      .then((response)=>{
+        this.filterItems = response.data
+      })
+        .catch((error) => {});
+
+    },
+    seeAllColours(id){
+      this.ccategories = []
+      this.loadCategories = true;
+      if(this.loadCategories == true){
+        document.getElementById("overlay").style.display = "block";
+      }
+      setTimeout(() => { 
+        axios.get('/api/see-all-colour/'+id)
+        .then((response) => {
+          this.ccategories = response.data.ccategories
+          this.isSeeAll = !this.isSeeAll
+          this.loadCategories = false;
+          this.loading = false;
+        })
+        .catch((error)=>{
+        })
+      }, 2000)
+
+    },
+    countColours(id){
+      axios.get('/api/count-all/'+id)
+      .then((response) => {
+        this.countAllcolour = response.data
+      })
+      .catch((error)=>{
+
+      })
+    },
+    popularCount(id){
+      this.popularColorCount = null
+      axios.get('/api/count-popular/'+id)
+      .then((response) => {
+        this.popularColorCount = response.data
+      })
+      .catch((error)=>{
+      })
+    },
+    fetchCategories(cpalette, evt=null){  
+      // this.palette_id = typeof cpalette === 'object' ? cpalette : this.white.id
+      this.cpalette = cpalette === null ? this.white : cpalette
+      if(this.isSeeAll != false)
+      {
+        var alreadyExist = this.clicked.indexOf(cpalette.id) == -1 ? true : false
+          if(!alreadyExist){
+            return
+          }
+      }
+
+      this.clicked = []
+      this.palette_id = this.cpalette.id
+      this.white.id = this.palette_id
+
+      this.selectedName = evt.target ? evt.target.value  : this.selectedName
+      // alert(this.selectedName)
+      this.ccategories = []
+      this.loadCategories = true;
+      this.clicked.push(this.palette_id)
+      if(this.loadCategories == true){
+        document.getElementById("overlay").style.display = "block";
+      } 
+
+      setTimeout(() => {
+        axios.post('/api/colour-categories/'+this.palette_id)
+          .then((response) => {
+            this.ccategories = response.data.ccategories
+            this.popularCount(this.palette_id)
+            this.countColours(this.palette_id)
+            this.loadFilterCategory(this.palette_id)
+            this.hideNoColorIsFound = false
+            this.clickStage2(this.palette_id)
+            this.loadCategories = false;
+            this.loading = false;
+            this.isSeeAll =true
+          })
+          .catch((error)=>{
+        })
+      }, 2000);
+    },
+    
+    callback: resolve => {
+      setTimeout(() => {
+        console.log('I\'m called!');
+        resolve(); // don't forget call resolve!
+      }, 1000);
+    },
+    listPalettes(){
+      setTimeout(() => {
+      axios.get('/api/colour-palette/')
+      .then((response) => {
+        this.cpalettes = response.data
+        this.loading = false;
+      })
+      .catch((error)=>{
+
+      })
+      }, 2000);
+    },
+
+    getWhite(){
+
+      var alreadyExist = this.clicked.indexOf(this.white.id) == -1 ? true : false
+      if(!alreadyExist){
+        return
+      }
+      this.palette_id = this.white.id
+      // this.white.id = id
+      
+      this.clicked.push(this.white.id)
+      axios.post('/api/colour-categories/'+this.palette_id)
+      .then((response) => {
+        this.ccategories = response.data.ccategories
+        // Fire.$emit('AfterCreated');
+        this.popularCount(this.palette_id)
+        this.countColours(this.palette_id)
+        this.loadFilterCategory(this.palette_id)
+
+      })
+      .catch((error)=>{
+
+      })
+    },
+  },
+  watch:{
+    loadFilterColour(){
+      if(this.loadFilterColour==false){
+        document.getElementById("overlay").style.display = "none"
+      }
+    },
+
+
+    loading(){
+      if(this.loading==false){
+        document.getElementById("overlay").style.display = "none"
+      }
+    },
+
+    loadCategories(){
+      if(this.loadCategories==false){
+        document.getElementById("overlay").style.display = "none"
+      }
+    },
+
+  },
+  mounted(){
+// $root.$emit('bp-dropdown:hide')
+  // alert(this.cpalette)
+    this.listPalettes() 
+    this.getWhite()
+    this.loadCategories = false;
+    if(this.loading==true){
+      document.getElementById("overlay").style.display = "block";
+    }
+    this.selectedName='white'
+  },
+  computed: {
+      changeProjectType: function () {
+        return this.filterItems.filter(item => item.name)
+      }
+    }
+};
+
 </script>
+
+<style scoped>
+
+
+.filter-wrappr  {
+  height: 100vh;
+  background: #fff;
+  width: 100%;
+  padding-top: 60px;
+}
+
+.colour-palette-wrapper {
+    /* padding: 45px 20px 45px;
+    background: #f4f4f4;
+    margin-top: 20px; */
+}
+
+</style>

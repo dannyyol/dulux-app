@@ -155,7 +155,6 @@ class ProductOrderController extends Controller
         return view('admin.product.order.details',compact('order'));
     }
 
-
     public function bulkOrderDelete(Request $request)
     {
         $ids = $request->ids;

@@ -360,6 +360,64 @@
         @endif
 
 
+        {{-- Colour management --}}
+        @if (empty($admin->role) || (!empty($permissions) && in_array('Colour Management', $permissions)))
+          {{-- Product --}}
+          <li class="nav-item
+          @if(request()->path() == 'admin/colour-palette') active
+          @elseif(request()->path() == 'admin/colour-category') active
+          @elseif(request()->path() == 'admin/colour-palette/create') active
+          @elseif(request()->is('admin/colour-palette/*/edit')) active
+          @elseif(request()->is('admin/colour-category/*/edit')) active
+          @endif">
+            <a data-toggle="collapse" href="#product_colour">
+              <i class="fa fa-palette"></i>
+              <p>Colour Management</p>
+              <span class="caret"></span>
+            </a>
+            <div class="collapse
+            @if(request()->path() == 'admin/colour-palette') show
+            @elseif(request()->path() == 'admin/colour-palette/create') show
+            @elseif(request()->is('admin/colour-palette/*/edit')) show
+            @elseif(request()->path() == 'admin/product') show
+            @elseif(request()->is('admin/product/*/edit')) show
+            @endif" id="product_colour">
+              <ul class="nav nav-collapse">
+
+                <li class="
+                @if(request()->path() == 'admin/colour-palette') active
+                @elseif(request()->is('admin/colour-palette/*/edit')) active
+                @endif">
+                  <a href="{{route('admin.colourpalette.index') . '?language=' . $default->code}}">
+                    <span class="sub-item">Colour Palette</span>
+                  </a>
+                </li>
+
+                <li class="
+                @if(request()->path() == 'admin/colour-category') active
+                @elseif(request()->is('admin/colour-category/*/edit')) active
+                @endif">
+                  <a href="{{route('admin.colourcategory.index') . '?language=' . $default->code}}">
+                    <span class="sub-item">Colour Category</span>
+                  </a>
+                </li>
+
+                <li class="
+                @if(request()->path() == 'admin/product-colour') active
+                @elseif(request()->is('admin/product/*/edit')) active
+                @elseif(request()->path() == 'admin/product/create') active
+                @endif">
+                  <a href="{{route('admin.productcolour.index'). '?language=' . $default->code}}">
+                    <span class="sub-item">Product Colours</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </li>
+        @endif
+
+
+        {{-- Subcategory --}}
         @if (empty($admin->role) || (!empty($permissions) && in_array('Product Management', $permissions)))
           {{-- Product --}}
           <li class="nav-item
@@ -382,12 +440,24 @@
             @elseif(request()->is('admin/product/*/edit')) show
             @endif" id="category">
               <ul class="nav nav-collapse">
+
                 <li class="
                 @if(request()->path() == 'admin/category') active
                 @elseif(request()->is('admin/category/*/edit')) active
                 @endif">
                   <a href="{{route('admin.category.index') . '?language=' . $default->code}}">
                     <span class="sub-item">Category</span>
+                  </a>
+                </li>
+
+
+                {{-- subcateogry --}}
+                <li class="
+                @if(request()->path() == 'admin/subcategory') active
+                @elseif(request()->is('admin/subcategory/*/edit')) active
+                @endif">
+                  <a href="{{route('admin.subcategory.index') . '?language=' . $default->code}}">
+                    <span class="sub-item">Subcategory</span>
                   </a>
                 </li>
 
@@ -405,6 +475,8 @@
           </li>
         @endif
 
+
+        
 
         @if (empty($admin->role) || (!empty($permissions) && in_array('Order Management', $permissions)))
             {{-- Product --}}

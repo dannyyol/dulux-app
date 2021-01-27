@@ -80,6 +80,18 @@
                 </div>
                 <input type="hidden" name="category_id" value="{{$data->id}}">
 
+
+                {{-- <div class="form-group">
+                  <label for="category">Colour Palette **</label>
+                  <select  class="form-control categoryData" name="colour_palette_id" id="category">
+                      <option value="" selected disabled>Select a palette</option>
+                      @foreach ($cpalettes as $cpalette)
+                      <option value="{{$cpalette->id}}" {{$data->colour_palette_id == $cpalette->id ? 'selected' : ''}}>{{$cpalette->palette_name}}</option>
+                      @endforeach
+                  </select>
+                  <p id="errcategory_id" class="mb-0 text-danger em"></p>
+                </div> --}}
+
                 <div class="form-group">
                   <label for="">Status **</label>
                   <select class="form-control ltr" name="status">

@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Str;
 use App\Models\User;
+use App\Models\CartItem;
+use App\Models\OrderItem;
+
 
 class OfflineController extends PaymentController
 {
@@ -28,7 +31,10 @@ class OfflineController extends PaymentController
 
         return response()->json($total);
     }
-    public function store(Request $request) {
+    public function store(Request $request, $product_id) {
+
+        $received_data = json_decode(file_get_contents("php://input"));
+        // dd($received_data );
 
         if ($request->shipping_charge != 0) {
             $shipping = ShippingCharge::findOrFail($request->shipping_charge);
@@ -39,7 +45,7 @@ class OfflineController extends PaymentController
 
         $total = $this->orderTotal($request->shipping_charge);
 
-
+        
         // Validation Starts
         if (session()->has('lang')) {
             $currentLang = Language::where('code', session()->get('lang'))->first();
@@ -52,13 +58,13 @@ class OfflineController extends PaymentController
         $success_url = action('Payment\product\PaymentController@payreturn');
 
         $rules = [
-            'billing_fname' => 'required',
-            'billing_lname' => 'required',
+            'form.billing_fname' => 'required',
+            'form.billing_lname' => 'required',
             // 'billing_address' => 'required',
             // 'billing_city' => 'required',
             // 'billing_country' => 'required',
-            'billing_number' => 'required',
-            'billing_email' => 'required',
+            'form.billing_number' => 'required',
+            'form.billing_email' => 'required',
             // 'shpping_fname' => 'required',
             // 'shpping_lname' => 'required',
             // 'shpping_address' => 'required',
@@ -85,13 +91,13 @@ class OfflineController extends PaymentController
 
         $order = new ProductOrder();
         $order->user_id = 1;
-        $order->billing_fname = $request->billing_fname;
-        $order->billing_lname = $request->billing_lname;
-        $order->billing_email = $request->billing_email;
+        $order->billing_fname = $received_data->form->billing_fname;
+        $order->billing_lname = $received_data->form->billing_lname;
+        $order->billing_email = $received_data->form->billing_email;
         // $order->billing_address = $request->billing_address;
         // $order->billing_city = $request->billing_city;
         // $order->billing_country = $request->billing_country;
-        $order->billing_number = $request->billing_number;
+        $order->billing_number = $received_data->form->billing_number;
         // $order->shpping_fname = $request->shpping_fname;
         // $order->shpping_lname = $request->shpping_lname;
         // $order->shpping_email = $request->shpping_email;
@@ -99,7 +105,7 @@ class OfflineController extends PaymentController
         // $order->shpping_city = $request->shpping_city;
         // $order->shpping_country = $request->shpping_country;
         // $order->shpping_number = $request->shpping_number;
-        $order->order_notes = $request->order_notes;
+        $order->order_notes = $received_data->form->order_notes;
 
         $order->total = $total;
         $order->shipping_charge = round($shippig_charge, 2);
@@ -118,20 +124,49 @@ class OfflineController extends PaymentController
             $order['receipt'] = $receipt;
         }
 
-        if($order->save()){
-            $order_id = $order->id;
-            $user = new User();
-            $user->fname = $request->billing_fname;
-            $user->lname = $request->billing_lname;
-            $user->username = $request->billing_fname . ' ' . $request->billing_lname;
-            $user->email = $request->billing_email;
-            $user->billing_email = $request->billing_email;
-            $user->billing_number = $request->billing_number;
-            $user->save();
-            return response()->json("Order Saved Successfully");
+        $cart_key = Session::get('cart_key');
+        $carts = CartItem::where(['cart_key'=>$cart_key['cart_key']])->get();
+        if($carts && !empty($received_data->cartTotal)){
+
+            if($order->save()){
+                foreach($carts as $cart){
+                    $orderItem = new OrderItem;
+                        $orderItem->product_id=$cart->product_id;
+                        $orderItem->product_order_id = $order->id;
+                        $orderItem->title = $cart->product_name;
+                        $orderItem->qty = $cart->product_quantity;
+                        $orderItem->variations = $cart->variations;
+                        $orderItem->addons = $cart->addons;
+                        $orderItem->product_price = $cart->product_price;
+                        $orderItem->total = $received_data->cartTotal;
+                        if($received_data->AddOnTotal){
+                        $orderItem->addons_price = (float)$received_data->AddOnTotal;
+                        }
+                        $orderItem->image = $cart->feature_image ?? '';
+                        $orderItem->variations_price = (float)$received_data->variationTotal ?? '';
+                        $orderItem->save();
+                        CartItem::where('cart_key', $cart_key['cart_key'])->delete();
+                }
+                $order_id = $order->id;
+                $user = new User();
+                $user->fname = $received_data->form->billing_fname;
+                $user->lname = $received_data->form->billing_lname;
+                $user->username = $received_data->form->billing_fname . ' ' . $received_data->form->billing_lname;
+                $user->email = $received_data->form->billing_email;
+                $user->billing_email = $received_data->form->billing_email;
+                $user->billing_number = $received_data->form->billing_number;
+                $user->save();
+
+                return response()->json(["status_code"=>"AB", "message"=>"Order Saved Successfully"]);
+            }
+        } else {
+        return response()->json(["status_code"=>"AC", "message"=>"Your cart is empty"]);
         }
 
-        // save ordered items
+
+        
+        
+            // save ordered items
         // $this->saveOrderItem($order_id);
 
         // send mail to buyer

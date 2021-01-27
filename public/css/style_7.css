@@ -3371,11 +3371,11 @@ input[type="number"]:focus {
   padding-top: 60px;
 }
 
-.filter-wrapper.active {
+/* .filter-wrapper.active {
   -webkit-transform: translateY(0%);
   transform: translateY(0%);
   display: block !important;
-}
+} */
 
 .filter-wrapper .title-section {
   background-color: #2fc48d;

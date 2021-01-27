@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Str;
 use App\Models\Pcategory;
+use App\Models\ColourPalette;
+
 use App\Models\Language;
 use Validator;
 use Session;
@@ -17,6 +19,8 @@ class ProductCategory extends Controller
         $lang = Language::where('code', $request->language)->first();
         $lang_id = $lang->id;
         $data['pcategories'] = Pcategory::where('language_id', $lang_id)->orderBy('id', 'DESC')->paginate(10);
+        // $data['cpalettes'] = ColourPalette::orderBy('palette_name')->get();
+
 
         $data['lang_id'] = $lang_id;
         return view('admin.product.category.index',$data);
@@ -55,7 +59,37 @@ class ProductCategory extends Controller
         }
 
         $input['slug'] =  make_slug($request->name);
-        $data->create($input);
+        $data = Pcategory::create($input);
+        $cpalettes = ColourPalette::where('status', 1)->get();
+        foreach($cpalettes as $cpalette){
+            $cpalette_id[] = $cpalette->id; 
+        }
+
+        // dd($cpalette_id);
+        // array:4 [
+        // 0 => "2"
+        // 1 => "3"
+        // 2 => "4"
+        // 3 => "6"
+        // ]
+
+        // array:9 [
+        // 0 => 13
+        // 1 => 14
+        // 2 => 15
+        // 3 => 23
+        // 4 => 24
+        // 5 => 25
+        // 6 => 26
+        // 7 => 27
+        // 8 => 28
+        // ]
+
+        if($cpalettes){
+            $data->colourPalettes()->sync($cpalette_id, true);
+        } else {
+            $data->colourPalettes()->sync(array());
+        }
 
         Session::flash('success', 'Category added successfully!');
         return "success";
@@ -65,7 +99,8 @@ class ProductCategory extends Controller
     public function edit($id)
     {
         $data = Pcategory::findOrFail($id);
-        return view('admin.product.category.edit',compact('data'));
+        $cpalettes = ColourPalette::all();
+        return view('admin.product.category.edit',compact('data','cpalettes'));
     }
 
     public function update(Request $request)
@@ -74,13 +109,16 @@ class ProductCategory extends Controller
             'name' => 'required|max:255',
         ];
 
+                // dd($request->category_id);
+
+
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
             $errmsgs = $validator->getMessageBag()->add('error', 'true');
             return response()->json($validator->errors());
         }
         $data = Pcategory::findOrFail($request->category_id);
-        $input = $request->all();
+        // $input = $request->all();
         if($request->hasFile('image')){
             @unlink('assets/front/img/category/' . $data->image);
             $image = $request->image;
@@ -90,7 +128,18 @@ class ProductCategory extends Controller
           }
 
         $input['slug'] =  make_slug($request->name);
+        // $cpalettes = ColourPalette::where('status', 1)->get();
+        
+        // foreach($cpalettes as $cpalette){
+        //     $cpalette_id[] = $cpalette->id; 
+        // }
+        // if(isset($request->subcategories)){
+        //     $data->subcategory()->sync($request->subcategories, true);
+        // } else {
+        //     $data->subcategory()->sync(array());
+        // }
         $data->update($input);
+        
 
         Session::flash('success', 'Category Update successfully!');
         return "success";
@@ -99,6 +148,7 @@ class ProductCategory extends Controller
     public function delete(Request $request)
     {
         $category = Pcategory::findOrFail($request->category_id);
+        $category->colourPalettes()->detach();
         if ($category->products()->count() > 0) {
             Session::flash('warning', 'First, delete all the product under the selected categories!');
             return back();
@@ -124,6 +174,7 @@ class ProductCategory extends Controller
 
         foreach ($ids as $id) {
             $pcategory = Pcategory::findOrFail($id);
+            $pcategory->colourPalettes()->detach();
             @unlink('assets/front/img/category/' . $pcategory->image);
             $pcategory->delete();
         }

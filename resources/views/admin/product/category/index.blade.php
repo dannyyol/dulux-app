@@ -188,6 +188,18 @@ $selLang = \App\Models\Language::where('code', request()->input('language'))->fi
               <p id="errname" class="mb-0 text-danger em"></p>
             </div>
 
+
+             {{-- <div class="form-group">
+                <label for="">Colour Palette **</label>
+                <select name="colour_palette_id" class="form-control">
+                    <option value="" selected disabled>Select a palette</option>
+                    @foreach ($cpalettes as $cpalette)
+                        <option value="{{$cpalette->id}}">{{$cpalette->palette_name}}</option>
+                    @endforeach
+                </select>
+                <p id="errlanguage_id" class="mb-0 text-danger em"></p>
+            </div> --}}
+
             <div class="form-group">
               <label for="">Status **</label>
               <select class="form-control ltr" name="status">

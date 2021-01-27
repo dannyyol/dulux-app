@@ -10,10 +10,15 @@ class Product extends Model
         'title',
         'slug',
         'language_id',
-        'category_id',
+        // 'category_id',
+        'product_colour_id',
         'feature_image',
         'summary',
-        'description',
+        // 'description',
+        'key_info',
+        'tips_advice',
+        'documentation',
+        'product_feature',
         'variations',
         'addons',
         'current_price',
@@ -42,4 +47,19 @@ class Product extends Model
     public function cartItem() {
       return $this->hasOne('App\Models\CartItem');
     }
+
+    // added by me
+    public function subcategory() {
+        return $this->belongsToMany('App\Models\Subcategory');
+    }
+
+    public function productColour(){
+        return $this->belongsTo(ProductColour::class, 'product_colour_id');
+    }
+
+    public function getSummaryAttribute($value)
+    {
+        return explode ("+", $value);
+    }
+
 }

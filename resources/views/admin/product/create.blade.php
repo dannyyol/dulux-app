@@ -1,5 +1,6 @@
 @extends('admin.layout')
 @section('content')
+
 <div class="page-header">
    <h4 class="page-title">Create Product</h4>
    <ul class="breadcrumbs">
@@ -36,7 +37,7 @@
          </div>
          <div class="card-body pt-5 pb-5">
             <div class="row">
-               <div class="col-lg-9 mx-auto">
+               <div class="col-lg-6 offset-lg-3">
                   {{-- Slider images upload start --}}
                   <div class="px-2">
                      <label for="" class="mb-2"><strong>Slider Images **</strong></label>
@@ -92,27 +93,7 @@
                             </div>
                          </div>
                      </div>
-                     <div class="row">
-                        <div class="col-lg-6">
-                           <div class="form-group">
-                              <label for="">Title **</label>
-                              <input type="text" class="form-control" name="title" value="" placeholder="Enter title">
-                              <p id="errtitle" class="mb-0 text-danger em"></p>
-                           </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                               <label for="category">Category **</label>
-                               <select  class="form-control categoryData" name="category_id" id="category">
-                                  <option value="" selected disabled>Select a category</option>
-                                  @foreach ($categories as $categroy)
-                                  <option value="{{$categroy->id}}">{{$categroy->name}}</option>
-                                  @endforeach
-                               </select>
-                               <p id="errcategory_id" class="mb-0 text-danger em"></p>
-                            </div>
-                        </div>
-                     </div>
+                     
 
                      <div class="row">
                         <div class="col-lg-6">
@@ -131,6 +112,60 @@
                         </div>
                      </div>
 
+                     {{-- category --}}
+                     <div class="row">
+                        <div class="col-lg-6">
+                           <div class="form-group">
+                              <label for="">Title **</label>
+                              <input type="text" class="form-control" name="title" value="" placeholder="Enter title">
+                              <p id="errtitle" class="mb-0 text-danger em"></p>
+                           </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                               <label for="category">Colour **</label>
+                               <select  class="form-control" name="product_colour_id" id="category">
+                                  <option value="" selected disabled>Select a colour</option>
+                                  @foreach ($pcolours as $colour)
+                                  <option value="{{$colour->id}}">{{$colour->colour_name}}</option>
+                                  @endforeach
+                               </select>
+                               <p id="errproduct_colour_id" class="mb-0 text-danger em"></p>
+                            </div>
+                        </div>
+                        {{-- <div class="col-lg-6">
+                            <div class="form-group">
+                               <label for="category">Category **</label>
+                               <select  class="form-control categoryData" name="category_id" id="category">
+                                  <option value="" selected disabled>Select a category</option>
+                                  @foreach ($categories as $categroy)
+                                  <option value="{{$categroy->id}}">{{$categroy->name}}</option>
+                                  @endforeach
+                               </select>
+                               <p id="errcategory_id" class="mb-0 text-danger em"></p>
+                            </div>
+                        </div> --}}
+                     </div>
+
+                     <div class="row">
+                        {{-- <div class="col-lg-6">
+                           <div class="form-group">
+                               <label for="category">Subcategory **</label>
+                               <select  class="form-control js-example-basic-multiple" name="subcategories[]" name="category_id" id="category" multiple="multiple" required>
+                                    @foreach ($subcategories as $item)
+                                       <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                    @endforeach
+                                 </select>
+                                 <small class="form-text text-muted">Add product subcategory....</small>
+                               <p id="errsubcategory_id" class="mb-0 text-danger em"></p>
+                            </div>
+                        </div> --}}
+
+                        
+                     </div>
+
+                     
+
                      <div class="row">
 
                         <div class="col-lg-12">
@@ -141,7 +176,56 @@
                            </div>
                         </div>
                      </div>
+
+                     
                      <div class="row">
+                        <div class="col-lg-12">
+                           <div class="form-group">
+                              <label for="">Description **</label>
+
+
+                              <div id="accordion" class="accordion">
+                                 <div class="card mb-0 card_accordion">
+                                       <div class="card-header collapsed " data-toggle="collapse" href="#collapseOne">
+                                          <a class="card-title"> Key Information </a>
+                                       </div>
+                                       <div id="collapseOne" class="card-body collapse" data-parent="#accordion">
+                                          <textarea class="form-control summernote" name="key_info" placeholder="Enter description" data-height="300"></textarea>
+                                          <p id="errdescription" class="mb-0 text-danger em"></p>
+                                       </div>                                       
+                                       <div class="card-header collapsed " data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                                          <a class="card-title"> Product Feature </a>
+                                       </div>
+                                       <div id="collapseTwo" class="card-body collapse" data-parent="#accordion">
+                                          <textarea class="form-control summernote" name="product_feature" placeholder="Enter description" data-height="300"></textarea>
+                                          <p id="errdescription" class="mb-0 text-danger em"></p>
+
+                                       </div>
+                                       <div class="card-header collapsed " data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+                                          <a class="card-title"> Documentation </a>
+                                       </div>
+                                       <div id="collapseThree" class="card-body collapse" data-parent="#accordion">
+                                          <textarea class="form-control summernote" name="documentation" placeholder="Enter description" data-height="300"></textarea>
+                                          <p id="errdescription" class="mb-0 text-danger em"></p>
+                                       </div>
+
+                                        <div class="card-header collapsed " data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
+                                          <a class="card-title"> Tip & Advice </a>
+                                       </div>
+                                       <div id="collapseFour" class="card-body collapse" data-parent="#accordion">
+                                          <textarea class="form-control summernote" name="tips_advice" placeholder="Enter description" data-height="300"></textarea>
+                                          <p id="errdescription" class="mb-0 text-danger em"></p>
+                                       </div>
+                                 </div>
+                              </div>
+                           {{-- </div> --}}
+
+                           </div>
+                        </div>
+
+                     </div>
+
+                     {{-- <div class="row">
                         <div class="col-lg-12">
                            <div class="form-group">
                               <label for="">Description **</label>
@@ -149,7 +233,12 @@
                               <p id="errdescription" class="mb-0 text-danger em"></p>
                            </div>
                         </div>
-                     </div>
+                     </div> --}}
+
+                     
+
+
+                     
 
 
                      <div id="app">
@@ -190,32 +279,33 @@
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label for="" class="d-block mb-2">Add On's</label>
-                                    <button class="btn btn-primary" @click="<">Add Add On</button>
+                                    <button class="btn btn-primary" @click="addAddOn">Add Add On</button>
                                 </div>
                             </div>
                         </div>
 
 
                         <div class="row" v-for="(addon, index) in addons" :key="addon.uniqid">
-                            <div class="col-lg-5">
+                            <div class="col-lg-6">
                                 <div class="form-group">
                                 <label for="">Add On Name</label>
                                     <input name="addon_names[]" type="text" class="form-control" placeholder="eg. Cheese, Patty, Sauce etc...">
                                 </div>
                             </div>
-                            <div class="col-lg-3">
+                            <div class="col-lg-5">
                                 <div class="form-group">
                                     <label for="">Additional Price ({{$be->base_currency_text}})</label>
                                     <input name="addon_prices[]" type="text" class="form-control ltr" autocomplete="off" value="0">
                                 </div>
                             </div>
 
-                            <div class="col-lg-3">
+                            {{-- <div class="col-lg-3">
                                 <div class="form-group">
                                     <label for="">Additional Qty</label>
                                     <input name="addon_qty[]" type="text" class="form-control ltr" autocomplete="off" value="0">
                                 </div>
-                            </div>
+                            </div> --}}
+
                             <div class="col-lg-1">
                                 <button class="btn btn-danger text-white mt-4" @click="removeAddOn(index)">
                                     <i class="fas fa-times"></i>
@@ -240,13 +330,39 @@
       </div>
    </div>
 </div>
+
+<style>
+ 
+ .card_accordion .card-header{
+      background-color:#1a2035;
+      border: 1px solid #fff !important;
+   }
+
+.accordion .card-header:after {
+    font-family: 'FontAwesome';  
+    content: "\f068";
+    float: right; 
+}
+.accordion .card-header.collapsed:after {
+    /* symbol for "collapsed" panels */
+    content: "\f067"; 
+}
+
+</style>
 @endsection
+<script>
+    
+</script>
 
 @section('variables')
 <script>
     "use strict";
     var storeUrl = "{{route('admin.product.sliderstore')}}";
     var removeUrl = "{{route('admin.product.sliderrmv')}}";
+
+    $(document).ready(function() {
+        $('.js-example-basic-multiple').select2().val("Choose Subcategory").trigger('change');
+    });
 </script>
 @endsection
 
@@ -271,7 +387,7 @@
                 removeVariant(index) {
                     this.variants.splice(index, 1);
                 },
-                <() {
+                addAddOn() {
                     let n = Math.floor(Math.random() * 11);
                     let k = Math.floor(Math.random() * 1000000);
                     let m = String.fromCharCode(n) + k;

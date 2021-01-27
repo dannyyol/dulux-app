@@ -10,7 +10,7 @@
                     <router-link to="" class="btn btn-lg btn-success btn-beginner"> I'm a Beginner</router-link>
                 </div>
                 <div class="col-sm-6 d-flex justify-content-center ">
-                    <router-link to="/api/color" class="btn btn-lg btn-success btn-expert"> I'm an Expert</router-link>
+                    <router-link to="/color" class="btn btn-lg btn-success btn-expert"> I'm an Expert</router-link>
                 </div>
             </div>
             <div class="row">

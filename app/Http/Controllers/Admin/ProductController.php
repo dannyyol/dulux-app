@@ -9,8 +9,11 @@ use App\Models\BasicExtended as BE;
 use App\Models\BasicSetting as BS;
 use App\Models\Language;
 use App\Models\Pcategory;
+use App\Models\Subcategory;
 use App\Models\ProductImage;
 use App\Models\Product;
+use App\Models\ProductColour;
+
 use Purifier;
 use Validator;
 use Session;
@@ -20,11 +23,10 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         $lang = Language::where('code', $request->language)->first();
-
         $lang_id = $lang->id;
         $data['products'] = Product::where('language_id', $lang_id)->orderBy('id', 'DESC')->paginate(10);
         $data['lang_id'] = $lang_id;
-        return view('admin.product.index',$data);
+        return view('admin.product.index', $data);
     }
 
 
@@ -32,7 +34,9 @@ class ProductController extends Controller
     {
         $lang = Language::where('code', $request->language)->first();
         $categories = Pcategory::where('status',1)->get();
-        return view('admin.product.create',compact('categories'));
+        $subcategories = Subcategory::where('status',1)->get();
+        $pcolours = ProductColour::where('status',1)->orderBy('colour_name')->get();
+        return view('admin.product.create',compact('categories', 'subcategories','pcolours'));
     }
 
     public function sliderstore(Request $request)
@@ -76,7 +80,7 @@ class ProductController extends Controller
     public function sliderrmv(Request $request)
     {
         $pi = ProductImage::findOrFail($request->fileid);
-        @unlink('assets/front/img/product/sliders/' . $pi->image);
+@unlink('assets/front/img/product/sliders/' . $pi->image);
         $pi->delete();
         return $pi->id;
     }
@@ -90,7 +94,6 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-
         $img = $request->file('feature_image');
         $allowedExts = array('jpg', 'png', 'jpeg');
         $slug = make_slug($request->title);
@@ -98,10 +101,13 @@ class ProductController extends Controller
         $rules = [
             'language_id' => 'required',
             'title' => 'required|max:255',
-            'category_id' => 'required',
+            // 'category_id' => 'required',
+            // 'subcategories*' => 'required',
+            'product_colour_id' => 'required',
+        
             'current_price' => 'required',
             'summary' => 'required',
-            'description' => 'required',
+            'key_info' => 'required',
             'slider_images' => 'required',
             'status' => 'required',
 
@@ -139,7 +145,13 @@ class ProductController extends Controller
 
         $in['language_id'] = $request->language_id;
         $in['slug'] = $slug;
-        $in['description'] = Purifier::clean($request->description);
+        // $in['description'] = Purifier::clean($request->description);
+        $in['key_info'] = Purifier::clean($request->key_info);
+        $in['product_feature'] = Purifier::clean($request->product_feature);
+        $in['documentation'] = Purifier::clean($request->documentation);
+        $in['tips_advice'] = Purifier::clean($request->tips_advice);
+        $in['product_colour_id'] = Purifier::clean($request->product_colour_id);
+
 
         // store varations as json
         $variations = [];
@@ -167,7 +179,7 @@ class ProductController extends Controller
                 if (!empty($aname)) {
                     $addons[$i]['name'] = $aname;
                     $aprice = $request->addon_prices[$key];
-                    $aqty = $request->addon_qty[$key];
+                    $aqty = 0;
                     $addons[$i]['qty'] = !empty($aqty) ? (float)$aqty : 0;
                     $addons[$i]['price'] = !empty($aprice) ? (float)$aprice : 0;
                     $i++;
@@ -178,6 +190,13 @@ class ProductController extends Controller
         $in['addons'] = json_encode($addons);
 
         $product = Product::create($in);
+
+        // added by AYO
+        if(isset($request->subcategories)){
+            $product->subcategory()->sync($request->subcategories, false);
+        } else {
+            $product->subcategory()->sync(array());
+        }
 
         $slders = $request->slider_images;
         $pis = ProductImage::findOrFail($slders);
@@ -196,7 +215,16 @@ class ProductController extends Controller
         $lang = Language::where('code', $request->language)->first();
         $categories = $lang->pcategories()->where('status',1)->get();
         $data = Product::findOrFail($id);
-        return view('admin.product.edit',compact('categories','data'));
+        $subcategories = Subcategory::all();
+        $pcolours = ProductColour::where('status',1)->orderBy('colour_name')->get();
+        // foreach($data->subcategory() as $sub){
+        //     foreach($subcategories as $subcategory){
+        //         if($sub->name != $subcategory->name){
+                    
+        //         }
+        //     }
+        // }
+        return view('admin.product.edit',compact('categories','data', 'subcategories','pcolours'));
     }
 
     public function images($portid)
@@ -240,11 +268,13 @@ class ProductController extends Controller
         $rules = [
 
             'title' => 'required|max:255',
-            'category_id' => 'required',
+            // 'category_id' => 'required',
             'current_price' => 'required',
             'summary' => 'required',
-            'description' => 'required',
+            // 'key_info' => 'required',
             'status' => 'required',
+            // 'subcategories*' => 'required',
+            'product_colour_id' => 'required',
             'feature_image' => [
                 function ($attribute, $value, $fail) use ($img, $allowedExts) {
                     if (!empty($img)) {
@@ -274,15 +304,21 @@ class ProductController extends Controller
         $product = Product::findOrFail($request->product_id);
 
         if ($request->hasFile('feature_image')) {
-            @unlink('assets/front/img/product/featured/' . $product->feature_image);
+@unlink('assets/front/img/product/featured/' . $product->feature_image);
             $filename = time() . '.' . $img->getClientOriginalExtension();
             $request->file('feature_image')->move('assets/front/img/product/featured/', $filename);
             $in['feature_image'] = $filename;
         }
 
         $in['slug'] = $slug;
-        $in['description'] = Purifier::clean($request->description);
+        // $in['description'] = Purifier::clean($request->description);
 
+        $in['key_info'] = Purifier::clean($request->key_info);
+        $in['product_feature'] = Purifier::clean($request->product_feature);
+        $in['documentation'] = Purifier::clean($request->documentation);
+        $in['tips_advice'] = Purifier::clean($request->tips_advice);
+        $in['product_colour_id'] = Purifier::clean($request->product_colour_id);
+        // dd($in);
         $variations = [];
         if ($request->has('variant_names')) {
             $i = 0;
@@ -319,7 +355,13 @@ class ProductController extends Controller
             $in['addons'] = NULL;
         }
 
+         if(isset($request->subcategories)){
+            $product->subcategory()->sync($request->subcategories, true);
+        } else {
+            $product->subcategory()->sync(array());
+        }
         $product = $product->fill($in)->save();
+       
 
         Session::flash('success', 'Product updated successfully!');
         return "success";
@@ -330,12 +372,14 @@ class ProductController extends Controller
     {
         $product = Product::findOrFail($request->product_id);
 
+        $product->subcategory()->detach();
+
         foreach ($product->product_images as $key => $pi) {
-            @unlink('assets/front/img/product/sliders/' . $pi->image);
+@unlink('assets/front/img/product/sliders/' . $pi->image);
             $pi->delete();
         }
 
-        @unlink('assets/front/img/product/featured/' . $product->feature_image);
+@unlink('assets/front/img/product/featured/' . $product->feature_image);
         $product->delete();
 
         Session::flash('success', 'Product deleted successfully!');
@@ -349,15 +393,17 @@ class ProductController extends Controller
 
         foreach ($ids as $id) {
             $product = Product::findOrFail($id);
+
             foreach ($product->product_images as $key => $pi) {
-                @unlink('assets/front/img/product/sliders/' . $pi->image);
+@unlink('assets/front/img/product/sliders/' . $pi->image);
                 $pi->delete();
             }
         }
 
         foreach ($ids as $id) {
             $product = product::findOrFail($id);
-            @unlink('assets/front/img/product/featured/' . $product->feature_image);
+@unlink('assets/front/img/product/featured/' . $product->feature_image);
+            $product->subcategory()->detach(); //added by me
             $product->delete();
         }
 

@@ -461,6 +461,119 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin', 'checkstatus']
 
 
     Route::group(['middleware' => 'checkpermission:Product Management'], function () {
+    Route::get('/category', 'Admin\ProductCategory@index')->name('admin.category.index');
+    Route::post('/category/store', 'Admin\ProductCategory@store')->name('admin.category.store');
+    Route::get('/category/{id}/edit', 'Admin\ProductCategory@edit')->name('admin.category.edit');
+    Route::post('/category/update', 'Admin\ProductCategory@update')->name('admin.category.update');
+    Route::post('/category/delete', 'Admin\ProductCategory@delete')->name('admin.category.delete');
+    Route::post('/category/bulk-delete', 'Admin\ProductCategory@bulkDelete')->name('admin.pcategory.bulk.delete');
+    Route::post('/category/remove/image', 'Admin\ProductCategory@removeImage')->name('admin.pcategory.rmv.img');
+    // Feature Check Routes
+    Route::get('/pcategory/feature/check/{id}', 'Admin\ProductCategory@FeatureCheck');
+
+
+
+
+    Route::get('/subcategory', 'Admin\SubcategoryController@index')->name('admin.subcategory.index');
+    Route::post('/subcategory/store', 'Admin\SubcategoryController@store')->name('admin.subcategory.store');
+    Route::get('/subcategory/{id}/edit', 'Admin\SubcategoryController@edit')->name('admin.subcategory.edit');
+    Route::post('/subcategory/update', 'Admin\SubcategoryController@update')->name('admin.subcategory.update');
+    Route::post('/subcategory/delete', 'Admin\SubcategoryController@delete')->name('admin.subcategory.delete');
+    Route::post('/subcategory/bulk-delete',
+    'Admin\SubcategoryController@bulkDelete')->name('admin.subcategory.bulk.delete');
+    Route::post('/subcategory/remove/image',
+    'Admin\SubcategoryController@removeImage')->name('admin.subcategory.rmv.img');
+    Route::get('/subpcategory/feature/check/{id}', 'Admin\SubcategoryController@FeatureCheck');
+
+
+    //
+
+
+    Route::get('/product', 'Admin\ProductController@index')->name('admin.product.index');
+    Route::get('/product/create', 'Admin\ProductController@create')->name('admin.product.create');
+    Route::post('/product/store', 'Admin\ProductController@store')->name('admin.product.store');
+    Route::get('/product/{id}/variants', 'Admin\ProductController@variants')->name('admin.product.variants');
+    Route::get('/product/{id}/addons', 'Admin\ProductController@addons')->name('admin.product.addons');
+    Route::get('/product/{id}/edit', 'Admin\ProductController@edit')->name('admin.product.edit');
+    Route::post('/product/update', 'Admin\ProductController@update')->name('admin.product.update');
+    Route::post('/product/delete', 'Admin\ProductController@delete')->name('admin.product.delete');
+    // Feature Check Routes
+    Route::get('/product/feature/check/{id}', 'Admin\ProductController@FeatureCheck');
+    // Special Check Routes
+    Route::get('/product/special/check/{id}', 'Admin\ProductController@SpecialCheck');
+
+
+    Route::post('/product/sliderstore', 'Admin\ProductController@sliderstore')->name('admin.product.sliderstore');
+    Route::post('/product/sliderrmv', 'Admin\ProductController@sliderrmv')->name('admin.product.sliderrmv');
+    Route::get('product/{id}/getcategory', 'Admin\ProductController@getCategory')->name('admin.product.getcategory');
+    Route::post('/product/delete', 'Admin\ProductController@delete')->name('admin.product.delete');
+    Route::post('/product/bulk-delete', 'Admin\ProductController@bulkDelete')->name('admin.product.bulk.delete');
+    Route::post('/product/sliderupdate', 'Admin\ProductController@sliderupdate')->name('admin.product.sliderupdate');
+    Route::post('/product/update', 'Admin\ProductController@update')->name('admin.product.update');
+    Route::get('/product/{id}/images', 'Admin\ProductController@images')->name('admin.product.images');
+    });
+
+
+
+    Route::group(['middleware' => 'checkpermission:Colour Management'], function () {
+        Route::get('/colour-palette', 'Admin\ColourpaletteController@index')->name('admin.colourpalette.index');
+        Route::post('/colour-palatte/store', 'Admin\ColourpaletteController@store')->name('admin.colourpalette.store');
+        Route::get('/colour-palette/{id}/edit', 'Admin\ColourpaletteController@edit')->name('admin.colourpalette.edit');
+        Route::post('/colour-palatte/update', 'Admin\ColourpaletteController@update')->name('admin.colourpalette.update');
+        Route::post('/colour-palatte/delete', 'Admin\ColourpaletteController@delete')->name('admin.colourpalette.delete');
+        Route::post('/colour-palatte/bulk-delete', 'Admin\ColourpaletteController@bulkDelete')->name('admin.colourpalette.bulk.delete');
+
+        Route::post('/colour-palatte/remove/image',
+                'Admin\ColourpaletteController@removeImage')->name('admin.colourpalette.rmv.img');
+        Route::get('/colour-palette/feature/check/{id}', 'Admin\ColourpaletteController@FeatureCheck');
+
+
+        // Colour category
+        Route::get('/colour-category', 'Admin\ColourcategoryController@index')->name('admin.colourcategory.index');
+        Route::post('/colour-category/store',
+        'Admin\ColourcategoryController@store')->name('admin.colourcategory.store');
+        Route::get('/colour-category/{id}/edit', 'Admin\ColourcategoryController@edit')->name('admin.colourcategory.edit');
+        Route::post('/colour-category/update',
+        'Admin\ColourcategoryController@update')->name('admin.colourcategory.update');
+        Route::post('/colour-category/delete',
+        'Admin\ColourcategoryController@delete')->name('admin.colourcategory.delete');
+        Route::post('/colour-category/bulk-delete',
+        'Admin\ColourcategoryController@bulkDelete')->name('admin.colourcategory.bulk.delete');
+        Route::post('/colour-category/remove/image',
+        'Admin\ColourcategoryController@removeImage')->name('admin.colourcategory.rmv.img');
+        // Feature Check Routes
+        Route::get('/colour-category/feature/check/{id}', 'Admin\ColourcategoryController@FeatureCheck');
+
+
+    
+        // product colours
+        Route::get('/product-colour', 'Admin\ProductColourController@index')->name('admin.productcolour.index');
+        Route::post('/product-colour/store',
+        'Admin\ProductcolourController@store')->name('admin.productcolour.store');
+        Route::get('/product-colour/{id}/edit',
+        'Admin\ProductcolourController@edit')->name('admin.productcolour.edit');
+        Route::post('/product-colour/update', 'Admin\ProductcolourController@update')->name('admin.productcolour.update');
+        Route::post('/product-colour/delete', 'Admin\ProductcolourController@delete')->name('admin.productcolour.delete');
+        Route::post('/product-colour/bulk-delete',
+        'Admin\ProductcolourController@bulkDelete')->name('admin.productcolour.bulk.delete');
+        Route::post('/product-colour/remove/image',
+        'Admin\ProductcolourController@removeImage')->name('admin.productcolour.rmv.img');
+        // Feature Check Routes
+        Route::get('/product-colour/feature/check/{id}', 'Admin\ProductcolourController@FeatureCheck');
+// PopularCheck
+        Route::get('/product-colour/is-popular/check/{id}', 'Admin\ProductcolourController@PopularCheck');
+
+    });
+
+
+
+
+
+
+    
+
+
+    Route::group(['middleware' => 'checkpermission:Product Management'], function () {
         Route::get('/category', 'Admin\ProductCategory@index')->name('admin.category.index');
         Route::post('/category/store', 'Admin\ProductCategory@store')->name('admin.category.store');
         Route::get('/category/{id}/edit', 'Admin\ProductCategory@edit')->name('admin.category.edit');
@@ -470,6 +583,22 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin', 'checkstatus']
         Route::post('/category/remove/image', 'Admin\ProductCategory@removeImage')->name('admin.pcategory.rmv.img');
         // Feature Check Routes
         Route::get('/pcategory/feature/check/{id}', 'Admin\ProductCategory@FeatureCheck');
+
+
+
+
+        Route::get('/subcategory', 'Admin\SubcategoryController@index')->name('admin.subcategory.index');
+        Route::post('/subcategory/store', 'Admin\SubcategoryController@store')->name('admin.subcategory.store');
+        Route::get('/subcategory/{id}/edit', 'Admin\SubcategoryController@edit')->name('admin.subcategory.edit');
+        Route::post('/subcategory/update', 'Admin\SubcategoryController@update')->name('admin.subcategory.update');
+        Route::post('/subcategory/delete', 'Admin\SubcategoryController@delete')->name('admin.subcategory.delete');
+        Route::post('/subcategory/bulk-delete', 'Admin\SubcategoryController@bulkDelete')->name('admin.subcategory.bulk.delete');
+        Route::post('/subcategory/remove/image',
+        'Admin\SubcategoryController@removeImage')->name('admin.subcategory.rmv.img');
+        Route::get('/subpcategory/feature/check/{id}', 'Admin\SubcategoryController@FeatureCheck');
+
+
+        // 
 
 
         Route::get('/product', 'Admin\ProductController@index')->name('admin.product.index');

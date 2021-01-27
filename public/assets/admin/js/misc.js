@@ -332,4 +332,80 @@
             });
         }
     });
+    
+
+
+
+    $('.featPcolour').on('click', function () {
+        let featureId = $(this).attr('data');
+        if($(this).is(':checked')){
+            $.get(mainurl+'/admin/colour-palette/feature/check/'+featureId+',1',function (response) {
+                if (response == "done") {
+                    location.reload();
+                }
+            });
+        } else {
+            $.get(mainurl+'/admin/colour-palette/feature/check/'+featureId+',0',function (response) {
+                if (response == "done") {
+                    location.reload();
+                }
+            });
+        }
+    });
+
+
+
+    
+
+    $('.popular').on('click',function(){
+        let popularId = $(this).attr('data');
+        if($(this).is(':checked')){
+            $.get(mainurl+'/admin/product-colour/is-popular/check/'+popularId+',1',function (response) {
+                if (response == "done") {
+                    location.reload();
+                }
+            });
+        } else {
+            $.get(mainurl+'/admin/product-colour/is-popular/check/'+popularId+',0',function (response) {
+                if (response == "done") {
+                    location.reload();
+                }
+            });
+        }
+    });
+    
+    $('.featCcat').on('click',function(){
+        let featureId = $(this).attr('data');
+        if($(this).is(':checked')){
+            $.get(mainurl+'/admin/colour-category/feature/check/'+featureId+',1',function (response) {
+                if (response == "done") {
+                    location.reload();
+                }
+            });
+        } else {
+            $.get(mainurl+'/admin/colour-category/feature/check/'+featureId+',0',function (response) {
+                if (response == "done") {
+                    location.reload();
+                }
+            });
+        }
+    });
+    
+
+    $('.featPcol').on('click',function(){
+        let featureId = $(this).attr('data');
+        if($(this).is(':checked')){
+            $.get(mainurl+'/admin/product-colour/feature/check/'+featureId+',1',function (response) {
+                if (response == "done") {
+                    location.reload();
+                }
+            });
+        } else {
+            $.get(mainurl+'/admin/product-colour/feature/check/'+featureId+',0',function (response) {
+                if (response == "done") {
+                    location.reload();
+                }
+            });
+        }
+    });
 })(jQuery); 

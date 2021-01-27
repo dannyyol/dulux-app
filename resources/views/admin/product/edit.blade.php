@@ -54,7 +54,7 @@
         <div class="card-body pt-5 pb-5">
           <div class="row">
             <div class="col-lg-6 offset-lg-3">
-
+            {{-- <div class="col-lg-9 mx-auto"> --}}
               {{-- Slider images upload start --}}
               <div class="px-2">
                 <label for="" class="mb-2"><strong>Slider Images **</strong></label>
@@ -91,15 +91,15 @@
                       </div>
                       <div class="col-md-6">
                         <label for="image"><strong>Product Color</strong></label>
-                        <div class="" style="background-color:{{ $data->product_color_code }};max-width:235px; border-radius:5px !important;min-height:235px;">
+                        <div class="" style="background-color:{{ $data->productColour->colour_code ?? null }};max-width:235px; border-radius:5px !important;min-height:235px;">
                             <p class="text-dark" style="text-align: center;padding-top:100px">{{  $data->product_color_name  }}</p>
                           {{-- <img src="{{$data->feature_image ? asset('assets/front/img/product/featured/'.$data->feature_image) :asset('assets/admin/img/noimage.jpg')}}" alt="..." class="img-thumbnail"> --}}
                         </div>
                       </div>
 
                     </div>
-                    {{-- <div class="form-group">
-                      <div class="col-12 col-md-6  mb-2">
+                    <div class="form-group">
+                      {{-- <div class="col-12 col-md-6  mb-2">
                         <label for="image"><strong>Product Image</strong></label>
                       </div>
                       <div class="col-12 col-md-6  mb-2">
@@ -107,10 +107,11 @@
                       </div>
                       <div class="col-md-12 showImage mb-3">
                         <img src="{{$data->feature_image ? asset('assets/front/img/product/featured/'.$data->feature_image) :asset('assets/admin/img/noimage.jpg')}}" alt="..." class="img-thumbnail">
-                      </div>
+                      </div>--}}
                       <input type="file" name="feature_image" id="image" class="form-control image">
                       <p id="errfeature_image" class="mb-0 text-danger em"></p>
-                    </div> --}}
+                    </div> 
+                    
                   </div>
                 </div>
                 <div id="sliders"></div>
@@ -136,23 +137,6 @@
                 </div>
 
                 <div class="row">
-                   <div class="col-lg-12">
-                       <div class="form-group">
-                          <label for="category">Category **</label>
-                          <select  class="form-control categoryData" name="category_id" id="category">
-                             <option value="" selected disabled>Select a category</option>
-                             @foreach ($categories as $categroy)
-                             <option value="{{$categroy->id}}" {{$data->category_id == $categroy->id ? 'selected' : ''}}>{{$categroy->name}}</option>
-                             @endforeach
-                          </select>
-                          <p id="errcategory_id" class="mb-0 text-danger em"></p>
-                       </div>
-                    </div>
-                </div>
-
-
-
-                <div class="row">
                    <div class="col-lg-6">
                       <div class="form-group">
                          <label for=""> Current Price ({{$be->base_currency_text}})**</label>
@@ -171,17 +155,146 @@
 
 
 
+                {{-- <div class="row">
+                   <div class="col-lg-6">
+                       <div class="form-group">
+                          <label for="category">Category **</label>
+                          <select  class="form-control categoryData" name="category_id" id="category">
+                             <option value="" selected disabled>Select a category</option>
+                             @foreach ($categories as $categroy)
+                             <option value="{{$categroy->id}}" {{$data->category_id == $categroy->id ? 'selected' : ''}}>{{$categroy->name}}</option>
+                             @endforeach
+                          </select>
+                          <p id="errcategory_id" class="mb-0 text-danger em"></p>
+                       </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                            <div class="form-group">
+                               <label for="category">Colour **</label>
+                               <select  class="form-control categoryData" name="product_colour_id" id="category">
+                                  <option value="" selected disabled>Select a colour</option>
+                                  @foreach ($pcolours as $colour)
+                                  <option value="{{$colour->id}}" {{$data->product_colour_id == $colour->id ? 'selected' : ''}}>{{$colour->colour_name}}</option>
+
+                                  @endforeach
+                               </select>
+                               <p id="errcategory_id" class="mb-0 text-danger em"></p>
+                            </div>
+                        </div>
+                </div> --}}
+                
+
+
+                {{-- <div class="row">
+                   <div class="col-lg-12">
+                       <div class="form-group">
+                          <label for="category">Subcategory **</label>
+              
+                          <select  class="form-control js-example-basic-multiple" name="subcategories[]" name="category_id" id="category" multiple="multiple">
+                                @foreach ($subcategories as $item)
+                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                @endforeach
+                          </select>
+                      
+                          <p id="errcategory_id" class="mb-0 text-danger em"></p>
+                       </div>
+                    </div>
+                </div> --}}
+                
+
+
+                        <div class="row">
+                           <div class="col-lg-12">
+                            <div class="form-group">
+                               <label for="category">Colour **</label>
+                               <select  class="form-control categoryData" name="product_colour_id" id="category">
+                                  <option value="" selected disabled>Select a colour</option>
+                                  @foreach ($pcolours as $colour)
+                                  <option value="{{$colour->id}}" {{$data->product_colour_id == $colour->id ? 'selected' : ''}}>{{$colour->colour_name}}</option>
+
+                                  @endforeach
+                               </select>
+                               <p id="errproduct_colour_id" class="mb-0 text-danger em"></p>
+                            </div>
+                           </div>
+                        </div>
+                
+
+
+
+
                 <div class="row">
                    <div class="col-lg-12">
                       <div class="form-group">
                          <label for="summary">Summary **</label>
-                         <textarea name="summary" id="summary" class="form-control" rows="4" placeholder="Enter Product Summary">{{$data->summary}}</textarea>
+                         <textarea name="summary" id="summary" class="form-control" rows="4" placeholder="Enter Product Summary">
+                            {{ implode($data->summary ) }}
+                         </textarea>
                          <p id="errsubmission_date" class="mb-0 text-danger em"></p>
                       </div>
                    </div>
                 </div>
 
+
+                
                 <div class="row">
+                        <div class="col-lg-12">
+                           <div class="form-group">
+                              <label for="">Description **</label>
+
+
+                              <div id="accordion" class="accordion">
+                                 <div class="card mb-0 card_accordion">
+                                       <div class="card-header collapsed " data-toggle="collapse" href="#collapseOne">
+                                          <a class="card-title"> Key Information </a>
+                                       </div>
+                                       <div id="collapseOne" class="card-body collapse" data-parent="#accordion">
+                                          <textarea class="form-control summernote" name="key_info" placeholder="Enter description" data-height="300">
+                                            {{replaceBaseUrl($data->key_info)}}
+                                          </textarea>
+                                          <p id="errdescription" class="mb-0 text-danger em"></p>
+                                       </div>                                       
+                                       <div class="card-header collapsed " data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                                          <a class="card-title"> Product Feature </a>
+                                       </div>
+                                       <div id="collapseTwo" class="card-body collapse" data-parent="#accordion">
+                                          <textarea class="form-control summernote" name="product_feature" placeholder="Enter description" data-height="300">
+                                            {{replaceBaseUrl($data->product_feature)}}
+
+                                          </textarea>
+                                          <p id="errdescription" class="mb-0 text-danger em"></p>
+
+                                       </div>
+                                       <div class="card-header collapsed " data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+                                          <a class="card-title"> Documentation </a>
+                                       </div>
+                                       <div id="collapseThree" class="card-body collapse" data-parent="#accordion">
+                                          <textarea class="form-control summernote" name="documentation" placeholder="Enter description" data-height="300">
+                                            {{replaceBaseUrl($data->documentation)}}
+                                          </textarea>
+                                          <p id="errdescription" class="mb-0 text-danger em"></p>
+                                       </div>
+
+                                        <div class="card-header collapsed " data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
+                                          <a class="card-title"> Tip & Advice </a>
+                                       </div>
+                                       <div id="collapseFour" class="card-body collapse" data-parent="#accordion">
+                                          <textarea class="form-control summernote" name="tips_advice" placeholder="Enter description" data-height="300">
+                                            {{replaceBaseUrl($data->tips_advice)}}
+                                          </textarea>
+                                          <p id="errdescription" class="mb-0 text-danger em"></p>
+                                       </div>
+                                 </div>
+                              </div>
+                           {{-- </div> --}}
+
+                           </div>
+                        </div>
+
+                     </div>
+
+                {{-- <div class="row">
                    <div class="col-lg-12">
                       <div class="form-group">
                          <label for="">Description **</label>
@@ -189,7 +302,7 @@
                          <p id="errdescription" class="mb-0 text-danger em"></p>
                       </div>
                    </div>
-                </div>
+                </div> --}}
 
                 <div id="app">
                     <div class="row">
@@ -271,7 +384,28 @@
     </div>
   </div>
 
+  <style>
+ 
+ .card_accordion .card-header{
+      background-color:#1a2035;
+      border: 1px solid rgb(204, 203, 203) !important;
+  }
+.accordion .card-header:after {
+    font-family: 'FontAwesome';  
+    content: "\f068";
+    float: right; 
+}
+.accordion .card-header.collapsed:after {
+    /* symbol for "collapsed" panels */
+    content: "\f067"; 
+}
+
+</style>
 @endsection
+
+<script>
+    
+</script>
 
 @section('variables')
 <script>
@@ -280,6 +414,10 @@
     var removeUrl = "{{route('admin.product.sliderrmv')}}";
     var rmvdbUrl = "{{route('admin.product.sliderrmv')}}";
     var loadImgs = "{{route('admin.product.images', $data->id)}}";
+
+    $(document).ready(function() {
+        $('.js-example-basic-multiple').select2().val({!! json_encode($data->subcategory()->allRelatedIds()) !!}).trigger('change');
+    });
 </script>
 @endsection
 

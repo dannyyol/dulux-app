@@ -622,10 +622,12 @@ class LanguageController extends Controller
     public function rtlcheck($langid) {
         if ($langid > 0) {
             $lang = Language::find($langid);
+            if($lang ==  NULL){
+                return;
+            }
         } else {
             return 0;
         }
-
         return $lang->rtl;
     }
 }

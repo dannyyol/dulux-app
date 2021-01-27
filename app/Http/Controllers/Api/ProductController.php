@@ -12,9 +12,13 @@ use App\Models\ShippingCharge;
 use App\Models\OfflineGateway;
 
 use App\Models\CartItem;
+use App\Models\Pcategory;
+
 use App\Http\Resources\ProductResource;
 
 use Session;
+use Illuminate\Support\Facades\Input;
+
 class ProductController extends Controller
 {
     /**
@@ -22,6 +26,51 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+     public function filterProduct(Request $request, $pcatId, $catId, $id){
+    //     $q = array_keys($request->all());
+    //     if($q[0] == 'All'){
+    //         $pcategory= Pcategory::find($id);
+    //         $data = $pcategory->ColourCategory()->where('id', $catId)->get();
+    //         return response()->json($data);
+    //     }
+    //     $data  = Product::whereHas('subcategory', function($query) use($q) { //whereHas joined event with subcategory model
+    //     $query->where('name','LIKE','%'.$q[0].'%');
+    //   })
+    //   ->paginate('4')
+    //   ->setpath('');
+      
+    //   $data->appends(array(
+    //     'q'=>$q[0],
+    //   ));
+        $q = array_keys($request->all());
+        // dd($q);
+        if($q[0] == 'All'){
+            $data = \DB::table('pcategories AS pcat')
+            ->join('product_colours AS pc', 'pc.category_id', '=', 'pcat.id')
+            ->join('products AS p', 'p.product_colour_id', '=', 'pc.id')
+            ->where(['pc.category_id'=> $pcatId, 'p.product_colour_id'=>$id, 'p.status'=>1,])
+            ->select('p.*')->get();
+            return response()->json($data);
+        } else {
+            
+            $data = \DB::table('pcategories AS pcat')
+            ->join('subcategories AS sb', 'sb.category_id', '=', 'pcat.id')
+            ->join('product_colour_subcategory AS pcs', 'pcs.subcategory_id', '=', 'sb.id')
+            ->join('product_colours AS pc', 'pc.id', '=', 'pcs.product_colour_id')
+            ->join('products AS p', 'p.product_colour_id', '=', 'pc.id')
+            ->where(['pc.category_id'=> $pcatId, 'sb.id'=> $q[0]])
+            ->select('p.*')->paginate(10);
+        }
+        
+
+    // dd($data);
+        return response()->json($data);
+
+    // return response()->json(["statusCode" => "200", "data"=>$data]);
+
+    }
+
     public function index(){
         $products =Product::all();
         return response()->json($products);
@@ -29,6 +78,8 @@ class ProductController extends Controller
         // }
         // return ProductResource::collection($products);
     }
+
+
 
     public function show($id){
         $products =Product::find($id);
@@ -47,8 +98,6 @@ class ProductController extends Controller
 
         return response()->json($data);
 
-
-        
     }
 
     /**

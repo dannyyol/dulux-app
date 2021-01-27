@@ -29,8 +29,11 @@ class CartController extends Controller
     public function index()
     {
         $cart_key = Session::get('cart_key');
-        $cart = CartItem::where('cart_key', $cart_key['cart_key'])->get();
-        return response()->json($cart);
+        $data=  CartItem::where('cart_key', $cart_key['cart_key'])->get();
+        foreach($data as $key=>$cart){
+            $data[$key]['product_colour'] = $cart->product->productColour;
+        }
+        return response()->json($data);
     }
 
 
@@ -57,21 +60,39 @@ class CartController extends Controller
      * @return \Illuminate\Http\Response
      */
     // 
-    // public function incrementAddon(Request $request, $id){
-    //     // increment product qty
-    //     $cart_key = Session::get('cart_key');
-    //     $quantity = CartItem::where('id',$id)->where('cart_key', $cart_key['cart_key'])->increment('product_quantity');
-        
-    //     // get requested product in the point of sale table
-    //     $product = CartItem::where('id', $id)->where('cart_key', $cart_key['cart_key'])->first();
-    //     // Multiply product qty with its price
-    //     $subtotal = (int)$product->product_quantity * (int)$product->product_price;
-    //     // update the total price of product
-    //     $total = CartItem::where('id',$id)->where('cart_key', $cart_key['cart_key'])->update(['sub_total'=> $subtotal]);
-    //     return response()->json($total);
-    // }
 
+    public function addProduct(Request $request, $id){
+        $name = $request['name'];//remove null values from array
+        $qty = $request['qty']; //remove null values from array
+        $price = $request['price2'];//remove null values from array
 
+        $cart_key = Session::get('cart_key');
+    
+        $product = Product::where('id', $id)->first();
+        $check_if_product_in_cart = CartItem::where(['product_id'=> $id, 'cart_key'=>$cart_key['cart_key']])->first();
+        if($check_if_product_in_cart){
+            $cart_key = Session::get('cart_key');
+            // $subtotal = $product_cart->product_quantity * $product_cart->product_price;
+            $data = CartItem::where(['product_id'=> $id, 'cart_key'=>$cart_key['cart_key']])
+                        ->update(['product_quantity'=>$qty,'sub_total'=>$price]);
+            $product_cart = CartItem::where('product_id',$id)->first();
+            
+            // CartItem::where('product_id',$id)->update(['sub_total'=> $subtotal]);
+        }else{
+            $data = [];
+            $data['product_id'] = $id;
+            $data['product_name'] = $product->title;
+            $data['product_quantity'] = $qty;
+            $data['product_price'] = $product->current_price;
+            $data['feature_image'] = $product->feature_image;
+            $data['sub_total'] = $price;
+            $data['cart_key'] = $cart_key['cart_key'];
+            $data['created_at'] = date("Y-m-d H:i:s");
+            $data['updated_at'] = date("Y-m-d H:i:s");
+            CartItem::insert($data);
+        }
+        return response()->json($data);
+    }
 
     // Addon submit button
     public function addVariation(Request $request, $id){
@@ -84,9 +105,13 @@ class CartController extends Controller
             return array_combine(['name', 'qty', 'price'], [$name, $qty, $price]);
         }, $name, $qty, $price);
 
+        // dd($nameQtyPrice);
+
         if(!empty($nameQtyPrice)){
             $variationToJson = json_encode($nameQtyPrice); //convert to json
+            $variationTotal = 0;
             foreach($nameQtyPrice as $nqp){
+                $variationTotal += $nqp['price'] * $nqp['qty']; // Get total price of addon
             // Check if quantity is not zero
             if($nqp['qty'] < 1){ 
                 return response()->json(["status_code" => "AB", "message"=>"Quantity must not be zero",]);
@@ -102,6 +127,14 @@ class CartController extends Controller
         //Check if product cart exist
         $check_if_product_in_cart = CartItem::where(['product_id'=> $id, 'cart_key'=>$cart_key['cart_key']])->first();
         if($check_if_product_in_cart){
+            $cart_key = Session::get('cart_key');
+            if($check_if_product_in_cart->variations ==null || $check_if_product_in_cart->variations != null){ //Check if addon col is empty
+                // dd($addOntotal);
+                // update the addon here
+                CartItem::where(['product_id'=> $id, 'cart_key'=>$cart_key['cart_key']])
+                    ->update(['variations'=>$variationToJson,'sub_total'=>
+                    $check_if_product_in_cart->sub_total+$variationTotal]);
+            }
             
                     
         }else{
