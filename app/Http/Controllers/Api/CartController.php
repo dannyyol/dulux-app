@@ -61,38 +61,38 @@ class CartController extends Controller
      */
     // 
 
-    public function addProduct(Request $request, $id){
-        $name = $request['name'];//remove null values from array
-        $qty = $request['qty']; //remove null values from array
-        $price = $request['price2'];//remove null values from array
+    // public function addProduct(Request $request, $id){
+    //     $name = $request['name'];//remove null values from array
+    //     $qty = $request['qty']; //remove null values from array
+    //     $price = $request['price2'];//remove null values from array
 
-        $cart_key = Session::get('cart_key');
+    //     $cart_key = Session::get('cart_key');
     
-        $product = Product::where('id', $id)->first();
-        $check_if_product_in_cart = CartItem::where(['product_id'=> $id, 'cart_key'=>$cart_key['cart_key']])->first();
-        if($check_if_product_in_cart){
-            $cart_key = Session::get('cart_key');
-            // $subtotal = $product_cart->product_quantity * $product_cart->product_price;
-            $data = CartItem::where(['product_id'=> $id, 'cart_key'=>$cart_key['cart_key']])
-                        ->update(['product_quantity'=>$qty,'sub_total'=>$price]);
-            $product_cart = CartItem::where('product_id',$id)->first();
+    //     $product = Product::where('id', $id)->first();
+    //     $check_if_product_in_cart = CartItem::where(['product_id'=> $id, 'cart_key'=>$cart_key['cart_key']])->first();
+    //     if($check_if_product_in_cart){
+    //         $cart_key = Session::get('cart_key');
+    //         // $subtotal = $product_cart->product_quantity * $product_cart->product_price;
+    //         $data = CartItem::where(['product_id'=> $id, 'cart_key'=>$cart_key['cart_key']])
+    //                     ->update(['product_quantity'=>$qty,'sub_total'=>$price]);
+    //         $product_cart = CartItem::where('product_id',$id)->first();
             
-            // CartItem::where('product_id',$id)->update(['sub_total'=> $subtotal]);
-        }else{
-            $data = [];
-            $data['product_id'] = $id;
-            $data['product_name'] = $product->title;
-            $data['product_quantity'] = $qty;
-            $data['product_price'] = $product->current_price;
-            $data['feature_image'] = $product->feature_image;
-            $data['sub_total'] = $price;
-            $data['cart_key'] = $cart_key['cart_key'];
-            $data['created_at'] = date("Y-m-d H:i:s");
-            $data['updated_at'] = date("Y-m-d H:i:s");
-            CartItem::insert($data);
-        }
-        return response()->json($data);
-    }
+    //         // CartItem::where('product_id',$id)->update(['sub_total'=> $subtotal]);
+    //     }else{
+    //         $data = [];
+    //         $data['product_id'] = $id;
+    //         $data['product_name'] = $product->title;
+    //         $data['product_quantity'] = $qty;
+    //         $data['product_price'] = $product->current_price;
+    //         $data['feature_image'] = $product->feature_image;
+    //         $data['sub_total'] = $price;
+    //         $data['cart_key'] = $cart_key['cart_key'];
+    //         $data['created_at'] = date("Y-m-d H:i:s");
+    //         $data['updated_at'] = date("Y-m-d H:i:s");
+    //         CartItem::insert($data);
+    //     }
+    //     return response()->json($data);
+    // }
 
     // Addon submit button
     public function addVariation(Request $request, $id){
@@ -233,29 +233,67 @@ class CartController extends Controller
     public function addToCart(Request $request, $id)
     {   
         $cart_key = Session::get('cart_key');
-    
         $product = Product::where('id', $id)->first();
-        $check_if_product_in_cart = CartItem::where(['product_id'=> $id, 'cart_key'=>$cart_key['cart_key']])->first();
-        if($check_if_product_in_cart){
-            $cart_key = Session::get('cart_key');
-            $data = CartItem::where('product_id', $id)->where('cart_key', $cart_key['cart_key'])->increment('product_quantity');
-            $product_cart = CartItem::where('product_id',$id)->first();
-            $subtotal = $product_cart->product_quantity * $product_cart->product_price;
-            CartItem::where('product_id',$id)->update(['sub_total'=> $subtotal]);
-        }else{
-            $data = [];
-            $data['product_id'] = $id;
-            $data['product_name'] = $product->title;
-            $data['product_quantity'] = 1;
-            $data['product_price'] = $product->current_price;
-            $data['feature_image'] = $product->feature_image;
-            $data['sub_total'] = $product->current_price;
-            $data['cart_key'] = $cart_key['cart_key'];
-            $data['created_at'] = date("Y-m-d H:i:s");
-            $data['updated_at'] = date("Y-m-d H:i:s");
-            CartItem::insert($data);
+        $request->all();
+        if($product->id == $request->litres['id']){
+            $check_if_litres_in_cart = CartItem::where(['product_id'=> $id, 'cart_key'=>$cart_key['cart_key']])->first();
+            // for litres
+            $litre_array[0]['id'] = $id;
+            $litre_array[0]['name'] = $request->litres['name'];
+            $litre_array[0]['price'] = $request->litres['price'];
+            $litre_array[0]['qty'] = $request->litres['qty'];
+
+            dd($litre_array);
+
+            // for product addons
+            $name = array_filter($request->productAddons['name'], 'strlen');//remove null values from array
+            $qty = array_filter($request->productAddons['qty'], 'strlen'); //remove null values from array
+            $price = array_filter($request->productAddons['price'], 'strlen');//remove null values from array
+            $nameQtyPrice = array_map(function ($name, $qty, $price) { //Map array and rearrange according to their
+            return array_combine(['name', 'qty', 'price'], [$name, $qty, $price]);
+            }, $name, $qty, $price);
+            
+            $addOnToJson = json_encode($nameQtyPrice); //convert to json
+            // dd($addOnToJson);
+            if($check_if_litres_in_cart){
+                // dd('exist');
+                $decodeLitres = json_decode($check_if_litres_in_cart->variations, true);
+                $cart_key = Session::get('cart_key');
+                // foreach($decodeLitres as $key=>$litre){
+                    if(array_search($request->litres['name'], array_column($decodeLitres, 'name')) !== false) {
+                        // $litre['qty'] += $request->litres['qty'];
+                        // $litre_array[0]['qty'] = $litre['qty'];
+                        // $data = CartItem::where('product_id',$id)->update(['variations'=>json_encode($litre_array)]);
+                    } else {
+                        $dbvariations = $decodeLitres;
+                        array_push($dbvariations, $request->litres);
+                        $data = CartItem::where('product_id',$id)->update(['variations'=>json_encode($dbvariations)]);
+                    }
+                // }
+                if(!empty($addOnToJson)){
+                    $data = CartItem::where('product_id',$id)->update(['addons'=>$addOnToJson]);
+                } 
+            }else{
+                    $litresToJson = json_encode($litre_array); //convert to json
+                    $data = [];
+                    $data['product_id'] = $id;
+                    $data['product_name'] = $product->title;
+                    $data['product_quantity'] = 1;
+                    $data['product_price'] = $product->current_price;
+                    $data['feature_image'] = $product->feature_image;
+                    $data['sub_total'] = $product->current_price;
+                    $data['addons'] = empty($addOnToJson) ? null : $addOnToJson;
+                    $data['variations'] = $litresToJson;
+                    $data['cart_key'] = $cart_key['cart_key'];
+                    $data['created_at'] = date("Y-m-d H:i:s");
+                    $data['updated_at'] = date("Y-m-d H:i:s");
+                    CartItem::insert($data);
+            }
+            return response()->json($data);
+
         }
-        return response()->json($data);
+        return response()->json(["status_code"=>"AC", "message"=>"Litres must not be empty"]);
+
     }
 
     // public function 

@@ -5294,7 +5294,7 @@ label.onedomain-component .button--pill {
         opacity: .85
     }
 }
-
+/* 
 .onedomain-component .card {
     background-color: #fff;
     height: 100%;
@@ -5305,7 +5305,7 @@ label.onedomain-component .button--pill {
     display: flex;
     -ms-flex-direction: column;
     flex-direction: column
-}
+} */
 
 .onedomain-component .card__content:last-child,
 .onedomain-component .card__footer:last-child,

@@ -161,6 +161,8 @@ class ProductController extends Controller
                 // if the variant name input field contains value
                 if (!empty($vname)) {
                     $variations[$i]['name'] = $vname;
+                    $aqty = 1;
+                    $variations[$i]['qty'] = !empty($aqty) ? (float)$aqty : 1;
                     $vprice = $request->variant_prices[$key];
                     $variations[$i]['price'] = !empty($vprice) ? (float)$vprice : 0;
                     $i++;
@@ -326,6 +328,8 @@ class ProductController extends Controller
                 // if the variant name input field contains value
                 if (!empty($vname)) {
                     $variations[$i]['name'] = $vname;
+                    $aqty = 1;
+                    $variations[$i]['qty'] = !empty($aqty) ? (float)$aqty : 1;
                     $vprice = $request->variant_prices[$key];
                     $variations[$i]['price'] = !empty($vprice) ? (float)$vprice : 0;
                     $i++;
@@ -346,8 +350,16 @@ class ProductController extends Controller
                 if (!empty($aname)) {
                     $addons[$i]['name'] = $aname;
                     $aprice = $request->addon_prices[$key];
+                    $aqty = 0;
+                    $addons[$i]['qty'] = !empty($aqty) ? (float)$aqty : 0;
                     $addons[$i]['price'] = !empty($aprice) ? (float)$aprice : 0;
                     $i++;
+                    // $addons[$i]['name'] = $aname;
+                    // $aprice = $request->addon_prices[$key];
+                    // $aqty = 0;
+                    // $addons[$i]['qty'] = !empty($aqty) ? (float)$aqty : 0;
+                    // $addons[$i]['price'] = !empty($aprice) ? (float)$aprice : 0;
+                    // $i++;
                 }
             }
             $in['addons'] = json_encode($addons);

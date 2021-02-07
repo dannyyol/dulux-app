@@ -17,7 +17,8 @@ class Subcategory extends Model
 
     public function productColour($sub) {
     return
-    $this->belongsToMany('App\Models\ProductColour')->wherePivot('subcategory_id', $sub);
+    // dd($sub);
+    $this->belongsToMany('App\Models\ProductColour')->withPivot('id')->wherePivot('subcategory_id', $sub);
     }
 
     public function colourCategories() {

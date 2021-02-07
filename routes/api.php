@@ -32,7 +32,7 @@ Route::get('/colour/products/{id}', 'Api\ProductcolourController@show');
 
 Route::get('/see-all-colour/{id}', 'Api\ProductcolourController@seeAllColour');
 
-Route::get('/count-popular/{id}', 'Api\ProductcolourController@countPopular');
+Route::post('/count-popular/{id}', 'Api\ProductcolourController@countPopular');
 
 Route::get('/count-all/{id}', 'Api\ProductcolourController@allColourCount');
 

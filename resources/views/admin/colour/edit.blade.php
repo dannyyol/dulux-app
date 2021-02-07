@@ -128,6 +128,8 @@
                 </select>
                 <p id="errsubcategory_id" class="mb-0 text-danger em"></p>
             </div>
+
+            
                 
                 <div class="form-group">
                   <label for="">Status **</label>

@@ -9,6 +9,12 @@ class ProductColour extends Model
     //
 
     protected $fillable = ['colour_name','colour_code','colour_category_id', 'language_id','status', 'colour_stages','slug','image','is_feature', 'category_id'];
+
+    // protected $casts = [
+    // 'colour_stages' => 'array'
+    // ];
+    
+
     public function colourCategory(){
         return $this->belongsTo(ColourCategory::class, 'colour_category_id');
     }
@@ -33,4 +39,9 @@ class ProductColour extends Model
     {
         return $this->hasMany('App\Models\ProductColourSubcategory');
     }
+
+    // public function setColourStagesAttribute($value)
+    // {
+    //     $this->attributes['colour_stages'] = \json_decode((int)$value);
+    // }
 }

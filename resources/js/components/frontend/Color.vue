@@ -1,5 +1,6 @@
 <template>
 
+
 <section
   class="html not-front not-logged-in no-sidebars page-colors-listing region-content i18n-en fl-en fl-colour-palettes fl-asgdlx jquery-once-1-processed jquery-once-2-processed flSearchClick-processed">
   <div id="overlay"></div>
@@ -11,7 +12,7 @@
         <section class="col-sm-12 focus-outline">
           <!--   -->
           <a id="main-content"></a>
-          <h1 class="page-header">Find a colour</h1>
+          <!-- <h1 class="page-header">Find a colour</h1> -->
           <div class="region region-content focus-outline">
             <div id="full-form-wrapper" class="focus-outline">
               <section id="block-system-main" class="block block-system block--system-main clearfix focus-outline"
@@ -401,7 +402,7 @@
                                   
                                 </div>
                                 <div v-else>
-                                  <h4 v-if="!hideNoColorIsFound" align="center">No Colour is found </h4>
+                                  <h4 align="center">No Colour is found </h4>
                                   <br><br><br><br>
 
                                 </div>
@@ -474,18 +475,17 @@
 }
 .my-class-bp__btn{
   font-family: 'open_sans_regular',arial,sans-serif;
-
-    font-weight: 600;
-    font-size: 14px;
-    background: #fff;
-    /* display: block; */
-    border-width: 0px 0px 1px 0px;
-    border-style:solid;
-    border-color: #e1e1e1;
-    cursor: pointer;
-    padding: 10px 5px 10px 20px;
-    margin:auto;
-    text-align: center;
+  font-weight: 600;
+  font-size: 14px;
+  background: #fff;
+  /* display: block; */
+  border-width: 0px 0px 1px 0px;
+  border-style:solid;
+  border-color: #e1e1e1;
+  cursor: pointer;
+  padding: 10px 5px 10px 20px;
+  margin:auto;
+  text-align: center;
 
 }
 
@@ -559,7 +559,6 @@ export default {
       clicked:[],
       loadFilterColour:false,
       filterColour: null,
-      hideNoColorIsFound : false
       // categories:[],
 
      
@@ -572,6 +571,23 @@ export default {
     },
     gridView(){
       return this.color_box_type = 'grid'
+    },
+    clickStageCallback(paletteId){
+      this.ccategories =[]
+
+      axios.get('/api/colour-stage-2/'+paletteId)
+      .then((response) => {
+        this.hidePopular = false;
+        this.toggleStage2 = true
+        this.toggleStage1 = false
+        this.isActive1 = false,
+        this.isActive2 = true,
+        this.ccategories = response.data.ccategories
+      })
+      .catch((error)=>{
+
+      })
+
     },
     clickStage2(paletteId){
       this.ccategories =[]
@@ -636,7 +652,7 @@ export default {
         .then((response) => {
               this.ccategories = response.data
               this.loadFilterColour =false
-                    this.hideNoColorIsFound = true
+              this.popularCount(this.palette_id)
               document.getElementsByClassName("filter-wrapper")[0].style.display = "none"
         })
     },
@@ -677,15 +693,18 @@ export default {
       })
     },
     popularCount(id){
+      // alert(this.filterColour)
       this.popularColorCount = null
-      axios.get('/api/count-popular/'+id)
+      axios.post('/api/count-popular/'+id, {
+        subId: this.filterColour
+      })
       .then((response) => {
         this.popularColorCount = response.data
       })
       .catch((error)=>{
       })
     },
-    fetchCategories(cpalette, evt=null){  
+  fetchCategories(cpalette, evt=null){  
       // this.palette_id = typeof cpalette === 'object' ? cpalette : this.white.id
       this.cpalette = cpalette === null ? this.white : cpalette
       if(this.isSeeAll != false)
@@ -713,18 +732,20 @@ export default {
         axios.post('/api/colour-categories/'+this.palette_id)
           .then((response) => {
             this.ccategories = response.data.ccategories
+        
+            // this.countColours(this.palette_id)
             this.popularCount(this.palette_id)
             this.countColours(this.palette_id)
             this.loadFilterCategory(this.palette_id)
-            this.hideNoColorIsFound = false
-            this.clickStage2(this.palette_id)
+            // this.clickStage2(this.palette_id)
+            this.clickStageCallback(this.palette_id)
             this.loadCategories = false;
             this.loading = false;
             this.isSeeAll =true
           })
           .catch((error)=>{
         })
-      }, 2000);
+      }, 1000);
     },
     
     callback: resolve => {
@@ -814,6 +835,9 @@ export default {
 <style scoped>
 
 
+.container {
+    background-color: #fcfafa;
+}
 .filter-wrappr  {
   height: 100vh;
   background: #fff;

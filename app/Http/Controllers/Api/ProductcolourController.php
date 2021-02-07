@@ -62,15 +62,20 @@ class ProductcolourController extends Controller
         return response()->json($data);
     }
 
-    public function countPopular($id){
+    public function countPopular(Request $request, $id){
+        $q = $request->all();
+        // dd($q['subId']);
         $pcolourCount = DB::table('colour_palettes AS cp')
-        ->join('colour_categories AS cc', 'cc.colour_palette_id', '=', 'cp.id')
-        ->join('product_colours AS pc', 'pc.colour_category_id', '=', 'cc.id')
+        ->join('pcategory_colour_palette AS pcp', 'pcp.colour_palette_id', '=', 'cp.id')
+        ->join('pcategories AS pct', 'pct.id', '=', 'pcp.pcategory_id')
+        ->join('product_colours AS pc', 'pc.category_id', '=', 'pct.id')
+
         // ->join('product_colour_subcategory as pcs', 'pcs.product_colour_id', '=', 'pc.id')
         // ->join('subcategories as sb', 'sb.id', '=', 'pcs.subcategory_id')
+
+        // ->where(['cp.id'=> $id, 'pc.is_popular'=>1, 'pc.status'=>1])
         ->where(['cp.id'=> $id, 'pc.is_popular'=>1, 'pc.status'=>1])
-        // ->orWhere(['cp.id'=> $id, 'pc.is_popular'=>1, 'pc.status'=>1])
-        ->select('pc.*', 'cc.*')->count();
+        ->select('pc.*')->count();
                 // dd($pcolourCount);
 
         return response()->json($pcolourCount);
@@ -118,29 +123,44 @@ class ProductcolourController extends Controller
         $cpalette= ColourPalette::find($paletteId);
         // dd($cpalette);
         $data = $cpalette->colourCategories()->where(['status'=>1])->get();
-        foreach($data as $key => $ccat){
+        if($cpalette->status == 1){
+            foreach($data as $key => $ccat){
             if($q[0] == "All"){
                 $data[$key]['product_colours'] = $ccat->productColours()->where(['category_id'=>$id, 'is_popular'=> 1,'status'=>1])->get();
             }
             else{
+                
+                // $pcat = Pcategory::find($id);
+                // if($pcat->status == 1){
+                //     $data = $pcat->subcategory()->get();
+                //     foreach($data as $key=>$sub){
+                //         $data[$key]['product_colours'] = $sub->productColour($q[0])->where(['is_popular'=> 1,
+                //         'status'=>1, 'category_id'=>$id ])->get();
+                //     }
+                // }
 
-                $pcat = Pcategory::find($id);
-                if($pcat->status == 1 ){
-                    $data = $pcat->subcategory()->get();
-                    foreach($data as $key=>$sub){
-                        $data[$key]['product_colours'] = $sub->productColour($q[0])->where(['is_popular'=> 1,
-                        'status'=>1, 'category_id'=>$id ])->get();
+                $data[$key]['product_colours'] =
+                    $ccat->productColours($q[0])->where(['status'=>1, 'is_popular'=>1, 'category_id'=>$id])
+                        ->whereHas("subcategory", function ($query) use ($q) {
+                    if ($q[0]) {
+                        $query->where("subcategory_id", "=", $q[0]);
                     }
-                }
-
+                    })->get();
                 // $ccats = ColourCategory::where(['colour_palette_id'=> $paletteId])->get();
                 // foreach($ccats as $key=>$ccat){
                 //     $data[$key]['product_colours'] =
-                //     $ccat->productColours($q[0])->where(["category_id"=> $id])->get();
+                //     $ccat->productColours($q[0])->whereHas("subcategory", function ($query) use ($q) {
+                //     if ($q[0]) {
+                //         $query->where("subcategory_id", "=", $q[0]);
+                //     }
+                //     })->get();
                 // }
 
             }
         }
+
+        }
+        
         return response()->json($data);
     }
 }

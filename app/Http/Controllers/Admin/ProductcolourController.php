@@ -41,7 +41,7 @@ class ProductcolourController extends Controller
             'colour_name' => 'required|max:255',
             'colour_code' => 'required|max:255',
             'colour_category_id' => 'required',
-            'colour_stages' => 'required',
+            'colour_stages*' => 'required',
             'category_id' => 'required',
             'subcategory_id' => 'required',
             'status' => 'required',
@@ -96,11 +96,10 @@ class ProductcolourController extends Controller
             'colour_name' => 'required|max:255',
             'colour_code' => 'required|max:255',
             'colour_category_id' => 'required',
-            'colour_stages' => 'required',
+            'colour_stages*' => 'required',
             'category_id' => 'required',
             'subcategory_id' => 'required',
             'status' => 'required',
-            
 
         ];
 

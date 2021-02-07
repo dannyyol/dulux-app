@@ -5,7 +5,7 @@
 
 
 body {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'open_sans_regular',arial,sans-serif;
     font-size: 16px;
     line-height: 24px;
     font-weight: 400;
@@ -18,7 +18,15 @@ body {
     overflow-x: hidden;
     transition: all 200ms linear;
 }
-
+h1,
+h2,
+h3,
+.h1,
+.h1--l,
+.h2,
+.h3 {
+    font-family: "colour-sans", "open_sans_regular", Helvetica, Arial, sans-serif !important;
+}
 .header-logo-image{
     width:130px;
 }
@@ -227,9 +235,14 @@ input[type=checkbox]:checked:disabled+label:before {
 }
 
 
-@media (min-width: 350px) {
 
- 
+
+@media (min-width: 350px) {
+    .total_section{
+        background-color: none;
+        margin-top: 50px !important;
+
+    }
 
     .single_product_width{
         width:100%;
@@ -310,7 +323,19 @@ input[type=checkbox]:checked:disabled+label:before {
     }
 }
 
-@media(min-width:600px){
+@media(min-width:640px){
+    .sm_cart_title {
+        font-size: 24px;
+    }
+    .sm_cart_image img {
+        width: 120px;
+    }
+    
+    .total_section {
+        background: none;
+        /* box-shadow: rgba(160, 129, 129, 0.15) 1.95px 1.95px 2.6px; */
+    }
+   
        select.litre_dropdown {
            border-width: 1px;
            border-color: rgba(128, 128, 128, 0.363);
@@ -321,16 +346,21 @@ input[type=checkbox]:checked:disabled+label:before {
            min-width: 9.1vw ;
        }
 
+           
+
 }
 
-@media (min-width: 900px) {
-    .single_product_width {
-        width: 260px;
+@media (min-width: 768px) {
+    
+.product_btms_sm_row{
+    display: none;
+}
+
+    .total_section {
+        background: rgba(224, 219, 219, 0.308);
+        /* box-shadow: rgba(160, 129, 129, 0.15) 1.95px 1.95px 2.6px; */
     }
-
-}
-
-@media (min-width: 720px) {
+    
     
     .filter-wrapper-fullwidth.filter-wrapper {
         position: relative;
@@ -431,6 +461,13 @@ input[type=checkbox]:checked:disabled+label:before {
      }
 }
 
+@media (min-width: 900px) {
+
+    .single_product_width {
+        width: 260px;
+    }
+
+}
 
 .btn-more-info {
     border:none !important;
@@ -478,7 +515,7 @@ input[type=checkbox]:checked:disabled+label:before {
 .tabs-heading .nav-item {
 
     border-left: 2px solid grey !important;
-    width: 200px;
+    width: 15vw;
     font-size:18px !important;
     text-align: center;
 }
@@ -536,7 +573,11 @@ input[type=checkbox]:checked:disabled+label:before {
 }
 
 
-
+.btn_green{
+    color:#fff !important;
+    background-color: #2fc48d !important;
+}
+/* #5bc0de */
 /* .add_to_cart_button:hover,
 .send_brochure_button:hover {
     background-color: rgb(9, 250, 110) !important;
@@ -674,13 +715,17 @@ input[type=checkbox]:checked:disabled+label:before {
     font-size:14px !important;
 }
 
-.enter_detail_total_price h1{
+ .enter_detail_total_price h1{
+     color:#00a78e;
+     font-style: unset;
     font-size:35px !important;
+    font-weight: 600;
+    line-height: 23px;
 }
 
-.enter_detail_total_price h2 {
+/*.enter_detail_total_price h2 {
     font-size: 21px !important;
-}
+} */
 
 .calculator-box {
     padding:30px;
@@ -831,7 +876,7 @@ button.cart-modal-counterdown {
 
 .cart_title{
     margin-top:20px;
-    font-size:20px;
+    font-size:18px;
 }
 
 .cart_plux_minus{
@@ -930,4 +975,126 @@ button.cart__btn{
     position: sticky !important;
     position: -webkit-sticky !important;
     top: 0 !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+*
+* ==========================================
+* CUSTOM UTIL CLASSES
+* ==========================================
+*
+*/
+
+/* Rounded tabs */
+
+/* @media (min-width: 576px) {
+    .rounded-nav {
+        border-radius: 50rem !important;
+    }
+
+} */
+
+@media (min-width: 500px) {
+
+    .sm_cart_image img {
+        width: 120px;
+    }
+
+
+    .sm_cart_title {
+        font-size: 24px;
+    }
+
+    .product_btms_lg_row {
+        display: none !important;
+    }
+
+    .rounded-nav .nav-link {
+        border-radius: 50rem !important;
+    }
+
+
+    .total_section {
+        background-color: none;
+    }
+
+    
+}
+
+/* With arrow tabs */
+
+.with-arrow .nav-link.active {
+    position: relative;
+}
+
+.with-arrow .nav-link.active::after {
+    content: '';
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 6px solid #2b90d9;
+    position: absolute;
+    bottom: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: block;
+}
+
+/* lined tabs */
+
+.lined .nav-link {
+    border: none;
+    border-bottom: 3px solid transparent;
+}
+
+.lined .nav-link:hover {
+    border: none;
+    border-bottom: 3px solid transparent;
+}
+
+.lined .nav-link.active {
+    background: none;
+    color: #555;
+    border-color: #2b90d9;
+}
+
+/*
+*
+* ==========================================
+* FOR DEMO PURPOSE
+* ==========================================
+*
+*/
+
+
+
+.nav-pills .nav-link {
+    color: #555;
+}
+
+.text-uppercase {
+    letter-spacing: 0.1em;
 }

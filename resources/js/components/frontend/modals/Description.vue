@@ -11,181 +11,120 @@
         aria-hidden="true"
       >      
         <!-- Change class .modal-sm to change the size of the modal -->
-        <div class="modal-dialog modal-xl lg_screen_alone " role="document" >
+        <div class="modal-dialog " role="document" >
           <div class="modal-content">
-            <div class="modal-body justify-content-center">
-              <div id="tabs" class="d-flex justify-content-center">
-                <ul class="nav nav-tabs tabs-heading" role="tablist">
-                  <li class="nav-item" style="border-left: none !important">
-                    <a
-                      class="nav-link active"
-                      data-index="0"
-                      data-toggle="tab"
-                      href="#tab-0"
-                      role="tab"
-                      >Key Informations</a
-                    >
-                  </li>
-                  <li class="nav-item">
-                    <a
-                      class="nav-link"
-                      data-index="1"
-                      data-toggle="tab"
-                      href="#tab-1"
-                      role="tab"
-                      >Product Features</a
-                    >
-                  </li>
-                  <li class="nav-item">
-                    <a
-                      class="nav-link"
-                      data-index="2"
-                      data-toggle="tab"
-                      href="#tab-2"
-                      role="tab"
-                      >Documentation</a
-                    >
-                  </li>
-                  <li class="nav-item">
-                    <a
-                      class="nav-link"
-                      data-index="3"
-                      data-toggle="tab"
-                      href="#tab-3"
-                      role="tab"
-                      >Tips & Advice</a
-                    >
-                  </li>
-                  <li class="nav-item">
-                    <a
-                      class="nav-link calculator_button"
-                      data-index="4"
-                      data-toggle="tab"
-                      href="#tab-4"
-                      role="tab"
-                      >Calculator</a
-                    >
-                  </li>
-                </ul>
-              </div>
-              <div class="tab-content h-100">
-                <div
-                  class="tab-pane fade tab-style ml-3 mt-3 active show"
-                  id="tab-0"
-                  role="tabpanel"
-                >
-                  <div class="container-fluid">
-                    <div class="row">
-                      <div class="col-md-4">
-                        <div class="row">
-                          <div class="col-md-12">
-                            <div class="left-color-cart" style=""></div>
-                            <div class="mt-3">
-                              <div class="float-left">
-                                <img
-                                  :src="
-                                    '/assets/front/img/product/featured/' +
-                                    current_product.product_image"
-                                  srcset=""
-                                  class="modal-before-cart-image"
-                                />
-                              </div>
-                              <div
-                                class="float-right mt-2"
-                                style="width: 180px !important"
-                              >
-                                <h2>{{ current_product.product_name }}</h2>
-                                <p>
-                                  <small>
-                                    Hide imperfections on walls
-                                    beautifully</small>
-                                </p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+            <div class="modal-body">
 
-                      <div class="col-md-8">
-                        <div
-                          class="key-info-desc overflow-auto"
-                          style="height: 400px !important"
-                        >
-                          <div v-html=" current_product.product_key_info"></div> 
-                        </div>
-                      </div>
-                      <div
-                        class="col-md-12 row d-flex justify-content-end mt-5"
-                      >
-                        <button
-                          type="button"
-                          class="btn btn-sm btn-primary custom_button mr-3"
-                        >
-                          Send Brochure
-                        </button>
-                        <!-- <div class="form-group"> -->
-                        <select
-                          id="my-select"
-                          class="form-control cart-info-select-button mr-3"
-                          name=""
-                        >
-                          <option>1 Litres</option>
-                        </select>
-                        <!-- </div> -->
-                        <button
-                          type="button"
-                          class="btn btn-sm btn-success custom_button mr-3"
-                          data-dismiss="modal"
-                          aria-label="Close"
-                          data-toggle="modal"
-                          data-target="#centralModalSm2"
-                        >
-                          Add to Cart
-                        </button>
-                        <button
-                          class="btn btn-danger custom_button text-white"
-                          type="button"
-                          data-dismiss="modal"
-                          aria-label="Close"
-                        >
-                          Cancel
-                        </button>
-                      </div>
+
+
+
+              
+              <!-- <div class="container-fluid"> -->
+
+
+
+  <div class="bg-white rounded">
+    <!-- Lined tabs-->
+    <ul id="myTab2" role="tablist" class=" nav nav-tabs nav-pills with-arrow lined flex-column flex-sm-row text-center">
+      <li class="nav-item flex-sm-fill">
+        <a id="home2-tab" data-toggle="tab" href="#home2" role="tab" aria-controls="home2" aria-selected="true" class="nav-link text-uppercase font-weight-bold rounded-0 active">Key Information</a>
+      </li>
+      <li class="nav-item flex-sm-fill">
+        <a id="profile2-tab" data-toggle="tab" href="#profile2" role="tab" aria-controls="profile2" aria-selected="false" class="nav-link text-uppercase font-weight-bold rounded-0">Product Feature</a>
+      </li>
+      <li class="nav-item flex-sm-fill">
+        <a id="contact2-tab" data-toggle="tab" href="#contact2" role="tab" aria-controls="contact2" aria-selected="false" class="nav-link text-uppercase font-weight-bold rounded-0">Documentation</a>
+      </li>
+
+      <li class="nav-item flex-sm-fill">
+        <a id="contact2-tab" data-toggle="tab" href="#tips_advice" role="tab" aria-controls="contact2" aria-selected="false" class="nav-link text-uppercase font-weight-bold rounded-0">Tip & Advice</a>
+      </li>
+
+
+      <li class="nav-item flex-sm-fill">
+        <a id="calculator-tab" data-toggle="tab" href="#calculator" role="tab" aria-controls="calculator" aria-selected="false" class="nav-link text-uppercase font-weight-bold rounded-0">Calculator</a>
+      </li>
+    </ul>
+    <div id="myTab2Content" class="tab-content">
+      <div id="home2" role="tabpanel" aria-labelledby="home-tab" class="tab-pane fade px-4 py-5 show active">
+        
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="left-color-cart" style=""></div>
+                  <div class="mt-3">
+                    <div class="float-left">
+                      <img
+                        :src="
+                          '/assets/front/img/product/featured/' +
+                          current_product.product_image"
+                        srcset=""
+                        class="modal-before-cart-image"
+                      />
+                    </div>
+                    <div
+                      class="float-right mt-2"
+                      style="width: 180px !important"
+                    >
+                      <h2>{{ current_product.product_name }}</h2>
+                      <p>
+                        <small>
+                          Hide imperfections on walls
+                          beautifully</small>
+                      </p>
                     </div>
                   </div>
                 </div>
-                <div
-                  class="tab-pane fade tab-style ml-3 mt-3"
-                  id="tab-1"
-                  role="tabpanel"
-                >
-                  Paint HappyTM Technology, "Truly odour free"* when freshly
-                  paintedAirfreshTM Technology, keeps air fresh after
-                  paintingWashable & easy cleaningMould & fungus
-                  resistance/Anti-bacterialColourguard technology, keeps colours
-                  looking fresh longerSmooth luxurious finishEnvironmentally
-                  preferred paint (Singapore GreenLabel certified)
-                </div>
-                <div
-                  class="tab-pane fade tab-style ml-3 mt-3"
-                  id="tab-2"
-                  role="tabpanel"
-                >
-                  2
-                </div>
-                <div
-                  class="tab-pane fade tab-style ml-3 mt-3"
-                  id="tab-3"
-                  role="tabpanel"
-                >
-                  3
-                </div>
-                <div
-                  class="tab-pane fade tab-style ml-3 mt-3"
-                  id="tab-4"
-                  role="tabpanel"
-                >
-                  <div class="container calculator-container mx-auto">
+              </div>
+            </div>
+
+            <div class="col-md-8">
+              <div
+                class="key-info-desc overflow-auto"
+                style="height: 400px !important"
+              >
+                <div v-html="current_product.product_key_info"></div> 
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="profile2" role="tabpanel" aria-labelledby="profile-tab" class="tab-pane fade px-4 py-5">
+        <p class="leade font-italic"> ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+          irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <p class="leade font-italic mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+          irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          <div v-html="current_product.product_product_feature"></div> 
+      </div>
+      <div id="contact2" role="tabpanel" aria-labelledby="contact-tab" class="tab-pane fade px-4 py-5">
+        <p class="leade font-italic">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+          irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <p class="leade font-italic mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+          irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+      </div>
+
+      <div id="contact2" role="tabpanel" aria-labelledby="contact-tab" class="tab-pane fade px-4 py-5">
+        <p class="leade font-italic">Lorem dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+          irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <p class="leade font-italic mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+          irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          <div v-html="current_product.product_documentation"></div> 
+      </div>
+
+
+      <div id="tips_advice" role="tabpanel" aria-labelledby="contact-tab" class="tab-pane fade px-4 py-5">
+        <p class="leade font-italic">Lorem dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+          irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <p class="leade font-italic mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+          irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          <div v-html="current_product.key_info"></div> 
+      </div>
+
+
+      <div id="calculator" role="tabpanel" aria-labelledby="calculator-tab" class="tab-pane fade px-4 py-5">
+        <div class="container calculator-container mx-auto">
                     <!-- <div class=""> -->
                     <div class="calculator-box h-100">
                       <div class="container">
@@ -252,14 +191,14 @@
                             >
                               Calculator
                             </button>
-                            <button
+                            <!-- <button
                               class="btn btn-danger custom_button text-white"
                               type="button"
                               data-dismiss="modal"
                               aria-label="Close"
                             >
                               Cancel
-                            </button>
+                            </button> -->
                           </div>
                         </div>
                       </div>
@@ -267,68 +206,46 @@
 
                     <!-- </div> -->
                   </div>
-                </div>
-                <div
-                  class="tab-pane fade tab-style ml-3 mt-3"
-                  id="tab-5"
-                  role="tabpanel"
-                >
-                  5
-                </div>
-              </div>
-              <br />
+      </div>
+    </div>
+    <!-- End lined tabs -->
+  </div>
+
+<!-- </div> -->
+
+              
+
+
             </div>
-            <!-- <div class="modal-footer">
-                    </div> -->
+
+            <div class="card-footer bg-white">
+                <div
+                  class="col-md-12 row d-flex justify-content-end" 
+                >
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-primary custom_button mr-3" style=""
+                  >
+                    Send Brochure
+                  </button>
+                  <button
+                    class="btn btn-danger custom_button text-white"
+                    type="button"
+                    data-dismiss="modal"
+                    aria-label="Close"
+                  >
+                    Cancel
+                  </button>
+                </div>
+            </div>
           </div>
         </div>
+        
       </div>
-
-
-      <!-- small screen -->
-      <!-- <div
-        class="modal fade d-sm-block"
-        id="centralModalSm"
-        tabindex="-1"
-        role="dialog"
-        aria-labelledby="myModalLabel"
-        aria-hidden="true"
-      >     
-      <div  class="col-sm-6">
-        <h3>Left Tabs</h3>
-        <hr/>
-        <div class="col-xs-3"> 
-          <ul class="nav nav-tabs tabs-left sideways">
-            <li class="active"><a href="#home-v" data-toggle="tab">Home</a></li>
-            <li><a href="#profile-v" data-toggle="tab">Profile</a></li>
-            <li><a href="#messages-v" data-toggle="tab">Messages</a></li>
-            <li><a href="#settings-v" data-toggle="tab">Settings</a></li>
-          </ul>
-        </div>
-
-        <div class="col-xs-9">
-          <div class="tab-content">
-            <div class="tab-pane active" id="home-v">Home Tab.</div>
-            <div class="tab-pane" id="profile-v">Profile Tab.</div>
-            <div class="tab-pane" id="messages-v">Messages Tab.</div>
-            <div class="tab-pane" id="settings-v">Settings Tab.</div>
-          </div>
-        </div>
-
-        <div class="clearfix"></div>
-
-      </div>
-      </div> -->
-
 </div>
      
 </template>
 
-<style scoped>
-.calc_box{
-  /* display: none; */
-}
-</style>
 <script>
 export default {
   props:{
@@ -352,9 +269,6 @@ export default {
     calculate(event){
       this.active = !this.active
 
-      // evt = event.target
-      // el.classList.add('show_cal')
-
       if(this.calculator.height != null && this.calculator.length != null){
         this.calculateResult = this.calculator.height * this.calculator.length
         // return this.calculateResult
@@ -367,10 +281,6 @@ export default {
       } else {
         return false
       }
-
-     
-
-      
     }
 
   },

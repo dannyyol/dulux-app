@@ -15,7 +15,7 @@ class AddColourStageToProductColoursTable extends Migration
     {
         Schema::table('product_colours', function (Blueprint $table) {
             //
-            $table->integer('colour_stages')->default(1)->nullable()->after('status');
+            $table->text('colour_stages')->default(1)->nullable()->after('status');
         });
     }
 

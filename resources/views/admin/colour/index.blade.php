@@ -227,6 +227,21 @@ $selLang = \App\Models\Language::where('code', request()->input('language'))->fi
               <p id="errcolour_stages" class="mb-0 text-danger em"></p>
             </div>
 
+            {{-- <div class="form-group">
+
+              <label for="">Choose Stage **</label> <br>
+              <div class="custom-control custom-checkbox custom-checkbox-inline">
+                <input type="checkbox" class="custom-control-input" id="customCheck-0" name="colour_stages[]" value = "0">
+                <label class="custom-control-label" for="customCheck-0">Colours ready to buy</label>
+              </div>
+
+              <div class="custom-control custom-checkbox custom-checkbox-inline">
+                <input type="checkbox" class="custom-control-input" id="customCheck-1" name="colour_stages[]" value="1">
+                <label class="custom-control-label" for="customCheck-1">Colours to be mixed in store</label>
+              </div>
+              <p id="errcolour_stages" class="mb-0 text-danger em"></p>
+            </div> --}}
+
             <div class="form-group">
               <label for="category">Category (Filter)**</label>
               <select  class="form-control categoryData formselect required" id="sub_category_name" name="category_id">

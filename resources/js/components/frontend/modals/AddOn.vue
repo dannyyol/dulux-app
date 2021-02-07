@@ -26,10 +26,10 @@
               </button>
             </div>
 
-            <form
+            <!-- <form
               @submit.prevent="addAddOn(productDetail.id, index)"
               method="post"
-            >
+            > -->
               <div class="modal-body">
                   <!-- {{ productAddons }} -->
                 <div v-if="productAddons">
@@ -39,6 +39,7 @@
                         <div class="col-md-5 col-5">
                           <div class="form-check">
                             <div>
+                              <input type="hidden" name="" v-model="productDetail.id">
                               <input
                                 class="form-check-input"
                                 type="checkbox"
@@ -120,8 +121,8 @@
                         </div>
 
                         <div class="col-md-3 col-3">
-                          <div class="form-goup">
-                            <input
+                          <div class="form-group menu_page_price">
+                            <!-- <input v-if="form.productAddons.price[index] == null"
                               class="form-control price_input"
                               style="
                                 background-color: #fff !important;
@@ -131,7 +132,43 @@
                               name=""
                               v-model="addon.price"
                               disabled
-                            />
+                            /> -->
+
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text" id="basic-addon1" style="font-size:14px;border-radius:5px 0px 0px 5px;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+                                      width="15" height="15"
+                                      viewBox="0 0 172 172"
+                                      style=" fill:#000000;">
+                                      <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,172v-172h172v172z" fill="none"></path><g fill="#666666"><path d="M157.66667,78.83333v-12.54167h-21.5v-44.79167h-17.02083v44.79167h-36.49983l-29.59833,-44.79167h-17.21433v44.79167h-21.5v12.54167h21.5v16.125h-21.5v12.54167h21.5v43h17.02083v-43h37.46733l28.45167,43h17.3935v-43h21.5v-12.54167h-21.5v-16.125zM119.14583,78.83333v16.125h-17.9095l-10.4705,-16.125zM52.85417,50.46767l10.34867,15.824h-10.34867zM52.85417,78.83333h18.5115l10.57083,16.125h-29.08233zM109.49233,107.5h9.6535v14.75617z"></path></g></g></svg>
+                                  </span>
+                                </div>
+                                <input v-if="form.productAddons.price[index] == null"
+                                    class="form-control "
+                                    style="
+                                      background-color: #fff !important;
+                                      font-size: 14px !important;
+                                    "
+                                    type="text"
+                                    name=""
+                                    v-model="addon.price"
+                                    disabled
+                                  />
+                              <input v-else
+                                class="form-control "
+                                style="
+                                  background-color: #fff !important;padding:0px !important;
+                                  font-size: 14px !important;
+                                "
+                                type="text"
+                                name=""
+                                v-model="form.productAddons.price[index]"
+                                disabled
+                              />
+                            </div>
+
+                            
                             <!-- {{ currentProduct.id }} -->
                           </div>
                         </div>
@@ -154,15 +191,15 @@
                 <button
                   type="button"
                   class="btn btn-lg btn-secondary"
-                  data-dismiss="modal"
+                  @click ="cancel(productDetail)"
                 >
                   Close
                 </button>
-                <button type="submit" class="btn btn-lg btn_save">
-                  Save changes
+                <button type="button" class="btn btn-lg btn_save" @click="save(productDetail)">
+                  Save Changes
                 </button>
               </div>
-            </form>
+            <!-- </form> -->
           </div>
         </div>
       </div>
@@ -170,6 +207,8 @@
 </template>
 
 <script>
+import $ from "jquery";
+
 export default {
     props:{
         currentAddon:{
@@ -186,24 +225,32 @@ export default {
             type: Object
         },
         local_products:{
-                        type: Array
-
+          type: Array
+        },
+        form:{
+          type:Object
+        },
+        save:{
+          type: Function
+        },
+        errorMessage:{
+          type: Function
         }
     },
     data(){
         return{
-            form: {
-                productAddons: {
-                    name: [],
-                    qty: [],
-                    price: [],
-                },
-            },
-            // productAddons: "{}",
+            
 
         }
     },
     methods:{
+    cancel(product, index){
+      this.form.productAddons.id = null
+      this.form.productAddons.name = []
+      this.form.productAddons.price = []
+      this.form.productAddons.qty = []
+      $('#add-on-modal').modal('hide');
+    },
         isDisabled(product, index){
             this.local_products.forEach((p, ind)=>{
                 if((product.id == p.product_id) &&  (this.form.productAddons.name[ind] != '' || this.form.productAddons.name[ind] == null) ){
@@ -216,17 +263,6 @@ export default {
             })
             
         },
-        // boxCheck(addon, index) {
-        // // this.currentAddon.forEach((addon, index) => {
-        // if (this.form.productAddons.name[index] == null) {
-        //     // alert(this.form.productAddons.name[index])
-        //     this.form.productAddons.qty[index] = addon.qty;
-        //     this.form.productAddons.price[index] = addon.price;
-        // } else {
-        //     this.form.productAddons.qty[index] = null;
-        //     this.form.productAddons.price[index] = null;
-        // }
-        // },
     
         incrementAddOnQty(name) {
         // this.form.productAddons =[]
@@ -234,20 +270,12 @@ export default {
             if (addon.name == name) {
             this.form.productAddons.qty[index] = addon.qty;
             this.form.productAddons.qty[index] = ++addon.qty;
-            this.form.productAddons.price[index] = addon.price;
+            this.form.productAddons.price[index] = this.form.productAddons.qty[index] * addon.price;
             }
         });
         // alert(countit)
         },
-        errorMessage(message) {
-        swal.fire({
-            position: "center",
-            icon: "error",
-            title: message,
-            showConfirmButton: true,
-            timer: 2500,
-        });
-        },
+        
 
         decrementAddOnQty(name) {
         // this.form.productAddons =[]
@@ -263,6 +291,11 @@ export default {
         // alert(countit)
         },
         addAddOn(id, index) {
+          // this.form.productAddons.id[index] = null
+          // this.form.productAddons.name[index] = null
+          // this.form.productAddons.price[index] = null
+          // this.form.productAddons.qty[index] = null
+
         axios
             .post("/api/addon/" + id, this.form)
             .then((response) => {
@@ -274,6 +307,10 @@ export default {
                 this.form.productAddons.name[index] = null;
                 this.form.productAddons.qty[index] = null;
                 this.form.productAddons.price[index] = null;
+
+                // $('#exampleModalLongTitle').modal('hide');
+                    // $('#exampleModalLongTitle').modal('hide');
+
 
                 toast.fire({
                 icon: "success",

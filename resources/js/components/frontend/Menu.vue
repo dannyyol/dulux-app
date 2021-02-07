@@ -160,7 +160,7 @@
 
 
                                     <div class="sidebar_accordion">
-                                        <div id="accordion" class="accordion"  v-for="(category, index) in categories" :key="index" style="">
+                                        <div id="accordion" class="accordion sidebarAccordion"  v-for="(category, index) in categories" :key="index" style="">
                                             <div class="card mb-0 mr-0">
                                         
                                                 <div class="card-header text-dark collapsed bg-white" data-toggle="collapse" :href="'#sidebar_collapse'+index">
@@ -358,9 +358,9 @@
                                           <div
                                             class="col-xs-12 col-md-4 col-lg-3"
                                             v-for="(
-                                              product, index
+                                              product, product_index
                                             ) in local_products"
-                                            :key="index"
+                                            :key="product_index"
                                           >
                                             <div class="product-card-container is-table-row " :class="local_products.length == 1 ? 'single_product_width' : ''">
                                               <section
@@ -439,102 +439,16 @@
                                                         </span>
                                                       </li>
                                                     </ul>
-                                                  </article>
-                                                </a>
-                                                <div
-                                                  class="container product-card-bottom product_btms_lg_row"
-                                                  style=""
-                                                >
-                                                  <div class="row mb-2">
-                                                    <div class="col-sm-6 mb-2">
-                                                      <div class="">
-                                                        <table>
-                                                          <tr>
-                                                            <td>
-                                                              <button
-                                                              type="button"
-                                                                class="mr-1 btn btn-lg btn-danger"
-                                                                style="
-                                                                  width: 30px;
-                                                                  height: 30px;
-                                                                  margin:auto;
-                                                                  text-align:center;
-                                                                "
-                                                                @click.prevent="
-                                                                  decrementProductQty(product.product_id, index)
-                                                                "
-                                                              >
-                                                                -
-                                                              </button>
-                                                            </td>
-                                                            <td class="">
-                                                              <input
-                                                                type="text"
-                                                                name=""
-                                                                id=""
-                                                                class="form-control mr-1"
-                                                                v-model="
-                                                                  product.product_qty
-                                                                "
-                                                                style="
-                                                                  width: 35px;
-                                                                  height: 30px;
-                                                                  padding: 0px !important;
-                                                                  text-align: center;
-                                                                "
-                                                              />
-                                                            </td>
-                                                            <td>
-                                                              <button
-                                                              type="button"
-                                                                class="btn btn-danger"
-                                                                style="
-                                                                  width: 30px;
-                                                                  height: 30px;
-                                                                "
-                                                                @click="incrementProductQty(product.product_id, index)"
-                                                              >
-                                                                +
-                                                              </button>
-                                                              <input type="hidden" name="" v-model="product.product_name">
-                                                              <input type="hidden" name="" v-model="product.product_id">
 
-                                                            </td>
-                                                          </tr>
-                                                        </table>
-                                                      </div>
-                                                    </div>
 
-                                                    <div
-                                                      class="col-sm-6 d-flex justify-content-end"
-                                                    >
-                                                      <div class="form-group menu_page_price mb-n4">
-                                                        <div class="input-group">
-                                                          <div class="input-group-prepend">
-                                                            <span class="input-group-text" id="basic-addon1" style="font-size:14px;border-radius:5px 0px 0px 5px;">$</span>
-                                                          </div>
-                                                          <input
-                                                            class="form-control"
-                                                            type="text"
-                                                            name=""
-                                                            v-model="form3.product.price[index]"
-                                                            disabled
-                                                            style="border-radius:0px 5px 5px 0px;"
-                                                        /> 
-                                                      </div>
 
-                                                        
-                                                      </div>
-                                                    </div>
-                                                    <!-- <form > -->
-
-                                                      <div class="col-sm-6">
-                                                        <div class="">
-                                                          <table>
+                                                    <div class=" product-card__features focus-outline  mt-3" style="">
+                                                      
+                                                      <table class="product_btms_sm_row">
                                                             <tr>
                                                               <td>
-                                                                <button type="button" @click="decrementVarianceQty(index)"
-                                                                  class="mr-1 btn btn-lg btn-danger btn_qty_increment"
+                                                                <button type="button" @click="decrementLitresQty(product_index)"
+                                                                  class="mr-1 btn btn-lg btn_green btn_qty_increment"
                                                                   style="
                                                                     width: 30px;
                                                                     height: 30px;
@@ -563,238 +477,31 @@
                                                               <td>
                                                                 <button
                                                                   type="button"
-                                                                  class="btn btn-danger"
+                                                                  class="btn btn_green"
                                                                   style="
                                                                     width: 30px;
                                                                     height: 30px;
                                                                   "
                                                                   @click="
-                                                                    incrementVarianceQty(
-                                                                      index
+                                                                    incrementLitresQty(
+                                                                      product_index
                                                                     )
                                                                   "
                                                                 >
                                                                   +
                                                                 </button>
                                                               </td>
-                                                            </tr>
-                                                          </table>
-                                                          <input
-                                                                  type="hidden"
-                                                                  name=""
-                                                                  id=""
-                                                                  class="form-control mr-1"
-                                                                  style="
-                                                                    width: 35px;
-                                                                    height: 30px;
-                                                                    padding: 0px !important;
-                                                                    text-align: center;
-                                                                  "
-                                                                  v-model="
-                                                                    product.product_price
-                                                                  "
-                                                                />
-                                                        </div>
-                                                      </div>
-                                                    <!-- </form> -->
-                                                    <div
-                                                      class="col-sm-6 d-flex justify-content-end"
-                                                    >
-                                                        <div class="form-goup" @click = "toggleDrop(index, product.product_id)">
-                                                          <!-- <select  v-if="!toggleDropdown" class="form-control litre_dropdown p-0" style="" @change="addVariation(product.product_id, index)">
-                                                              
-                                                          </select> -->
-
-                                                          <select class="form-control litre_dropdown p-0" style="" @change="addVariation(product.product_id, index, $event)" 
-                                                              >
-                                                              <option selected>
-                                                                Litres
-                                                              </option>
-                                                            <option v-for="(variation, index) in JSON.parse(product.product_variation)" :key="index" >
-                                                              {{ variation.name }}
-                                                            </option>
-                                                          </select>
-
-                                                        </div>
-
-                                                    </div>
-                                                  </div>
-
-                                                  <div class="col-sm-12">
-                                                    <a
-                                                      @click="
-                                                        showAddOn(
-                                                          product.product_id,
-                                                          product
-                                                        )
-                                                      "
-                                                      href=""
-                                                      class="btn mb-2 btn-lg btn-add-cart btn btn-success add_to_cart_button"
-                                                      data-toggle="modal"
-                                                      data-target="#add-on-modal"
-                                                      >Add On
-                                                    </a>
-                                                  </div>
-
-                                                  <div class="col-sm-12 ">
-                                                    <a
-                                                      href=""
-                                                      class="btn btn-success mb-2 btn-add-cart btn-lg add_to_cart_button"
-                                                      data-toggle="modal"
-                                                      data-target="#centralModalSm"
-                                                      @click="showProductDesc(product)"
-                                                      >More info
-                                                    </a>
-                                                  </div>
-
-                                                  <div class="col-sm-12">
-                                                    <a
-                                                      class="btn-add-cart btn btn-success btn-lg add_to_cart_button"
-                                                      data-toggle="modal"
-                                                      :disabled = "disableAddToCart"
-                                                    >
-                                                      <span
-                                                        class="d-block"
-                                                        @click.prevent="
-                                                          addToCart(
-                                                            product,
-                                                            product.product_id,
-                                                            index,
-                                                            $event
-                                                          )
-                                                        "
-                                                        >Add to Cart</span
-                                                      >
-                                                    </a>
-                                                    <div
-                                                      class="buybox"
-                                                      v-if="currentProduct"
-                                                      :style="
-                                                        bgcss(
-                                                          currentProduct.product_image
-                                                        )
-                                                      "
-                                                    > </div>
-                                                    <!-- {{ currentProduct }} -->
-                                                  </div>
-                                                </div>
-
-
-                                                <div class="product_btms_sm_row">
-                                                  <div class="row">
-                                                    <div class="col-sm-6">
-                                                      
-                                                    </div>
-                                                    <div class="col-sm-6 mb-2 d-flex justify-content-end">
-                                                      <table>
-                                                          <tr>
-                                                            <td>
-                                                              <button
-                                                              type="button"
-                                                                class="mr-1 btn btn-lg btn-danger"
-                                                                style="width: 30px;
-                                                                  height: 30px;"
-                                                                @click.prevent="decrementProductQty(product.product_id, index)">
-                                                                -
-                                                              </button>
-                                                            </td>
-                                                            <td class="">
-                                                              <input
-                                                                type="text"
-                                                                name=""
-                                                                id=""
-                                                                class="form-control mr-1"
-                                                                v-model="product.product_qty"
-                                                                style="width: 35px;
-                                                                  height: 30px;
-                                                                  padding: 0px !important;
-                                                                  text-align: center;" />
-                                                            </td>
-                                                            <td>
-                                                              <button
-                                                              type="button"
-                                                                class="btn btn-danger mr-2"
-                                                                style="
-                                                                  width: 30px;
-                                                                  height: 30px;
-                                                                "
-                                                                @click="incrementProductQty(product.product_id, index)"
-                                                              >
-                                                                +
-                                                              </button>
-                                                              <input type="hidden" name="" v-model="product.product_name">
-                                                              <input type="hidden" name="" v-model="product.product_id">
-
-                                                            </td>
-                                                            <td>
-                                                              <div class="input-group">
-                                                                  <div class="input-group-prepend">
-                                                                    <span class="input-group-text" id="basic-addon1" style="font-size:14px;border-radius:5px 0px 0px 5px;">$</span>
-                                                                  </div>
-                                                                  <input
-                                                                    class="form-control"
-                                                                    type="text"
-                                                                    name=""
-                                                                    v-model="form3.product.price[index]"
-                                                                    style="width:76px;border-radius:0px 5px 5px 0px;"
-                                                                /> 
+                                                              <td>
+                                                                <div class="form-goup" @click = "toggleDrop(product_index, product.product_id)">
+                                                                <select class="ml-2 form-control litre_dropdown p-0" style="width:100px;border-radius: 5px !important;" @change="addVariation(product, product_index, $event)">
+                                                                  <option selected disabled>
+                                                                    Litres
+                                                                  </option>
+                                                                  <option v-for="(variation, index) in JSON.parse(product.product_variation)" :key="index" >
+                                                                    {{ variation.name }}
+                                                                  </option>
+                                                                </select>
                                                               </div>
-                                                            </td>
-                                                          </tr>
-                                                        </table>
-                                                    </div>
-                                                  </div>
-                                                  <div class="row">
-                                                    <div class="col-sm-6">
-                                                    </div>
-                                                    <div class="col-sm-6 d-flex justify-content-end">
-                                                      
-                                                      <table>
-                                                            <tr>
-                                                              <td>
-                                                                <button type="button" @click="decrementVarianceQty(index)"
-                                                                  class="mr-1 btn btn-lg btn-danger btn_qty_increment"
-                                                                  style="
-                                                                    width: 30px;
-                                                                    height: 30px;
-                                                                  "
-                                                                >
-                                                                  -
-                                                                </button>
-                                                              </td>
-                                                              <td>
-                                                                <input
-                                                                  type="text"
-                                                                  name=""
-                                                                  id=""
-                                                                  class="form-control mr-1"
-                                                                  style="
-                                                                    width: 35px;
-                                                                    height: 30px;
-                                                                    padding: 0px !important;
-                                                                    text-align: center;
-                                                                  "
-                                                                  v-model="
-                                                                    product.variation_qty
-                                                                  "
-                                                                />
-                                                              </td>
-                                                              <td>
-                                                                <button
-                                                                  type="button"
-                                                                  class="btn btn-danger"
-                                                                  style="
-                                                                    width: 30px;
-                                                                    height: 30px;
-                                                                  "
-                                                                  @click="
-                                                                    incrementVarianceQty(
-                                                                      index
-                                                                    )
-                                                                  "
-                                                                >
-                                                                  +
-                                                                </button>
                                                               </td>
                                                             </tr>
                                                           </table>
@@ -813,40 +520,69 @@
                                                                     product.product_price
                                                                   "
                                                                 />
-                                                          <td>
-                                                              <div class="form-goup" @click = "toggleDrop(index, product.product_id)">
-                                                                <select class="ml-2 form-control litre_dropdown p-0" style="width:100px;border-radius: 5px !important;" @change="addVariation(product.product_id, index, $event)">
-                                                                  <option selected>
-                                                                    Litres
-                                                                  </option>
-                                                                  <option v-for="(variation, index) in JSON.parse(product.product_variation)" :key="index" >
-                                                                    {{ variation.name }}
-                                                                  </option>
-                                                                </select>
-                                                              </div>
-                                                          </td>
+                                                                
+
+
+                                                      <div class="product_btms_sm_row form-group mt-2 menu_page_price" style="width:206px !important">
+                                                        <div class="input-group">
+                                                          <div class="input-group-prepend">
+                                                            <span class="input-group-text" id="basic-addon1" style="font-size:14px;border-radius:5px 0px 0px 5px;">
+                                                              <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+                                                                width="15" height="15"
+                                                                viewBox="0 0 172 172"
+                                                                style=" fill:#000000;">
+                                                                <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,172v-172h172v172z" fill="none"></path><g fill="#666666"><path d="M157.66667,78.83333v-12.54167h-21.5v-44.79167h-17.02083v44.79167h-36.49983l-29.59833,-44.79167h-17.21433v44.79167h-21.5v12.54167h21.5v16.125h-21.5v12.54167h21.5v43h17.02083v-43h37.46733l28.45167,43h17.3935v-43h21.5v-12.54167h-21.5v-16.125zM119.14583,78.83333v16.125h-17.9095l-10.4705,-16.125zM52.85417,50.46767l10.34867,15.824h-10.34867zM52.85417,78.83333h18.5115l10.57083,16.125h-29.08233zM109.49233,107.5h9.6535v14.75617z"></path></g></g></svg>
+                                                            </span>
+                                                          </div>
+                                                          <input
+                                                            class="form-control bg-white"
+                                                            type="text"
+                                                            name=""
+                                                            v-model="form.product.price[product_index]"
+                                                            disabled
+                                                            style="border-radius:0px 5px 5px 0px;"
+                                                        /> 
+                                                      </div>                                                        
+                                                      </div>
+                                                          
+                                                              
+                                                          
                                                     </div>
-                                                    <div class="col-sm-12  d-flex justify-content-center mt-4">
-                                                        <table>
-                                                          <tr>
-                                                            <td class="pr-2">
-                                                              <a class="btn btn-success btn-add-cart" data-toggle="modal" @click="
-                                                          showAddOn(
-                                                            product.product_id,
-                                                            product
-                                                          )
-                                                        "
-                                                        data-target="#add-on-modal">Add On</a>
-                                                            </td>
-                                                            <td class="pr-2">
-                                                              <a class="btn btn-success btn-add-cart" data-toggle="modal" data-target="#centralModalSm" @click="showProductDesc(product)">More Info</a>
-                                                            </td>
-                                                            <td>
-                                                              <a class="btn btn-success btn-add-cart" data-toggle="modal" data-target="#centralModalSm2"  @click.prevent="addToCart(product, product.product_id, index, $event)">Add To Cart</a>
-                                                            </td>
-                                                          </tr>
-                                                        </table>
+                                                    <div>
+
+
+
+
+                                                      <!-- <div class="form-group float-right" style="">
+                                                        <div class="input-group">
+                                                          <div class="input-group-prepend">
+                                                            <span class="input-group-text" id="basic-addon1" style="font-size:14px;border-radius:5px 0px 0px 5px;">
+                                                              <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+                                                                width="15" height="15"
+                                                                viewBox="0 0 172 172"
+                                                                style=" fill:#000000;">
+                                                                <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,172v-172h172v172z" fill="none"></path><g fill="#666666"><path d="M157.66667,78.83333v-12.54167h-21.5v-44.79167h-17.02083v44.79167h-36.49983l-29.59833,-44.79167h-17.21433v44.79167h-21.5v12.54167h21.5v16.125h-21.5v12.54167h21.5v43h17.02083v-43h37.46733l28.45167,43h17.3935v-43h21.5v-12.54167h-21.5v-16.125zM119.14583,78.83333v16.125h-17.9095l-10.4705,-16.125zM52.85417,50.46767l10.34867,15.824h-10.34867zM52.85417,78.83333h18.5115l10.57083,16.125h-29.08233zM109.49233,107.5h9.6535v14.75617z"></path></g></g></svg>
+                                                            </span>
+                                                          </div>
+                                                          <input
+                                                            class="form-control bg-white border-0"
+                                                            type="text"
+                                                            name=""
+                                                            v-model="form3.product.price[index]"
+                                                            disabled
+                                                            style="border-radius:0px 5px 5px 0px;width:80px;text-align:left"
+                                                        /> 
+                                                      </div>                                                        
+                                                      </div> -->
                                                     </div>
+
+
+
+
+                                                    <div class="row">
+                                                    
+                                                    <!-- here -->
+                                                    
                                                     <!-- <div class="col-sm-2 ">
                                                       <button class="btn btn-success">Add On</button>
                                                     </div>
@@ -857,15 +593,221 @@
                                                       <button class="btn btn-success">Add To Cart</button>
                                                     </div> -->
                                                   </div>
+                                                  </article>
+                                                </a>
+                                                <div
+                                                  class="container product-card-bottom d-none d-sm-none d-md-block product_btms_lg_row"
+                                                  style=""
+                                                >
+                                                  <form action="" @submit.prevent="addToCart(product,product.product_id,product_index,$event)" method="post">
+                                                      <div class="row mb-2">
+
+                                                        <div
+                                                          class="col-sm-6"
+                                                        >
+                                                            <div class="form-goup" @click = "toggleDrop(product_index, product.product_id)">
+
+                                                              <select class="form-control litre_dropdown p-0" style="" @change="addVariation(product, product_index, $event)">
+                                                                  <option selected disabled>
+                                                                    Litres
+                                                                  </option>
+                                                                  <option v-for="(variation, index) in JSON.parse(product.product_variation)" :key="index">
+                                                                    {{ variation.name }}
+                                                                  </option>
+                                                              </select>
+
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="col-sm-6 d-flex justify-content-end" style="padding-bottom:1px">
+                                                            <div class="">
+                                                              <table>
+                                                                <tr>
+                                                                  <td>
+                                                                    <button type="button" @click="decrementLitresQty(product_index)"
+                                                                      class="mr-1 btn btn-lg btn_green btn_qty_increment"
+                                                                      style="
+                                                                        width: 30px;
+                                                                        height: 30px;
+                                                                      "
+                                                                    >
+                                                                      -
+                                                                    </button>
+                                                                  </td>
+                                                                  <td>
+                                                                    <input
+                                                                      type="text"
+                                                                      name=""
+                                                                      id=""
+                                                                      class="form-control mr-1"
+                                                                      style="
+                                                                        width: 35px;
+                                                                        height: 30px;
+                                                                        padding: 0px !important;
+                                                                        text-align: center;
+                                                                        border: 1px solid #2fc48d
+                                                                      "
+                                                                      v-model="
+                                                                        product.variation_qty
+                                                                      "
+                                                                      min = 0
+                                                                      />
+                                                                  </td>
+                                                                  <td>
+                                                                    <button
+                                                                      type="button"
+                                                                      class="btn btn_green"
+                                                                      style="
+                                                                        width: 30px;
+                                                                        height: 30px;
+                                                                      "
+                                                                      @click="
+                                                                        incrementLitresQty(product,
+                                                                          product_index, evt
+                                                                        )
+                                                                      "
+                                                                    >
+                                                                      +
+                                                                    </button>
+                                                                  </td>
+                                                                </tr>
+                                                              </table>
+                                                              
+                                                              <input
+                                                                      type="hidden"
+                                                                      name=""
+                                                                      id=""
+                                                                      class="form-control mr-1"
+                                                                      style="
+                                                                        width: 35px;
+                                                                        height: 30px;
+                                                                        padding: 0px !important;
+                                                                        text-align: center;
+                                                                      "
+                                                                      v-model="
+                                                                        product.product_price
+                                                                      "
+                                                                    />
+                                                            </div>
+                                                        </div>
+                                                      </div>
+                                                      <div class="row">
+                                                        <div
+                                                          class="col-sm-12 mb-n3"
+                                                          style="padding-left:10px;padding-right:10px"
+                                                        >
+                                                          <div class="form-group menu_page_price" style="padding-bottom:1px !important">
+                                                            <div class="input-group">
+                                                              <div class="input-group-prepend">
+                                                                <span class="input-group-text" id="basic-addon1" style="font-size:14px;border-radius:5px 0px 0px 5px;">
+                                                                  <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+                                                                    width="15" height="15"
+                                                                    viewBox="0 0 172 172"
+                                                                    style=" fill:#000000;">
+                                                                    <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,172v-172h172v172z" fill="none"></path><g fill="#666666"><path d="M157.66667,78.83333v-12.54167h-21.5v-44.79167h-17.02083v44.79167h-36.49983l-29.59833,-44.79167h-17.21433v44.79167h-21.5v12.54167h21.5v16.125h-21.5v12.54167h21.5v43h17.02083v-43h37.46733l28.45167,43h17.3935v-43h21.5v-12.54167h-21.5v-16.125zM119.14583,78.83333v16.125h-17.9095l-10.4705,-16.125zM52.85417,50.46767l10.34867,15.824h-10.34867zM52.85417,78.83333h18.5115l10.57083,16.125h-29.08233zM109.49233,107.5h9.6535v14.75617z"></path></g></g></svg>
+                                                                </span>
+                                                              </div>
+                                                              <input
+                                                                class="form-control"
+                                                                type="text"
+                                                                name=""
+                                                                v-model="form.product.price[product_index]"
+                                                                disabled
+                                                                style="border-radius:0px 5px 5px 0px;"
+                                                            /> 
+                                                          </div>                                                        
+                                                          </div>
+                                                        </div>
+                                                      </div>
+
+                                                      <div class="col-sm-12">
+                                                        <a
+                                                          @click="
+                                                            showAddOn(product_index,
+                                                              product.product_id,
+                                                              product
+                                                            )
+                                                          "
+                                                          href=""
+                                                          class="btn mb-2 btn-lg  btn-add-cart btn btn-success"
+                                                          data-toggle="modal"
+                                                          data-target="#add-on-modal"
+                                                          >Add On
+                                                        </a>
+                                                      </div>
+
+                                                      <div class="col-sm-12 ">
+                                                        <a
+                                                          href=""
+                                                          class="btn btn-success mb-2 btn-add-cart btn-lg"
+                                                          data-toggle="modal"
+                                                          data-target="#centralModalSm"
+                                                          @click="showProductDesc(product)"
+                                                          >More info
+                                                        </a>
+                                                      </div>
+
+                                                      <div class="col-sm-12">
+                                                        <button type="submit"
+                                                          class="btn-add-cart btn btn-success btn-lg btn_green"
+                                                          :disabled = "disableAddToCart"
+                                                        >
+                                                          <span
+                                                            class="d-block"
+                                                            >Add to Cart</span
+                                                          >
+                                                        </button>
+                                                        <div
+                                                          class="buybox"
+                                                          v-if="currentProduct"
+                                                          :style="
+                                                            bgcss(
+                                                              currentProduct.product_image
+                                                            )
+                                                          "
+                                                        > </div>
+                                                        <!-- {{ currentProduct }} -->
+                                                      </div>
+                                                  </form>
+                                                </div>
 
 
+                                                <div class="product_btms_sm_row">
+                                                  <div class="row">
+                                                    <div class="col-sm-6">
+                                                      
+                                                    </div>
+                                                  </div>
+                                                  <!-- here -->
+
+                                                  <div class="col-sm-12  d-flex justify-content-center mt-4">
+                                                        <table>
+                                                          <tr>
+                                                            <td class="pr-2">
+                                                              <a class="btn btn-success btn-add-cart" data-toggle="modal" @click="
+                                                          showAddOn(product_index,
+                                                            product.product_id,
+                                                            product
+                                                          )
+                                                        "
+                                                        data-target="#add-on-modal">Add On</a>
+                                                            </td>
+                                                            <td class="pr-2">
+                                                              <a class="btn btn-success btn-add-cart" data-toggle="modal" data-target="#centralModalSm" @click="showProductDesc(product)">More Info</a>
+                                                            </td>
+                                                            <td>
+                                                              <a class="btn btn-success btn-add-cart"  @click.prevent="addToCart(product, product.product_id, product_index, $event)">Add To Cart</a>
+                                                            </td>
+                                                          </tr>
+                                                        </table>
+                                                    </div>
                                                 </div>
                                               </section>
                                               
                                               <!-- cart modal -->
                                               <div class="modal animate__animated animate__fadeInBottomRight modal fade" id="centralModalSm2" tabindex="-1"
                                                   role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                                  <div class="modal-dialog w-100 modal-lg" role="document">
+                                                  <div class="modal-dialog modal-dialog-centered" role="document">
                                                       <div class="modal-content modal_content">
                                                           <div class="modal-header border-1 cart_heading">
                                                               <h3 class="modal-title w-100 my-auto" style="padding-top: 7px">
@@ -892,17 +834,17 @@
                                                               <div class="cart_sm-row">
                                                                   <div class="card-container shadow-sm mb-4" v-for="(cart, index) in carts" :key="index">
                                                                       <div class="row">
-                                                                          <div class="col-sm-4 col-4">
+                                                                          <div class="col-sm-4 col-4 ">
                                                                               <div class="sm_cart_image">
                                                                                 <img :src="'/assets/front/img/product/featured/' + cart.feature_image" alt="" srcset="">
                                                                               </div>
                                                                           </div>
-                                                                          <div class="col-sm-8 col-8 float-left">
+                                                                          <div class="col-sm-8 pt-3 col-8 float-left">
                                                                               <div class="sm_cart_title">
                                                                                 {{ cart.product_name }}
                                                                               </div>
                                                                               <p class="" style="font-size:14px !important">${{ cart.product_price }}</p>
-                                                                              <div class="float-right  mt-n5">
+                                                                              <div class="float-right  pr-2  mt-n5">
                                                                                   <h4 style="font-size:18px !important"><b>Total: ${{ cartSubtotal() }}</b></h4>
                                                                               </div>
 
@@ -914,7 +856,7 @@
                                                                                   Addon: {{ addon.name }} | 1 Quantity | {{ addon.qty }} | ${{ addon.price}} 
                                                                               </div>
 
-                                                                              <div class="cart_plux_minus">
+                                                                              <div class="cart_plux_minus pb-3 ">
                                                                                   <table>
                                                                                       <tr>
                                                                                           <td>
@@ -972,7 +914,7 @@
 
                                                               <!-- Large screen  -->
                                                               <!-- cart heading -->
-                                                              <div class="cart_lg_row">
+                                                              <div class="cart_lg_row d-sm-none d-md-block">
                                                                   <div class="row cart_row">
                                                                       <div class="col-md-2 col-sm-2">
                                                                           <div class="cart_heading_title">
@@ -984,21 +926,10 @@
                                                                               Product
                                                                           </div>
                                                                       </div>
-                                                                      <div class="col-md-2 col-sm-3">
-                                                                          <div class="quantity_heading cart_heading_title">
-                                                                              Quantity
-                                                                          </div>
-                                                                      </div>
-
-                                                                      <div class="col-md-2">
-                                                                          <div class="price_heading cart_heading_title">
-                                                                              Price
-                                                                          </div>
-                                                                      </div>
                                                                   </div>
                                                                   <!-- end of cart heading -->
 
-                                                                  <div class="cart_row" v-for="(cart, index) in carts" :key="index">
+                                                                  <div class="cart_row" v-for="(cart, cartIndex) in carts" :key="cart.id">
                                                                     <hr>
                                                                     <div class="row mt-n4 mb-4">
 
@@ -1007,100 +938,216 @@
                                                                           <div class="cart_color" :style="{'background-color':cart.product_colour.colour_code }">
                                                                               <p class="text-white" style="font-size:12px;text-align:center;position:relative !important;top:50% !important;">Crisp Linen 61yy 89/040</p>
                                                                           </div>
+                                                                          <a class="" style="text-decoration:underline;font-size:14px;">Change</a>
                                                                       </div>
 
-                                                                      <div class="col-md-6 col-sm-7 responsive_container">
+                                                                      <div class="col-md-10 col-sm-7 responsive_container">
                                                                           <div class="row" >
-                                                                              <div class="col-md-4 col-sm-6 cart_image ">
-                                                                                  <img :src="'/assets/front/img/product/featured/' + cart.feature_image" alt="" srcset="">
+                                                                              <div class="col-md-2 col-sm-6 cart_image ">
+                                                                                  <img :src="'/assets/front/img/product/featured/' + cart.feature_image" alt="" srcset="" width="100px">
                                                                               </div>
-                                                                              <div class="col-md-8 col-sm-6">
+                                                                              <div class="col-md-10 col-sm-6 mt-1">
                                                                                   <div class="cart_title">
                                                                                       {{ cart.product_name }}
                                                                                   </div>
                                                                                   <div>
-                                                                                      <div id="accordion" class="accordion cart_accordion">
-                                                                                          <div class="addon_container mb-0">
-                                                                                              <div class="addon-header collapsed" data-toggle="collapse"
-                                                                                                  :href="'#collapseOne-'+index">
-                                                                                                  <a class="" style="text-decoration:underline">
-                                                                                                      Litres
-                                                                                                  </a>
-                                                                                              </div>
-                                                                                              <div :id="'collapseOne-'+index" class="card-body collapse"
-                                                                                                  data-parent="#accordion">
-                                                                                                  <table class="table">
-                                                                                                      <thead>
-                                                                                                          <tr>
-                                                                                                              <th>Name</th>
-                                                                                                              <th>Qty</th>
-                                                                                                              <th>Price($)</th>
-                                                                                                          </tr>
-                                                                                                      </thead>
-                                                                                                      <tbody v-for="(variation, index) in cartVariations" :key="index">
-                                                                                                          <tr>
-                                                                                                              <td scope="row">{{ variation.name }}</td>
-                                                                                                              <td>{{ variation.qty }}</td>
-                                                                                                              <td>{{ variation.price }}</td>
-                                                                                                          </tr>
-                                                                                                      </tbody>
-                                                                                                      <tfoot>
-                                                                                                        <tr>
-                                                                                                          <td></td>
-                                                                                                          <td>Total:</td>
-                                                                                                          <td>{{ variationsSubtotal() }}</td>
-                                                                                                        </tr>
-                                                                                                      </tfoot>
-                                                                                                  </table>
-                                                                                              </div>
+                                                                                 
+                                                                                  <!-- <div class="container"> -->
+
+                                                                                  <div id="accordion7401210" role="tablist" aria-multiselectable="false">
+                                                                                    <div class="card card_accordion">
+                                                                                        <div class="card-header addon-header" role="tab" id="heading-1" >
+                                                                                            <a role="button" style="font-weight:500" v-for="(variation, index) in JSON.parse(cart.variations)" :key="index" v-show="index === JSON.parse(cart.variations).length -1 " data-toggle="collapse" class="card-title addon-card-title accordion-plus-toggle collapsed" data-parent="#accordion7401210" :href="'#collapse8122873'+cart.id" aria-expanded="false" aria-controls="collapse8122873">
+                                                                                             <span v-if='index === JSON.parse(cart.variations).length -1 '>Litres</span> 
+                                                                                              <span class="badge btn_green" style="font-size:13px">{{ variation.qty }}</span>
+                                                                                              <span class="badge badge-pill btn_green" v-if='index === JSON.parse(cart.variations).length -1 ' style="position:relative;left:300px;font-size:13px;">
+                                                                                                <svg  xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+                                                                                                  width="14" height="14"
+                                                                                                  viewBox="0 0 172 172"
+                                                                                                  style=" fill:#000000;padding-bottom:2px;">
+                                                                                                  <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,172v-172h172v172z" fill="none"></path><g fill="#fff"><path d="M157.66667,78.83333v-12.54167h-21.5v-44.79167h-17.02083v44.79167h-36.49983l-29.59833,-44.79167h-17.21433v44.79167h-21.5v12.54167h21.5v16.125h-21.5v12.54167h21.5v43h17.02083v-43h37.46733l28.45167,43h17.3935v-43h21.5v-12.54167h-21.5v-16.125zM119.14583,78.83333v16.125h-17.9095l-10.4705,-16.125zM52.85417,50.46767l10.34867,15.824h-10.34867zM52.85417,78.83333h18.5115l10.57083,16.125h-29.08233zM109.49233,107.5h9.6535v14.75617z"></path></g></g></svg>
+                                                                                                5000
+                                                                                              </span>
+                                                                                            </a>
+                                                                                        </div>
+                                                                                        <div :id="'collapse8122873'+cart.id" class="collapse" role="tabpanel" aria-labelledby="heading-1">
+                                                                                          <div class="card-body card_font" style="">
 
 
-                                                                                              <hr>
-                                                                                              <div class="addon-header collapsed" data-toggle="collapse"
-                                                                                                  :href="'#collapseTwo-'+index">
-                                                                                                  <a class="" style="text-decoration:underline">
-                                                                                                      Add On
-                                                                                                  </a>
-                                                                                              </div>
-                                                                                              <div :id="'collapseTwo-'+index" class="card-body collapse"
-                                                                                                  data-parent="#accordion">
-                                                                                                  <table class="table">
-                                                                                                      <thead>
-                                                                                                          <tr>
-                                                                                                              <th>Name</th>
-                                                                                                              <th>Qty</th>
-                                                                                                              <th>Price($)</th>
-                                                                                                          </tr>
-                                                                                                      </thead>
-                                                                                                      <tbody v-for="(addon, index) in cartAddons" :key="index">
-                                                                                                          <tr>
-                                                                                                              <td scope="row">{{ addon.name }}</td>
-                                                                                                              <td>{{ addon.qty }}</td>
-                                                                                                              <td>{{ addon.price}} </td>
-                                                                                                          </tr>
-                                                                                                      </tbody>
-                                                                                                      <tfoot>
-                                                                                                        <tr>
-                                                                                                            <td></td>
-                                                                                                            <td>Total:</td>
-                                                                                                            <td>${{ AddOnSubtotal() }}</td>
-
-                                                                                                          </tr>
-                                                                                                      </tfoot>
-                                                                                                  </table>
-                                                                                              </div>
+                                                                                            <table class="table" v-for="(variation, index) in JSON.parse(cart.variations)" :key="index">
+                                                                                              <!-- {{ variation }} -->
+                                                                                                <thead>
+                                                                                                  <tr class="table_heading">
+                                                                                                    <th style="width:20%">Name</th>
+                                                                                                    <th style="">Quantity</th>
+                                                                                                    <th>Price</th>
+                                                                                                  </tr>
+                                                                                                  </thead>
+                                                                                                  <tbody>
+                                                                                                    <tr>
+                                                                                                      <td> {{ variation.name}} </td>
+                                                                                                      <td class="d-flex">
+                                                                                                        <button type="button"
+                                                                                                        class="mr-1 btn btn-lg btn_green btn_qty_increment" style="
+                                                                                                        width: 30px;
+                                                                                                        height: 30px;
+                                                                                                        " @click="decrementSingleLitreQty(index)">
+                                                                                                            -
+                                                                                                        </button>
+                                                                                                    
+                                                                                                        <input type="text" name="" id="" class="form-control mr-1" v-if="form.cartLitre.cart[cartIndex].qty[index] == null" style="
+                                                                                                        width: 35px;
+                                                                                                        height: 30px;
+                                                                                                        padding: 0px !important;
+                                                                                                        text-align: center;
+                                                                                                        " v-model="variation.qty"/>
 
 
+                                                                                                        <input type="text" name="" id="" class="form-control mr-1" v-else style="
+                                                                                                        width: 35px;
+                                                                                                        height: 30px;
+                                                                                                        padding: 0px !important;
+                                                                                                        text-align: center;
+                                                                                                        " v-model="form.cartLitre.cart[cartIndex].qty[index]"/>
+
+                                                                                                    
+                                                                                                        <button type="button" :value="variation.qty" class="btn btn_green" style="
+                                                                                                        width: 30px;
+                                                                                                        height: 30px;" @click.prevent="incrementSingleLitreQty($event, cartIndex,cart, index, variation)">
+                                                                                                            +
+                                                                                                        </button>
+                                                                                                      </td>
+                                                                                                      <td>
+
+                                                                                                        <div class="form-group menu_page_price" style="padding-bottom: 1px !important;">
+                                                                                                          <div class="input-group">
+                                                                                                            <div class="input-group-prepend">
+                                                                                                              <span id="basic-addon1" class="input-group-text  btn_green" style="font-size: 14px; border-radius: 5px 0px 0px 5px;">
+                                                                                                                <svg data-v-3bd11521="" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="15" height="15" viewBox="0 0 172 172" style="fill: rgb(0, 0, 0);"><g data-v-3bd11521="" fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal;">
+                                                                                                                  <path data-v-3bd11521="" d="M0,172v-172h172v172z" fill="none">
+                                                                                                                  </path><g data-v-3bd11521="" fill="#fff">
+                                                                                                                  <path data-v-3bd11521="" d="M157.66667,78.83333v-12.54167h-21.5v-44.79167h-17.02083v44.79167h-36.49983l-29.59833,-44.79167h-17.21433v44.79167h-21.5v12.54167h21.5v16.125h-21.5v12.54167h21.5v43h17.02083v-43h37.46733l28.45167,43h17.3935v-43h21.5v-12.54167h-21.5v-16.125zM119.14583,78.83333v16.125h-17.9095l-10.4705,-16.125zM52.85417,50.46767l10.34867,15.824h-10.34867zM52.85417,78.83333h18.5115l10.57083,16.125h-29.08233zM109.49233,107.5h9.6535v14.75617z"></path></g></g></svg></span>
+                                                                                                                  </div>
+                                                                                                                  <input v-if="form.cartLitre.cart[cartIndex].price[index] == null"  v-model="variation.price" type="text" name="" class="form-control" style="border-radius: 0px 5px 5px 0px;">
+                                                                                                                  <input v-else v-model ="form.cartLitre.cart[cartIndex].price[index]" type="text" name="" class="form-control" style="border-radius: 0px 5px 5px 0px;">
+                                                                                                                  </div>
+                                                                                                              </div>
+                                                                                                      </td>
+                                                                                                      <td>
+                                                                                                        <button type="button" class="btn btn-danger" style="
+                                                                                                        width: 30px;
+                                                                                                        height: 30px;">
+                                                                                                          <span class="fa fa-trash" aria-hidden="true"></span>
+                                                                                                        </button>
+                                                                                                      </td>
+                                                                                                    </tr>
+                                                                                                    
+                                                                                                  </tbody>
+                                                                                              </table>
+
+                                                                                            
                                                                                           </div>
-                                                                                      </div>
+                                                                                        </div>
 
+
+                                                                                        <div class="card-header addon-header" role="tab" id="heading411391">
+                                                                                          <!-- <h5 class="card-title"> -->
+                                                                                              <a style="font-weight:500" role="button" data-toggle="collapse" class="card-title addon-card-title accordion-plus-toggle collapsed" data-parent="#accordion7401210" :href="'#collapse411391'+cart.id" aria-expanded="false" aria-controls="collapse411391">
+                                                                                                Add On
+                                                                                                <span class="badge btn_green"  style="font-size:13px">3</span>
+                                                                                                <span class="badge badge-pill btn_green" style="position:relative;left:285px;font-size:13px;">
+                                                                                                  <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+                                                                                                    width="14" height="14"
+                                                                                                    viewBox="0 0 172 172"
+                                                                                                    style=" fill:#000000;padding-bottom:2px;">
+                                                                                                    <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,172v-172h172v172z" fill="none"></path><g fill="#fff"><path d="M157.66667,78.83333v-12.54167h-21.5v-44.79167h-17.02083v44.79167h-36.49983l-29.59833,-44.79167h-17.21433v44.79167h-21.5v12.54167h21.5v16.125h-21.5v12.54167h21.5v43h17.02083v-43h37.46733l28.45167,43h17.3935v-43h21.5v-12.54167h-21.5v-16.125zM119.14583,78.83333v16.125h-17.9095l-10.4705,-16.125zM52.85417,50.46767l10.34867,15.824h-10.34867zM52.85417,78.83333h18.5115l10.57083,16.125h-29.08233zM109.49233,107.5h9.6535v14.75617z"></path></g></g></svg>
+                                                                                                  5000
+                                                                                                </span>
+                                                                                                  
+                                                                                              </a>
+
+
+                                                                                        </div>
+                                                                                        <div :id="'collapse411391'+cart.id" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading411391">
+                                                                                          <div class="card-body card_font">
+
+                                                                                              <table class="table" v-for="(addon, index) in JSON.parse(cart.addons)" :key="index">
+                                                                                                <thead>
+                                                                                                  <tr class="table_heading">
+                                                                                                    <th style="width:20%">Name</th>
+                                                                                                    <th>Quantity</th>
+                                                                                                    <th>Price</th>
+                                                                                                  </tr>
+                                                                                                  </thead>
+                                                                                                  <tbody>
+                                                                                                    <tr>
+                                                                                                      <td> {{ addon.name }}</td>
+                                                                                                      <td class="d-flex">
+                                                                                                        <button type="button"
+                                                                                                        class="mr-1 btn btn-lg btn_green btn_qty_increment" style="
+                                                                                                        width: 30px;
+                                                                                                        height: 30px;
+                                                                                                        " @click.prevent="
+                                                                                                            decrementQty(
+                                                                                                              cart.id
+                                                                                                            )
+                                                                                                          ">
+                                                                                                            -
+                                                                                                        </button>
+                                                                                                    
+                                                                                                        <input type="text" name="" id="" class="form-control mr-1" style="
+                                                                                                        width: 35px;
+                                                                                                        height: 30px;
+                                                                                                        padding: 0px !important;
+                                                                                                        text-align: center;
+                                                                                                        " :value="cart.product_quantity"/>
+                                                                                                    
+                                                                                                        <button type="button" class="btn btn_green" style="
+                                                                                                        width: 30px;
+                                                                                                        height: 30px;" @click.prevent="incrementQty(cart.id)">
+                                                                                                            +
+                                                                                                        </button>
+                                                                                                      </td>
+                                                                                                      <td>
+
+                                                                                                        <div class="form-group menu_page_price" style="padding-bottom: 1px !important;">
+                                                                                                          <div class="input-group">
+                                                                                                            <div class="input-group-prepend">
+                                                                                                              <span id="basic-addon1" class="input-group-text  btn_green" style="font-size: 14px; border-radius: 5px 0px 0px 5px;">
+                                                                                                                <svg data-v-3bd11521="" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="15" height="15" viewBox="0 0 172 172" style="fill: rgb(0, 0, 0);"><g data-v-3bd11521="" fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal;">
+                                                                                                                  <path data-v-3bd11521="" d="M0,172v-172h172v172z" fill="none">
+                                                                                                                  </path><g data-v-3bd11521="" fill="#fff">
+                                                                                                                  <path data-v-3bd11521="" d="M157.66667,78.83333v-12.54167h-21.5v-44.79167h-17.02083v44.79167h-36.49983l-29.59833,-44.79167h-17.21433v44.79167h-21.5v12.54167h21.5v16.125h-21.5v12.54167h21.5v43h17.02083v-43h37.46733l28.45167,43h17.3935v-43h21.5v-12.54167h-21.5v-16.125zM119.14583,78.83333v16.125h-17.9095l-10.4705,-16.125zM52.85417,50.46767l10.34867,15.824h-10.34867zM52.85417,78.83333h18.5115l10.57083,16.125h-29.08233zM109.49233,107.5h9.6535v14.75617z"></path></g></g></svg></span>
+                                                                                                                  </div>
+                                                                                                                  <input type="text" name="" class="form-control" style="border-radius: 0px 5px 5px 0px;">
+                                                                                                                  </div>
+                                                                                                              </div>
+                                                                                                      </td>
+                                                                                                      <td>
+                                                                                                        <button type="button" class="btn btn-danger" style="
+                                                                                                        width: 30px;
+                                                                                                        height: 30px;">
+                                                                                                          <span class="fa fa-trash" aria-hidden="true"></span>
+                                                                                                        </button>
+                                                                                                      </td>
+                                                                                                    </tr>
+                                                                                                    
+                                                                                                  </tbody>
+                                                                                              </table>
+                                                                                          </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <!-- <div class="card"> --> 
+                                                                                    <!-- </div> -->
+                                                                                  </div>
+                                                                                  <!-- </div> -->
                                                                                   </div>
                                                                               </div>
                                                                               <!-- Check --> 
                                                                           </div>
                                                                       </div>
 
-                                                                      <div class="col-md-2 col-sm-3">
+                                                                      <!-- <div class="col-md-2 col-sm-3">
                                                                           <div class="cart_plux_minus">
                                                                               <table>
                                                                                   <tr>
@@ -1135,9 +1182,9 @@
                                                                                   </tr>
                                                                               </table>
                                                                           </div>
-                                                                      </div>
+                                                                      </div> -->
 
-                                                                      <div class="col-md-2">
+                                                                      <!-- <div class="col-md-2">
                                                                           <div class="form-group" style="padding-top:20px">
                                                                               <input type="text" class="form-control bg-white" name="" id="" aria-describedby="emailHelpId" :value="'$' +cart.product_price" disabled>
                                                                           </div>
@@ -1150,26 +1197,23 @@
 
                                                                                 <a class="float-right" style="text-decoration:underline">Change</a>
                                                                           </div>
-                                                                      </div>
+                                                                      </div> -->
                                                                       
                                                                     </div>
 
                                                                   </div>
 
-                                                                  <div class="total" style="margin-top:-20px" v-show="carts.length  > 0">
+                                                                  <div class="total" style="margin-top:0px" v-show="carts.length  > 0">
                                                                       <h3 class="float-right" style=""><b> Total: ${{cartSubtotal() }}</b></h3>
                                                                       <input type="hidden" :value="cartSubtotal()">
                                                                   </div>
                                                               </div>
                                                           </div>
-                                                          <div class="modal-footer mt-n4" v-show="carts.length  > 0">
+                                                          <div class="modal-footer" v-show="carts.length  > 0" style="margin-top:0px">
                                                             <button
                                                             type="button"
                                                             class="btn btn-sm custom_button clear-button"
-                                                            @click.prevent="
-                                                              clearCartItems()
-                                                            "
-                                                          >
+                                                             >
                                                             Clear
                                                           </button>
                                                           <router-link
@@ -1256,7 +1300,7 @@
 
       <!-- Add on Modal -->
       <!-- Modal -->
-      <Addon :productDetail="product_name" :currentAddon="currentAddon" :productAddons="productAddons" :currentProduct="currentProduct" :local_products="local_products"/>
+      <Addon :save="save" :errorMessage="errorMessage" :productDetail="product_name" :currentAddon="currentAddon" :productAddons="productAddons" :currentProduct="currentProduct" :local_products="local_products" :form ="form"/>
 
       <!-- edn add on modal -->
     </div>
@@ -1281,6 +1325,10 @@
 
 <style scoped>
 
+.addon-card-title{
+  font-size:14px !important;
+  padding:0px;
+}
 .cart-modal-header {
   background-color: red !important;
 }
@@ -1305,7 +1353,7 @@ const FIVE_SECONDS = 5;
 const ONE_MINUTE = 60;
 
 $(function() {
-        // $('.product-card__content').matchHeight(true);
+  // $('.product-card__content').matchHeight(true);
 
 });
 
@@ -1319,19 +1367,24 @@ export default {
   },
   data() {
     return {
+      isInitialQty:true,
       disableAddToCart:false,
       checkboxes: false,
       loading: true,
       loadFilterProduct: false,
-      form2: {
-        productVariations: {
-          name: [],
-          qty: [],
-          price: [],
+      form:{
+        litres: {
+          id:null,
+          name: null,
+          qty: null,
+          price: null,
         },
-      },
-
-      form3: {
+        productAddons: {
+            id:null,
+            name: [],
+            qty: [],
+            price: [],
+        },
         product: {
           id: null,
           name: null,
@@ -1339,7 +1392,22 @@ export default {
           price: [],
           price2:null
         },
+        cartLitre: {
+          cart:[]
+        },
       },
+
+
+      // form3: {
+      //   cartLitre: {
+      //     id: null,
+      //     name: null,
+      //     qty: null,
+      //     price: [],
+      //     price2:null
+      //   },
+      // },
+
       hideColourbar:true,
       toggleDropdown:false,
       hideTimer:false,
@@ -1355,12 +1423,12 @@ export default {
       categories: [],
       carts: [],
       cartAddons:null,
-      cartVariations:null,
+      cartVariations:[],
       cart_qty: [],
       currentProduct: null,
       currentCart: null,
       currentAddon: null,
-      currentVariance: null,
+      currentVariation: null,
       productAddons:[],
       product_name: {},
       timer: FIVE_SECONDS,
@@ -1378,6 +1446,14 @@ export default {
     },
   },
   methods: {
+
+// new
+    
+    // new
+    addItem(product){
+
+
+    },
     closeColourBar(){
       this.hideColourbar = false
     },
@@ -1392,8 +1468,7 @@ export default {
           this.listCategories();
           this.products.forEach((p, index) => {
             this.productSingle = p
-            this.form3.product.price[index] = p.current_price;
-
+            this.form.product.price[index] = p.current_price;
             this.local_products.push({
               product_id: p.id,
               product_name: p.title,
@@ -1403,10 +1478,13 @@ export default {
               product_summary: p.summary,
 
               product_key_info: p.key_info,
-      
+              product_tips_advice: p.tips_advice,
+              product_documentation: p.documentation,
+              product_product_feature: p.product_feature,
               variation_visible:true,
               variation_qty: 1,
-              product_qty : 0
+              addon_qty: 0,
+              product_qty : 1
             });
           });
 
@@ -1456,10 +1534,8 @@ export default {
     },
 
     filterProduct(cat_id, evt) {
-      // console.log("daniel")
-      // alert(this.$route.params.cId)
+      
       this.loadFilterProduct = true;
-            // alert(this.loadFilterProduct)
 
       if(this.loadFilterProduct == true){
           document.getElementById("overlay").style.display = "block";
@@ -1540,113 +1616,102 @@ export default {
             parseFloat(this.cartAddons[i].price);
         }
         this.AddOnTotal = sum
-              // alert(sum)
 
         return sum;
       }
       return sum
     },
 
-    addVariation(id, index, evt) {
-      this.form2.productVariations.name[index] = evt.target.value
-      axios
-        .post("/api/variation/" + id, this.form2.productVariations)
-        .then((response) => {
-          if (response.data["status_code"] == "AC") {
-            this.errorMessage(response.data["message"]);
-          } else if (response.data["status_code"] == "AB") {
-            this.errorMessage(response.data["message"]);
-          } else {
-            this.form2.productVariations.name[index] = null;
-            this.form2.productVariations.qty[index] = null;
-            this.form2.productVariations.price[index] = null;
+    addVariation(product, index, evt) {
+      this.form.litres.name = evt.target.value
+      this.form.litres.id = product.product_id
+      this.form.litres.price = null
 
-            toast.fire({
-              icon: "success",
-              title: "Cart successfully added",
-            });
-            Fire.$emit("AfterCreated");
-          }
-        })
-        .catch((error) => {
-          swal.fire({
-            position: "center",
-            icon: "error",
-            title: "Error Adding cart",
-            showConfirmButton: true,
-            timer: 2500,
-          });
-        });
+      // this.form.product.price[index] = p.current_price;
+      this.form.litres.price = this.form.litres.price ? this.form.litres.price : parseFloat(this.local_products[index].product_price)
+      this.form.litres.qty = this.form.litres.qty ? this.form.litres.qty :  1
+
+      JSON.parse(product.product_variation).forEach((v, i)=>{
+        if(v.name == evt.target.value){
+        this.form.product.price[index] = parseFloat(v.price * this.form.litres.qty).toFixed(2)
+        this.form.product.price2 = parseFloat(v.price * this.form.litres.qty).toFixed(2)
+          console.log("Litre price", this.form.product.price[index])
+        }
+      })
+      Fire.$emit("AfterCreated");
+
     },
 
-
-    addProduct(id) {
-      axios
-        .post("/api/add-product/" + id, this.form3.product)
-        .then((response) => {
-          if (response.data["status_code"] == "AC") {
-            this.errorMessage(response.data["message"]);
-          } else if (response.data["status_code"] == "AB") {
-            this.errorMessage(response.data["message"]);
-          } else {
-
-            toast.fire({
-              icon: "success",
-              title: "Cart successfully added",
-            });
-            Fire.$emit("AfterCreated");
-          }
-        })
-        .catch((error) => {
-          swal.fire({
-            position: "center",
-            icon: "error",
-            title: "Error Adding cart",
-            showConfirmButton: true,
-            timer: 2500,
-          });
-        });
-    },
-
-
-    decrementProductQty(id, index) {
-      this.form3.product.qty = --this.local_products[index].product_qty;
-      this.form3.product.price[index] = parseFloat(this.local_products[index].product_price) * parseFloat(this.form3.product.qty)
-      this.form3.product.price2 = parseFloat(this.local_products[index].product_price) * parseFloat(this.form3.product.qty)
-      this.addProduct(id)
-      this.productName(index)
-      // this.form2.productVariations.price[index] = this.local_products[index].product_price * this.form2.productVariations.qty[index] ;
-  },
-
-    incrementProductQty(id, index) {
-      this.form3.product.qty = ++this.local_products[index].product_qty;
-      this.form3.product.price[index] = parseFloat(this.local_products[index].product_price) * parseFloat(this.form3.product.qty)
-      this.form3.product.price2 = parseFloat(this.local_products[index].product_price) * parseFloat(this.form3.product.qty)
-
-      this.addProduct(id)
-      this.productName(index)
-      this.productId(index);
-    },
-   
     productName(index){
-      return this.form3.product.name = this.local_products[index].product_name;
+      return this.form.product.name = this.local_products[index].product_name;
     },
 
     productId(index){
-      return this.form3.product.id = this.local_products[index].product_id;
+      return this.form.product.id = this.local_products[index].product_id;
     },
 
-    decrementVarianceQty(index) {
-      this.form2.productVariations.qty[index] = --this.local_products[index].variation_qty;
-      this.form2.productVariations.price[index] = this.local_products[index].product_price * this.form2.productVariations.qty[index] ;
+  decrementSingleLitreQty(index) {
+      // this.form.litres.qty = this.local_products[index].variation_qty === 1 ? 1 : --this.local_products[index].variation_qty;
 
+      this.isInitialQty =false
+      
+      this.currentVariation.forEach((v, i)=>{
+      this.form.cartLitre.qty[index] = v.qty;
+        this.form.cartLitre.qty[index] = v.qty--;
+        Fire.$emit("AfterCreated");
+      })
+      // this.form.litres.price = this.local_products[index].product_price * this.form.litres.qty;
+      // this.form.product.price[index] = parseFloat(this.local_products[index].product_price * this.form.litres.qty).toFixed(2)
+      // this.form.product.price2 = parseFloat(this.local_products[index].product_price * this.form.litres.qty).toFixed(2)
   },
+    incrementSingleLitreQty(evt, cartIndex, cart, index, variation) {
+      // console.log('check', this.currentVariation)
+      
+      console.log("te", this.cartVariations)
+        // this.currentCart.forEach((cart, ind)=>{
+        this.carts.forEach((cart, index)=>{
+          JSON.parse(cart.variations).forEach(( v , i)=>{
+            console.log('check', cartIndex)
+            // this.form.cartLitre.cart[cartIndex].qty[i] = evt.target.value;
+            if(v.name == variation.name && cartIndex == index){
+              this.form.cartLitre.cart[cartIndex].qty[i] = ++evt.target.value
+              
+              Fire.$emit("AfterCreated");
+            }
+          })
+        })
 
-    incrementVarianceQty(index) {
-      this.form2.productVariations.qty[index] = ++this.local_products[index].variation_qty;
-      this.form2.productVariations.price[index] = this.local_products[index].product_price * this.form2.productVariations.qty[index]
+      
 
+      // this.form.litres.price= this.local_products[index].product_price * this.form.litres.qty
+      // this.form.product.price[index] = parseFloat(this.local_products[index].product_price * this.form.litres.qty).toFixed(2)
+      // this.form.product.price2 = parseFloat(this.local_products[index].product_price * this.form.litres.qty).toFixed(2)
     },
+
+    decrementLitresQty(index) {
+      this.form.litres.qty = this.local_products[index].variation_qty === 1 ? 1 : --this.local_products[index].variation_qty;
+      this.form.litres.price = this.local_products[index].product_price * this.form.litres.qty;
+
+      this.form.product.price[index] = parseFloat(this.local_products[index].product_price * this.form.litres.qty).toFixed(2)
+      this.form.product.price2 = parseFloat(this.local_products[index].product_price * this.form.litres.qty).toFixed(2)
+  },
+    incrementLitresQty(product, index) {
+      this.form.litres.qty= ++this.local_products[index].variation_qty;
+      this.form.litres.price= this.local_products[index].product_price * this.form.litres.qty
+
+      // this.form.product.price[index] = parseFloat(this.local_products[index].product_price * this.form.litres.qty).toFixed(2)
+      // this.form.product.price2 = parseFloat(this.local_products[index].product_price * this.form.litres.qty).toFixed(2)
+
+      JSON.parse(product.product_variation).forEach((v, i)=>{
+        if(v.name == evt.target.value){
+        this.form.product.price[index] = parseFloat(v.price * this.form.litres.qty).toFixed(2)
+        this.form.product.price2 = parseFloat(v.price * this.form.litres.qty).toFixed(2)
+
+          console.log("Litre price", this.form.product.price[index])
+        }
+      })
+    },
+
 
     productVariation(product) {
       axios
@@ -1661,8 +1726,13 @@ export default {
     cartItemQty(id) {
       axios
         .get("/api/cart/" + id)
-        .then(({ data }) => (this.cart_qty = data))
+        .then((response)=>{
+          this.cart_qty = response.data
+          this.currentVariation = JSON.parse(response.data.variations)
+          console.log('inxide', this.currentVariation)
+        })
         .catch((error) => {});
+
     },
     modalClose() {
       this.modalShow == false;
@@ -1670,8 +1740,17 @@ export default {
     startTimer() {
       this.timer = FIVE_SECONDS;
     },
+
+      save(product){
+        this.form.productAddons.id = product.id
+        $('#add-on-modal').modal('hide');
+      },
     
-    showAddOn(id, product) {
+    showAddOn(product_index,id, product) {
+      this.form.productAddons.id = null
+      this.form.productAddons.name = []
+      this.form.productAddons.price = []
+      this.form.productAddons.qty = []
       axios
         .get("/api/product/" + id)
         // .then(({ data }) => (this.productAddons = JSON.parse(data.addons)))
@@ -1682,6 +1761,7 @@ export default {
 
           this.currentAddon.forEach((addon, index) => {
             // if(addon.name==name){
+            // this.form.productAddons.id[product_index] = id
             this.form.productAddons.qty[index] = null;
             this.form.productAddons.name[index] = null;
             this.form.productAddons.price[index] = null;
@@ -1819,25 +1899,53 @@ export default {
       return JSON.stringify(carts) === JSON.stringify({});
     },
     
+    errorMessage(message) {
+        swal.fire({
+            position: "center",
+            icon: "error",
+            title: message,
+            showConfirmButton: true,
+            timer: 2500,
+        });
+      },
     addToCart(product, id,index, evt) {
       // alert(product.feature_image)
       
       this.disableAddToCart = true
-      setTimeout(function(){
-            $('#centralModalSm2').modal('show');
-        }, 2500);
+
+      // console.log("Check", product.variation_qty);
+      // var variations = JSON.parse(product.product_variation);
+      // variations.forEach((v, i)=>{
+      //   this.form.cartLitre.qty[i] = v.qty
+      // })
+
       axios
-        .post("/api/add-to-cart/" + id)
+        .post("/api/add-to-cart/" + id, this.form)
         .then((response) => {
+          if(response.data["status_code"] == "AC"){
+            this.errorMessage(response.data["message"]);
+            this.disableAddToCart = false
+            return;
+          }
+          $('#centralModalSm2').modal('show');
+            setTimeout(function(){
+          }, 2500);
           console.log(response);
           this.loading = false;
           this.cartItemQty(id);
           this.cartAddons
           this.cartVariations
-          this.incrementProductQty(id, index)
+          // this.incrementProductQty(id, index)
           // animation
           this.currentProduct = product;
           this.disableAddToCart = false
+
+
+          this.form.cartLitre.cart.push({
+            name:[],
+            qty:[],
+            price:[]
+          })
 
           this.$nextTick(() => {
             TweenMax.from(".buybox", 1.5, {
@@ -1865,13 +1973,17 @@ export default {
         .get("/api/cart-lists/")
         .then((response) => {
           this.carts = response.data;
-          this.carts.forEach((cart_addon)=>{
+          this.carts.forEach((cart_addon, index)=>{
             this.cartAddons = JSON.parse(cart_addon.addons);
           })
 
-          this.carts.forEach((variation_addon)=>{
-            this.cartVariations = JSON.parse(variation_addon.variations);
-          })
+          // this.carts.forEach((variation)=>{
+            //  this.carts.forEach((v, i)=>{
+            //   this.cartVariations = JSON.parse(v.variations);
+
+            // })
+            
+          // })
           // JSON.parse(response.data.addons);
           this.currentCart = response.data;
         })
@@ -1954,12 +2066,12 @@ export default {
       }, 3000)
    
     // count down modal
-    setInterval(() => {
-        this.timer -= 1
-        if(this.timer == 0){
-            $("#centralModalSm2").modal('hide');
-        }
-        }, 1500)
+    // setInterval(() => {
+        // this.timer -= 1
+        // if(this.timer == 0){
+        //     $("#centralModalSm2").modal('hide');
+        // }
+        // }, 1500)
 
         if(this.loading == true){
           document.getElementById("overlay").style.display = "block";
@@ -1973,28 +2085,71 @@ export default {
 
 
 <style>
-.accordion .card-header:after {
+.table_heading th{
+  font-weight:500;
+  font-style: normal;
+}
+.card_font{
+  font-size:14px;
+}
+.card_accordion{
+  /* border-bottom:none !important */
+}
+.addon-header:not(.collapsed) {
+  border-top:none;
+}
+/* plus glyph for showing collapsible panels */
+.card-header .accordion-plus-toggle:before {
+   font-family: FontAwesome;
+   content: "\f068";
+   float: right;
+   color: silver;
+}
+
+.card-header .accordion-plus-toggle.collapsed:before {
+   content: "\f067";
+   color: silver;
+}
+
+/* arrow glyph for showing collapsible panels */
+.card-header .accordion-arrow-toggle:before {
+   font-family: FontAwesome;
+   content: "\f078";
+   float: right;
+   color: silver;
+}
+
+.card-header .accordion-arrow-toggle.collapsed:before {
+   content: "\f054";
+   color: silver;
+}
+
+/* sets the link to the width of the entire panel title */
+.card-title > a {
+   display: block;
+}
+
+
+
+.table thead th{
+  border-bottom: none !important;
+}
+
+.addon-header{
+  height:35px !important;
+  padding: 0.55rem 1rem .3rem 1rem;
+}
+
+.sidebarAccordion .card-header:after {
     font-family: 'FontAwesome';  
     content: "\f068";
     padding-top:5px;
     float: right; 
 }
-.accordion .card-header.collapsed:after {
-    /* symbol for "collapsed" panels */
+.sidebarAccordion .card-header.collapsed:after {
     padding-top:5px;
     content: "\f067"; 
 }
-
-.cart_accordion .addon-header:after {
-        font-family: 'FontAwesome';
-        content: "\f068";
-        float: right;
-    }
-
-    .cart_accordion .addon-header.collapsed:after {
-        /* symbol for "collapsed" panels */
-        content: "\f067";
-    }
     
 .swal2-container {
   zoom: 1.2 !important;
@@ -2006,52 +2161,6 @@ export default {
 .hidden {
   display: none;
 }
-/* Simple Accordion jQuery */
-.jquery_accordion_item {
-  display: inline-block;
-  width: 100%;
-  border-bottom: 1px solid #ccc;
-}
-.jquery_accordion_title {
-  font-size: 14px;
-  color: #333;
-  display: block;
-  line-height: 140%;
-  padding: 15px 40px 15px 20px;
-  font-weight: bold;
-  position: relative;
-  cursor: pointer;
-}
-.jquery_accordion_title:after {
-  content: "";
-  width: 0;
-  height: 0;
-  display: inline-block;
-  position: absolute;
-  right: 15px;
-  top: 50%;
-  border: 6px solid transparent;
-  border-top-color: #333;
-  transition: border 400ms, margin 400ms;
-  margin-top: -3px; /* half of border value */
-}
-.jquery_accordion_item.active .jquery_accordion_title:after {
-  border-color: transparent;
-  border-bottom-color: #333;
-  margin-top: -9px; /* fixing arrow position */
-}
-.jquery_accordion_content.not-expanded  {
-	padding: 8px;
-	display: none;
-	color: rgb(173, 153, 153);
-}
-.jquery_accordion_content > *:first-child {
-	margin-top: 0;
-} 
-.hidden {
-  /* display: none; */
-}
-
 .bs-example {
   margin: 20px !important;
 }
@@ -2060,41 +2169,4 @@ export default {
 }
 
 
-.tabs-left {
-  border-bottom: none;
-  border-right: 1px solid #ddd;
-}
-
-.tabs-left>li {
-  float: none;
- margin:0px;
-  
-}
-
-.tabs-left>li.active>a,
-.tabs-left>li.active>a:hover,
-.tabs-left>li.active>a:focus {
-  border-bottom-color: #ddd;
-  border-right-color: transparent;
-  background:#f90;
-  border:none;
-  border-radius:0px;
-  margin:0px;
-}
-.nav-tabs>li>a:hover {
-    /* margin-right: 2px; */
-    line-height: 1.42857143;
-    border: 1px solid transparent;
-    /* border-radius: 4px 4px 0 0; */
-}
-.tabs-left>li.active>a::after{content: "";
-    position: absolute;
-    top: 10px;
-    right: -10px;
-    border-top: 10px solid transparent;
-  border-bottom: 10px solid transparent;
-  
-  border-left: 10px solid #f90;
-    display: block;
-    width: 0;}
 </style>

@@ -18,6 +18,8 @@
     <link type="text/css" rel="stylesheet" href="{{ asset("css/style_7.css") }}" media="all">
     <link type="text/css" rel="stylesheet" href="{{ asset("css/style_8.css")}}" media="all">
     <link type="text/css" rel="stylesheet" href="{{ asset("css/style_9.css")}}" media="all">
+        <link type="text/css" rel="stylesheet" href="{{ asset("css/jQueryTab.css")}}" media="all">
+
 </head>
 
 <body>
@@ -29,12 +31,16 @@
 
     <script src="{{asset('js/app.js')}}"></script>
 
-    <script src="{{asset('assets/front/js/cart.js')}}"></script>
+
+    {{-- <script src="{{asset('assets/front/js/jQueryTab.js')}}"></script> --}}
 
     <script src="/js/main.js"></script>
-    <script src="/js/jquery.mCustomScrollbar.concat.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.matchHeight/0.7.0/jquery.matchHeight-min.js"><script>
+    {{-- <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.matchHeight/0.7.0/jquery.matchHeight-min.js"><script> --}}
 
+        <script>
+
+
+        </script>
 </body>
 
 </html>
