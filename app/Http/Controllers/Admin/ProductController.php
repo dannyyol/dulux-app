@@ -181,8 +181,8 @@ class ProductController extends Controller
                 if (!empty($aname)) {
                     $addons[$i]['name'] = $aname;
                     $aprice = $request->addon_prices[$key];
-                    $aqty = 0;
-                    $addons[$i]['qty'] = !empty($aqty) ? (float)$aqty : 0;
+                    $aqty = 1;
+                    $addons[$i]['qty'] = !empty($aqty) ? (float)$aqty : 1;
                     $addons[$i]['price'] = !empty($aprice) ? (float)$aprice : 0;
                     $i++;
                 }
@@ -350,8 +350,8 @@ class ProductController extends Controller
                 if (!empty($aname)) {
                     $addons[$i]['name'] = $aname;
                     $aprice = $request->addon_prices[$key];
-                    $aqty = 0;
-                    $addons[$i]['qty'] = !empty($aqty) ? (float)$aqty : 0;
+                    $aqty = 1;
+                    $addons[$i]['qty'] = !empty($aqty) ? (float)$aqty : 1;
                     $addons[$i]['price'] = !empty($aprice) ? (float)$aprice : 0;
                     $i++;
                     // $addons[$i]['name'] = $aname;

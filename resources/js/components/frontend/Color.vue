@@ -648,7 +648,7 @@ export default {
         } 
       this.filterColour = evt.target.value
         axios
-        .post("/api/filter-product-colour/"+this.palette_id +"/"+ pcat_id, this.filterColour)
+        .post("/api/filter-product-colour/"+this.palette_id +"/"+ pcat_id, evt.target.value)
         .then((response) => {
               this.ccategories = response.data
               this.loadFilterColour =false
@@ -716,6 +716,7 @@ export default {
       }
 
       this.clicked = []
+      this.filterColour = null
       this.palette_id = this.cpalette.id
       this.white.id = this.palette_id
 

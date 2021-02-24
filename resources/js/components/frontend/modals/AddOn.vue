@@ -44,7 +44,6 @@
                                 class="form-check-input"
                                 type="checkbox"
                                 :true-value="addon.name"
-                                :false-value="null"
                                 :id="'defaultCheck1' + index"
                                 v-model="form.productAddons.name[index]"
                               />
@@ -196,7 +195,7 @@
                   Close
                 </button>
                 <button type="button" class="btn btn-lg btn_save" @click="save(productDetail)">
-                  Save Changes
+                  Add
                 </button>
               </div>
             <!-- </form> -->
@@ -244,8 +243,16 @@ export default {
         }
     },
     methods:{
+      // checkButon(index, addon){
+      //   if(this.form.productAddons.name[index] !=false){
+      //     alert(this.form.productAddons.name[index] )
+      //     this.form.productAddons.qty[index] = 0
+      //     this.form.productAddons.price[index] = addon.price
+
+      //   }
+      // },
     cancel(product, index){
-      this.form.productAddons.id = null
+      this.form.productAddons.id = []
       this.form.productAddons.name = []
       this.form.productAddons.price = []
       this.form.productAddons.qty = []
@@ -268,9 +275,11 @@ export default {
         // this.form.productAddons =[]
         this.currentAddon.forEach((addon, index) => {
             if (addon.name == name) {
-            this.form.productAddons.qty[index] = addon.qty;
-            this.form.productAddons.qty[index] = ++addon.qty;
-            this.form.productAddons.price[index] = this.form.productAddons.qty[index] * addon.price;
+              this.form.productAddons.id[index] = index
+              this.form.productAddons.qty[index] = addon.qty;
+              this.form.productAddons.qty[index] = ++addon.qty;
+              this.form.productAddons.oldPrice[index] = addon.price
+              this.form.productAddons.price[index] = parseFloat(this.form.productAddons.qty[index] * addon.price).toFixed(2);
             }
         });
         // alert(countit)
@@ -279,12 +288,17 @@ export default {
 
         decrementAddOnQty(name) {
         // this.form.productAddons =[]
+
         this.currentAddon.forEach((addon, index) => {
             if (addon.name == name) {
             this.form.productAddons.qty[index] = addon.qty;
             if (this.form.productAddons.qty[index] > 0) {
                 this.form.productAddons.qty[index] = --addon.qty;
-                this.form.productAddons.price[index] = addon.price;
+                // this.form.productAddons.price[index] = addon.price;
+                this.form.productAddons.price[index] = parseFloat(this.form.productAddons.qty[index] * addon.price).toFixed(2);
+                this.form.productAddons.oldPrice[index] = addon.price
+                
+
             }
             }
         });
@@ -304,9 +318,9 @@ export default {
             } else if (response.data["status_code"] == "AB") {
                 this.errorMessage(response.data["message"]);
             } else {
-                this.form.productAddons.name[index] = null;
-                this.form.productAddons.qty[index] = null;
-                this.form.productAddons.price[index] = null;
+                this.form.productAddons.name = [];
+                this.form.productAddons.qty = [];
+                this.form.productAddons.price = [];
 
                 // $('#exampleModalLongTitle').modal('hide');
                     // $('#exampleModalLongTitle').modal('hide');

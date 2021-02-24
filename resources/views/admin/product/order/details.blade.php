@@ -310,7 +310,7 @@
                       <th>{{__('Product Title')}}</th>
                       <th>{{__('Price')}}</th>
                       <th>{{__('Quantity')}}</th>
-                      {{-- <th>{{__('Total')}}</th> --}}
+                      <th>{{__('Total')}}</th>
                    </tr>
                 </thead>
                 <tbody>
@@ -325,9 +325,16 @@
                               $variations = json_decode($item->variations, true);
                           @endphp
                           @if (!empty($variations))
-                            <strong class="mr-3">Variation:</strong> {{$variations[0]['name']}} | {{$variations[0]['qty'] }} Qty
-                            <br>
+                            <strong class="mr-3">Variation's:</strong>
+
+                            @foreach ($variations as $variation)
+                                    {{$variation['name']}} | {{$variation['qty'] }} Qty
+                                @if (!$loop->last)
+                                ,
+                                @endif
+                            @endforeach
                           @endif
+                          <br>
                           @php
                               $addons = json_decode($item->addons, true);
                           @endphp
@@ -362,11 +369,21 @@
                             {{$order->currency_code_position == 'right' ? $order->currency_code : ''}}
                         @endif
                       </td>
-                      <td>{{$item->qty}}</td>
+
+                       <?php
+                        $sum = 0;
+                            foreach ($variations as $key=>$variation){
+                                $sum += $variation['qty'];
+                            }
+                        ?>
+                      <td>{{$sum}}</td>
+                      <td>{{ $order->total }}</td>
                    </tr>
+
                    
                    @endforeach
                    <tr>
+                       <td></td>
                        <td></td>
                        <td></td>
                        <td></td>

@@ -55,29 +55,41 @@ class ProductcolourController extends Controller
                 $data['ccategories'][$key]['product_colours'] = $ccat->productColours()->where(['status'=>1, 'colour_stages'=> 1,'status'=>1,
                 'is_popular'=> 1])->get();
             }
-        }
-
-
-        
+        }        
         return response()->json($data);
     }
 
+
+    public function OLDcountPopular(Request $request, $id){
+    $q = $request->all();
+    // dd($q['subId']);
+    $pcolourCount = DB::table('colour_palettes AS cp')
+    ->join('pcategory_colour_palette AS pcp', 'pcp.colour_palette_id', '=', 'cp.id')
+    ->join('pcategories AS pct', 'pct.id', '=', 'pcp.pcategory_id')
+    ->join('product_colours AS pc', 'pc.category_id', '=', 'pct.id')
+
+    // ->join('product_colour_subcategory as pcs', 'pcs.product_colour_id', '=', 'pc.id')
+    // ->join('subcategories as sb', 'sb.id', '=', 'pcs.subcategory_id')
+
+    // ->where(['cp.id'=> $id, 'pc.is_popular'=>1, 'pc.status'=>1])
+    ->where(['cp.id'=> $id, 'pc.is_popular'=>1, 'pc.status'=>1])
+    ->select('pc.*')->count();
+    // dd($pcolourCount);
+
+    return response()->json($pcolourCount);
+    }
+
     public function countPopular(Request $request, $id){
+
         $q = $request->all();
-        // dd($q['subId']);
+        // dd($q);
+      
         $pcolourCount = DB::table('colour_palettes AS cp')
-        ->join('pcategory_colour_palette AS pcp', 'pcp.colour_palette_id', '=', 'cp.id')
-        ->join('pcategories AS pct', 'pct.id', '=', 'pcp.pcategory_id')
-        ->join('product_colours AS pc', 'pc.category_id', '=', 'pct.id')
-
-        // ->join('product_colour_subcategory as pcs', 'pcs.product_colour_id', '=', 'pc.id')
-        // ->join('subcategories as sb', 'sb.id', '=', 'pcs.subcategory_id')
-
-        // ->where(['cp.id'=> $id, 'pc.is_popular'=>1, 'pc.status'=>1])
-        ->where(['cp.id'=> $id, 'pc.is_popular'=>1, 'pc.status'=>1])
-        ->select('pc.*')->count();
-                // dd($pcolourCount);
-
+            ->join('colour_categories AS cc', 'cc.colour_palette_id', '=', 'cp.id')
+            ->join('product_colours AS pc', 'pc.colour_category_id', '=', 'cc.id')
+            ->where(['cp.id'=> $id, 'pc.is_popular'=>1, 'pc.status'=>1,])
+            ->select('pc.*', 'cc.*')->count();
+        
         return response()->json($pcolourCount);
     }
 

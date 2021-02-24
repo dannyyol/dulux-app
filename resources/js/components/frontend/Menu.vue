@@ -18,14 +18,7 @@
                   role="navigation"
                 >
 
-                
-                  <form
-                    class="form-counter focus-outline"
-                    action="https://www.dulux.com.sg/en/products/all?id=2239&amp;color-name=Crisp%20Linen%2061yy%2089/040&amp;color-rgb=F4F0E4&amp;fl-stickey=1&amp;color-id=1190594&amp;cccid="
-                    method="post"
-                    id="flourish-product-listing-filters-solr-form"
-                    accept-charset="UTF-8"
-                  >
+
                     <div class="focus-outline">
                       <button
                         style="display: none"
@@ -151,12 +144,6 @@
                                 </div>
                                 <div class="clp-wrap collapse-wrap general">
                                   <div>
-                    
-                                     
-
-      
-
-
 
 
                                     <div class="sidebar_accordion">
@@ -447,15 +434,31 @@
                                                       <table class="product_btms_sm_row">
                                                             <tr>
                                                               <td>
-                                                                <button type="button" @click="decrementLitresQty(product_index)"
-                                                                  class="mr-1 btn btn-lg btn_green btn_qty_increment"
-                                                                  style="
-                                                                    width: 30px;
-                                                                    height: 30px;
-                                                                  "
-                                                                >
-                                                                  -
-                                                                </button>
+                                                                <div class="form-goup" @click = "toggleDrop(product_index, product.product_id)">
+                                                                <select class="form-control litre_dropdown p-0" style="width:100px;border-radius: 5px !important;" @change="addVariation(product, product_index, $event)">
+                                                                  <option selected disabled>
+                                                                    Litres
+                                                                  </option>
+                                                                  <option v-for="(variation, index) in JSON.parse(product.product_variation)" :key="index" >
+                                                                    {{ variation.name }}
+                                                                  </option>
+                                                                </select>
+
+
+                                                                
+                                                              </div>
+                                                              </td>
+                                                              <td>
+                                                                
+                                                                <button type="button" @click="decrementLitresQty(product,product_index)"
+                                                                      class="ml-3 btn btn-lg btn_green btn_qty_increment"
+                                                                      style="
+                                                                        width: 30px;
+                                                                        height: 30px;
+                                                                      "
+                                                                    >
+                                                                      -
+                                                                    </button>
                                                               </td>
                                                               <td>
                                                                 <input
@@ -469,9 +472,7 @@
                                                                     padding: 0px !important;
                                                                     text-align: center;
                                                                   "
-                                                                  v-model="
-                                                                    product.variation_qty
-                                                                  "
+                                                                  v-model="product.variation_qty"
                                                                 />
                                                               </td>
                                                               <td>
@@ -482,44 +483,31 @@
                                                                     width: 30px;
                                                                     height: 30px;
                                                                   "
-                                                                  @click="
-                                                                    incrementLitresQty(
-                                                                      product_index
-                                                                    )
-                                                                  "
+                                                                  @click="incrementLitresQty(product,product_index)"
                                                                 >
                                                                   +
                                                                 </button>
+
+                                                                
                                                               </td>
-                                                              <td>
-                                                                <div class="form-goup" @click = "toggleDrop(product_index, product.product_id)">
-                                                                <select class="ml-2 form-control litre_dropdown p-0" style="width:100px;border-radius: 5px !important;" @change="addVariation(product, product_index, $event)">
-                                                                  <option selected disabled>
-                                                                    Litres
-                                                                  </option>
-                                                                  <option v-for="(variation, index) in JSON.parse(product.product_variation)" :key="index" >
-                                                                    {{ variation.name }}
-                                                                  </option>
-                                                                </select>
-                                                              </div>
-                                                              </td>
+                                                              
                                                             </tr>
                                                           </table>
                                                           <input
-                                                            type="hidden"
-                                                                  name=""
-                                                                  id=""
-                                                                  class="form-control mr-1"
-                                                                  style="
-                                                                    width: 35px;
-                                                                    height: 30px;
-                                                                    padding: 0px !important;
-                                                                    text-align: center;
-                                                                  "
-                                                                  v-model="
-                                                                    product.product_price
-                                                                  "
-                                                                />
+                                                                      type="hidden"
+                                                                      name=""
+                                                                      id=""
+                                                                      class="form-control mr-1"
+                                                                      style="
+                                                                        width: 35px;
+                                                                        height: 30px;
+                                                                        padding: 0px !important;
+                                                                        text-align: center;
+                                                                      "
+                                                                      v-model="
+                                                                        product.product_price
+                                                                      "
+                                                                    />
                                                                 
 
 
@@ -551,29 +539,8 @@
                                                     <div>
 
 
-
-
-                                                      <!-- <div class="form-group float-right" style="">
-                                                        <div class="input-group">
-                                                          <div class="input-group-prepend">
-                                                            <span class="input-group-text" id="basic-addon1" style="font-size:14px;border-radius:5px 0px 0px 5px;">
-                                                              <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
-                                                                width="15" height="15"
-                                                                viewBox="0 0 172 172"
-                                                                style=" fill:#000000;">
-                                                                <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,172v-172h172v172z" fill="none"></path><g fill="#666666"><path d="M157.66667,78.83333v-12.54167h-21.5v-44.79167h-17.02083v44.79167h-36.49983l-29.59833,-44.79167h-17.21433v44.79167h-21.5v12.54167h21.5v16.125h-21.5v12.54167h21.5v43h17.02083v-43h37.46733l28.45167,43h17.3935v-43h21.5v-12.54167h-21.5v-16.125zM119.14583,78.83333v16.125h-17.9095l-10.4705,-16.125zM52.85417,50.46767l10.34867,15.824h-10.34867zM52.85417,78.83333h18.5115l10.57083,16.125h-29.08233zM109.49233,107.5h9.6535v14.75617z"></path></g></g></svg>
-                                                            </span>
-                                                          </div>
-                                                          <input
-                                                            class="form-control bg-white border-0"
-                                                            type="text"
-                                                            name=""
-                                                            v-model="form3.product.price[index]"
-                                                            disabled
-                                                            style="border-radius:0px 5px 5px 0px;width:80px;text-align:left"
-                                                        /> 
-                                                      </div>                                                        
-                                                      </div> -->
+  
+                                                    
                                                     </div>
 
 
@@ -624,7 +591,7 @@
                                                               <table>
                                                                 <tr>
                                                                   <td>
-                                                                    <button type="button" @click="decrementLitresQty(product_index)"
+                                                                    <button type="button" @click="decrementLitresQty(product,product_index)"
                                                                       class="mr-1 btn btn-lg btn_green btn_qty_increment"
                                                                       style="
                                                                         width: 30px;
@@ -663,7 +630,7 @@
                                                                       "
                                                                       @click="
                                                                         incrementLitresQty(product,
-                                                                          product_index, evt
+                                                                          product_index
                                                                         )
                                                                       "
                                                                     >
@@ -688,6 +655,7 @@
                                                                         product.product_price
                                                                       "
                                                                     />
+
                                                             </div>
                                                         </div>
                                                       </div>
@@ -796,7 +764,7 @@
                                                               <a class="btn btn-success btn-add-cart" data-toggle="modal" data-target="#centralModalSm" @click="showProductDesc(product)">More Info</a>
                                                             </td>
                                                             <td>
-                                                              <a class="btn btn-success btn-add-cart"  @click.prevent="addToCart(product, product.product_id, product_index, $event)">Add To Cart</a>
+                                                              <button type="submit" class="btn btn-success btn-add-cart"  @click.prevent="addToCart(product, product.product_id, product_index, $event)">Add To Cart</button>
                                                             </td>
                                                           </tr>
                                                         </table>
@@ -831,92 +799,17 @@
                                                           </div>
                                                           <div class="modal-body">
                                                               <!-- small Screen -->
-                                                              <div class="cart_sm-row">
-                                                                  <div class="card-container shadow-sm mb-4" v-for="(cart, index) in carts" :key="index">
-                                                                      <div class="row">
-                                                                          <div class="col-sm-4 col-4 ">
-                                                                              <div class="sm_cart_image">
-                                                                                <img :src="'/assets/front/img/product/featured/' + cart.feature_image" alt="" srcset="">
-                                                                              </div>
-                                                                          </div>
-                                                                          <div class="col-sm-8 pt-3 col-8 float-left">
-                                                                              <div class="sm_cart_title">
-                                                                                {{ cart.product_name }}
-                                                                              </div>
-                                                                              <p class="" style="font-size:14px !important">${{ cart.product_price }}</p>
-                                                                              <div class="float-right  pr-2  mt-n5">
-                                                                                  <h4 style="font-size:18px !important"><b>Total: ${{ cartSubtotal() }}</b></h4>
-                                                                              </div>
-
-                                                                              <div class="addon_detail" v-for="(variation, index) in cartVariations" :key="index">
-                                                                                  Size: {{ variation.name }} |  {{ variation.qty }} Quantities | ${{ variation.price }}                          
-                                                                              </div>
-
-                                                                              <div class="addon_detail" v-for="(addon, index) in cartAddons" :key="index">
-                                                                                  Addon: {{ addon.name }} | 1 Quantity | {{ addon.qty }} | ${{ addon.price}} 
-                                                                              </div>
-
-                                                                              <div class="cart_plux_minus pb-3 ">
-                                                                                  <table>
-                                                                                      <tr>
-                                                                                          <td>
-                                                                                              <button type="button"
-                                                                                                  class="mr-1 btn btn-lg btn-danger btn_qty_increment" style="
-                                                                                                  width: 30px;
-                                                                                                  height: 30px;
-                                                                                              "
-                                                                                              @click.prevent="
-                                                                                                decrementQty(
-                                                                                                cart.id
-                                                                                              )">
-                                                                                                  -
-                                                                                              </button>
-                                                                                          </td>
-                                                                                          <td>
-                                                                                              <input type="text" name="" id="" class="form-control mr-1" style="
-                                                                                                width: 35px;
-                                                                                                height: 30px;
-                                                                                                padding: 0px !important;
-                                                                                                text-align: center;
-                                                                                          "  :value="cart.product_quantity"
-                                                                                          />
-                                                                                          </td>
-                                                                                          <td>
-                                                                                              <button type="button" class="btn btn-danger" style="
-                                                                                          width: 30px;
-                                                                                          height: 30px;
-                                                                                          " @click.prevent="incrementQty(cart.id)"
-                                                                                          >
-                                                                                                  +
-                                                                                              </button>
-                                                                                          </td>
-                                                                                          <td>
-                                                                                              <a href="" style="text-decoration:underline;font-size:14px"
-                                                                                                  class="pl-3 text-dark"> Remove</a>
-                                                                                          </td>
-
-                                                                                          <!-- <td>
-                                                                                              <a href="" style="text-decoration:underline;font-size:14px"
-                                                                                                  class="pl-3 text-dark"> Remove</a>
-                                                                                          </td> -->
-                                                                                      </tr>
-                                                                                  </table>
-                                                                              </div>
+                                                              
+                                                              
 
 
-                                                                          </div>
 
-                                                                      </div>
-
-                                                                  </div>
-                                                                  <br>
-                                                              </div>
 
                                                               <!-- Large screen  -->
                                                               <!-- cart heading -->
-                                                              <div class="cart_lg_row d-sm-none d-md-block">
+                                                              <div class="">
                                                                   <div class="row cart_row">
-                                                                      <div class="col-md-2 col-sm-2">
+                                                                      <div class="col-md-2 col-sm-2 d-none d-md-block">
                                                                           <div class="cart_heading_title">
                                                                               Colour
                                                                           </div>
@@ -933,24 +826,33 @@
                                                                     <hr>
                                                                     <div class="row mt-n4 mb-4">
 
-                                                                      <div class="col-md-2 col-sm-2">
+                                                                      <div class="col-md-2 col-2 d-none d-md-block">
                                                                           
                                                                           <div class="cart_color" :style="{'background-color':cart.product_colour.colour_code }">
-                                                                              <p class="text-white" style="font-size:12px;text-align:center;position:relative !important;top:50% !important;">Crisp Linen 61yy 89/040</p>
+                                                                              <p class="" style="font-size:12px;text-align:center;position:relative !important;top:50% !important;">Crisp Linen 61yy 89/040</p>
                                                                           </div>
-                                                                          <a class="" style="text-decoration:underline;font-size:14px;">Change</a>
+                                                                          <!-- <a class="" style="text-decoration:underline;font-size:14px;">Change</a> -->
                                                                       </div>
 
-                                                                      <div class="col-md-10 col-sm-7 responsive_container">
+                                                                      <div class="col-md-10 col responsive_container">
                                                                           <div class="row" >
-                                                                              <div class="col-md-2 col-sm-6 cart_image ">
+                                                                              <div class="col-md-2 col-2 col-sm-3 cart_image d-none d-sm-block">
                                                                                   <img :src="'/assets/front/img/product/featured/' + cart.feature_image" alt="" srcset="" width="100px">
                                                                               </div>
-                                                                              <div class="col-md-10 col-sm-6 mt-1">
+                                                                              <div class="col-md-10 col col-sm-9 mt-1">
                                                                                   <div class="cart_title">
-                                                                                      {{ cart.product_name }}
+                                                                                      {{ cart.product_name }} <a  :id="'popover-target-1'+cart.id" style="font-size:12px" class="d-md-none"> <i class="fa fa-picture-o" style="font-size:16px;" aria-hidden="true"></i> </a>
                                                                                   </div>
                                                                                   <div>
+
+
+                                                                                    <div class="">
+                                                                                        <!-- <b-popover target="popover-button-variant" variant="danger" triggers="focus"> -->
+
+                                                                                      <b-popover :target="'popover-target-1'+cart.id" triggers="hover" variant="white" placement="right">
+                                                                                        <img :src="'/assets/front/img/product/featured/' + cart.feature_image" alt="" srcset="" width="100px">
+                                                                                      </b-popover>
+                                                                                    </div>
                                                                                  
                                                                                   <!-- <div class="container"> -->
 
@@ -958,16 +860,18 @@
                                                                                     <div class="card card_accordion">
                                                                                         <div class="card-header addon-header" role="tab" id="heading-1" >
                                                                                             <a role="button" style="font-weight:500" v-for="(variation, index) in JSON.parse(cart.variations)" :key="index" v-show="index === JSON.parse(cart.variations).length -1 " data-toggle="collapse" class="card-title addon-card-title accordion-plus-toggle collapsed" data-parent="#accordion7401210" :href="'#collapse8122873'+cart.id" aria-expanded="false" aria-controls="collapse8122873">
-                                                                                             <span v-if='index === JSON.parse(cart.variations).length -1 '>Litres</span> 
-                                                                                              <span class="badge btn_green" style="font-size:13px">{{ variation.qty }}</span>
-                                                                                              <span class="badge badge-pill btn_green" v-if='index === JSON.parse(cart.variations).length -1 ' style="position:relative;left:300px;font-size:13px;">
+                                                                                             <span>Litres</span> 
+                                                                                              <!-- <span class="badge btn_green" style="font-size:13px">{{ variation.qty }}</span> -->
+                                                                                              <span class="badge badge-pill btn_green" style="position:relative;left:300px;font-size:13px;display:inline-block; min-width:80px">
                                                                                                 <svg  xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
                                                                                                   width="14" height="14"
                                                                                                   viewBox="0 0 172 172"
                                                                                                   style=" fill:#000000;padding-bottom:2px;">
                                                                                                   <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,172v-172h172v172z" fill="none"></path><g fill="#fff"><path d="M157.66667,78.83333v-12.54167h-21.5v-44.79167h-17.02083v44.79167h-36.49983l-29.59833,-44.79167h-17.21433v44.79167h-21.5v12.54167h21.5v16.125h-21.5v12.54167h21.5v43h17.02083v-43h37.46733l28.45167,43h17.3935v-43h21.5v-12.54167h-21.5v-16.125zM119.14583,78.83333v16.125h-17.9095l-10.4705,-16.125zM52.85417,50.46767l10.34867,15.824h-10.34867zM52.85417,78.83333h18.5115l10.57083,16.125h-29.08233zM109.49233,107.5h9.6535v14.75617z"></path></g></g></svg>
-                                                                                                5000
+                                                                                                  {{ cart.variation_total }}
+
                                                                                               </span>
+                                                                                            
                                                                                             </a>
                                                                                         </div>
                                                                                         <div :id="'collapse8122873'+cart.id" class="collapse" role="tabpanel" aria-labelledby="heading-1">
@@ -991,9 +895,13 @@
                                                                                                         class="mr-1 btn btn-lg btn_green btn_qty_increment" style="
                                                                                                         width: 30px;
                                                                                                         height: 30px;
-                                                                                                        " @click="decrementSingleLitreQty(index)">
+                                                                                                        " @click="decrementSingleLitreQty($event, cartIndex, variation)"
+                                                                                                         :value="variation.qty" 
+                                                                                                         >
                                                                                                             -
                                                                                                         </button>
+
+                                                                                                        <input type="hidden" v-model="form.litres.oldPrice">
                                                                                                     
                                                                                                         <input type="text" name="" id="" class="form-control mr-1" v-if="form.cartLitre.cart[cartIndex].qty[index] == null" style="
                                                                                                         width: 35px;
@@ -1004,16 +912,16 @@
 
 
                                                                                                         <input type="text" name="" id="" class="form-control mr-1" v-else style="
-                                                                                                        width: 35px;
-                                                                                                        height: 30px;
-                                                                                                        padding: 0px !important;
-                                                                                                        text-align: center;
+                                                                                                          width: 35px;
+                                                                                                          height: 30px;
+                                                                                                          padding: 0px !important;
+                                                                                                          text-align: center;
                                                                                                         " v-model="form.cartLitre.cart[cartIndex].qty[index]"/>
 
                                                                                                     
                                                                                                         <button type="button" :value="variation.qty" class="btn btn_green" style="
                                                                                                         width: 30px;
-                                                                                                        height: 30px;" @click.prevent="incrementSingleLitreQty($event, cartIndex,cart, index, variation)">
+                                                                                                        height: 30px;" @click.prevent="incrementSingleLitreQty($event, cartIndex, variation)">
                                                                                                             +
                                                                                                         </button>
                                                                                                       </td>
@@ -1034,7 +942,7 @@
                                                                                                               </div>
                                                                                                       </td>
                                                                                                       <td>
-                                                                                                        <button type="button" class="btn btn-danger" style="
+                                                                                                        <button type="button" class="btn btn-danger" @click="deleteVariation(variation, cart)" style="
                                                                                                         width: 30px;
                                                                                                         height: 30px;">
                                                                                                           <span class="fa fa-trash" aria-hidden="true"></span>
@@ -1048,30 +956,27 @@
                                                                                             
                                                                                           </div>
                                                                                         </div>
+                                                                                  
 
+                                                                                        <div class="card-header addon-header" role="tab" id="heading411391" >
+                                                                                            <a role="button"  v-for="(addon, index) in JSON.parse(cart.addons)" :key="index" v-show="index === JSON.parse(cart.addons).length -1 " style="font-weight:500" data-toggle="collapse" class="card-title addon-card-title accordion-plus-toggle collapsed" data-parent="#accordion7401210" :href="'#collapse411391'+cart.id" aria-expanded="false" aria-controls="collapse411391">
+                                                                                             <span>Addons</span> 
+                                                                                              <!-- <span class="badge btn_green" style="font-size:13px">{{ variation.qty }}</span> -->
+                                                                                              <span class="badge badge-pill btn_green" style="position:relative;left:285px;font-size:13px;display:inline-block; min-width:80px;">
+                                                                                                <svg  xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+                                                                                                  width="14" height="14"
+                                                                                                  viewBox="0 0 172 172"
+                                                                                                  style=" fill:#000000;padding-bottom:2px;">
+                                                                                                  <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,172v-172h172v172z" fill="none"></path><g fill="#fff"><path d="M157.66667,78.83333v-12.54167h-21.5v-44.79167h-17.02083v44.79167h-36.49983l-29.59833,-44.79167h-17.21433v44.79167h-21.5v12.54167h21.5v16.125h-21.5v12.54167h21.5v43h17.02083v-43h37.46733l28.45167,43h17.3935v-43h21.5v-12.54167h-21.5v-16.125zM119.14583,78.83333v16.125h-17.9095l-10.4705,-16.125zM52.85417,50.46767l10.34867,15.824h-10.34867zM52.85417,78.83333h18.5115l10.57083,16.125h-29.08233zM109.49233,107.5h9.6535v14.75617z"></path></g></g></svg>
+                                                                                                  {{ cart.addon_total }}
 
-                                                                                        <div class="card-header addon-header" role="tab" id="heading411391">
-                                                                                          <!-- <h5 class="card-title"> -->
-                                                                                              <a style="font-weight:500" role="button" data-toggle="collapse" class="card-title addon-card-title accordion-plus-toggle collapsed" data-parent="#accordion7401210" :href="'#collapse411391'+cart.id" aria-expanded="false" aria-controls="collapse411391">
-                                                                                                Add On
-                                                                                                <span class="badge btn_green"  style="font-size:13px">3</span>
-                                                                                                <span class="badge badge-pill btn_green" style="position:relative;left:285px;font-size:13px;">
-                                                                                                  <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
-                                                                                                    width="14" height="14"
-                                                                                                    viewBox="0 0 172 172"
-                                                                                                    style=" fill:#000000;padding-bottom:2px;">
-                                                                                                    <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,172v-172h172v172z" fill="none"></path><g fill="#fff"><path d="M157.66667,78.83333v-12.54167h-21.5v-44.79167h-17.02083v44.79167h-36.49983l-29.59833,-44.79167h-17.21433v44.79167h-21.5v12.54167h21.5v16.125h-21.5v12.54167h21.5v43h17.02083v-43h37.46733l28.45167,43h17.3935v-43h21.5v-12.54167h-21.5v-16.125zM119.14583,78.83333v16.125h-17.9095l-10.4705,-16.125zM52.85417,50.46767l10.34867,15.824h-10.34867zM52.85417,78.83333h18.5115l10.57083,16.125h-29.08233zM109.49233,107.5h9.6535v14.75617z"></path></g></g></svg>
-                                                                                                  5000
-                                                                                                </span>
-                                                                                                  
-                                                                                              </a>
-
-
+                                                                                              </span>
+                                                                                            </a>
                                                                                         </div>
                                                                                         <div :id="'collapse411391'+cart.id" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading411391">
                                                                                           <div class="card-body card_font">
 
-                                                                                              <table class="table" v-for="(addon, index) in JSON.parse(cart.addons)" :key="index">
+                                                                                              <table class="table" v-for="(addon, index) in filterAddons(JSON.parse(cart.addons))" :key="index">
                                                                                                 <thead>
                                                                                                   <tr class="table_heading">
                                                                                                     <th style="width:20%">Name</th>
@@ -1083,28 +988,38 @@
                                                                                                     <tr>
                                                                                                       <td> {{ addon.name }}</td>
                                                                                                       <td class="d-flex">
-                                                                                                        <button type="button"
+                                                                                                        <button type="button" :value="addon.qty"
                                                                                                         class="mr-1 btn btn-lg btn_green btn_qty_increment" style="
                                                                                                         width: 30px;
                                                                                                         height: 30px;
                                                                                                         " @click.prevent="
-                                                                                                            decrementQty(
-                                                                                                              cart.id
+                                                                                                            decrementSingleAddonQty(
+                                                                                                              $event, cartIndex, addon
                                                                                                             )
                                                                                                           ">
                                                                                                             -
                                                                                                         </button>
                                                                                                     
-                                                                                                        <input type="text" name="" id="" class="form-control mr-1" style="
+                                                                                                        <input type="hidden" v-model="form.litres.oldPrice">
+                                                                                                    
+                                                                                                        <input type="text" name="" id="" class="form-control mr-1" v-if="form.cartLitre.addon[cartIndex].qty[index] == null" style="
                                                                                                         width: 35px;
                                                                                                         height: 30px;
                                                                                                         padding: 0px !important;
                                                                                                         text-align: center;
-                                                                                                        " :value="cart.product_quantity"/>
+                                                                                                        " v-model="addon.qty"/>
+
+
+                                                                                                        <input type="text" name="" id="" class="form-control mr-1" v-else style="
+                                                                                                          width: 35px;
+                                                                                                          height: 30px;
+                                                                                                          padding: 0px !important;
+                                                                                                          text-align: center;
+                                                                                                        " v-model="form.cartLitre.addon[cartIndex].qty[index]"/>
                                                                                                     
-                                                                                                        <button type="button" class="btn btn_green" style="
+                                                                                                        <button type="button" :value="addon.qty" class="btn btn_green" style="
                                                                                                         width: 30px;
-                                                                                                        height: 30px;" @click.prevent="incrementQty(cart.id)">
+                                                                                                        height: 30px;" @click.prevent="incrementSingleAddonQty($event, cartIndex, addon)">
                                                                                                             +
                                                                                                         </button>
                                                                                                       </td>
@@ -1119,14 +1034,19 @@
                                                                                                                   </path><g data-v-3bd11521="" fill="#fff">
                                                                                                                   <path data-v-3bd11521="" d="M157.66667,78.83333v-12.54167h-21.5v-44.79167h-17.02083v44.79167h-36.49983l-29.59833,-44.79167h-17.21433v44.79167h-21.5v12.54167h21.5v16.125h-21.5v12.54167h21.5v43h17.02083v-43h37.46733l28.45167,43h17.3935v-43h21.5v-12.54167h-21.5v-16.125zM119.14583,78.83333v16.125h-17.9095l-10.4705,-16.125zM52.85417,50.46767l10.34867,15.824h-10.34867zM52.85417,78.83333h18.5115l10.57083,16.125h-29.08233zM109.49233,107.5h9.6535v14.75617z"></path></g></g></svg></span>
                                                                                                                   </div>
-                                                                                                                  <input type="text" name="" class="form-control" style="border-radius: 0px 5px 5px 0px;">
+                                                                                                                  <!-- <input type="text" name="" class="form-control" style="border-radius: 0px 5px 5px 0px;"> -->
+                                                                                                                   <input v-if="form.cartLitre.addon[cartIndex].price[index] == null"  v-model="addon.price" type="text" name="" class="form-control" style="border-radius: 0px 5px 5px 0px;">
+                                                                                                                  <input v-else v-model ="form.cartLitre.addon[cartIndex].price[index]" type="text" name="" class="form-control" style="border-radius: 0px 5px 5px 0px;">
+                                                                                                                  <input type="hidden" v-model="form.productAddons.oldPrice[index]">
+
                                                                                                                   </div>
                                                                                                               </div>
                                                                                                       </td>
                                                                                                       <td>
-                                                                                                        <button type="button" class="btn btn-danger" style="
-                                                                                                        width: 30px;
-                                                                                                        height: 30px;">
+                                                                                                        <button @click="deleteAddon(addon, cart)" type="button" class="btn btn-danger" style="
+                                                                                                          width: 30px;
+                                                                                                          height: 30px;"
+                                                                                                          >
                                                                                                           <span class="fa fa-trash" aria-hidden="true"></span>
                                                                                                         </button>
                                                                                                       </td>
@@ -1203,16 +1123,18 @@
 
                                                                   </div>
 
-                                                                  <div class="total" style="margin-top:0px" v-show="carts.length  > 0">
-                                                                      <h3 class="float-right" style=""><b> Total: ${{cartSubtotal() }}</b></h3>
-                                                                      <input type="hidden" :value="cartSubtotal()">
+                                                                  <div class="total" style="margin-top:30px !important;" v-show="carts.length  > 0">
+                                                                      <h3 class="float-right" style=""><b> Total: ${{totalPrice}}</b></h3>
+                                                                      <input type="hidden" :value="totalPrice">
                                                                   </div>
                                                               </div>
                                                           </div>
-                                                          <div class="modal-footer" v-show="carts.length  > 0" style="margin-top:0px">
+                                                          <div class="modal-footer"  v-show="carts.length  > 0" style="margin-top:-20px">
                                                             <button
                                                             type="button"
+                                                            @click="clearCartItems()"
                                                             class="btn btn-sm custom_button clear-button"
+                                                            
                                                              >
                                                             Clear
                                                           </button>
@@ -1223,7 +1145,7 @@
                                                                 id: product.product_id,
                                                                 cartTotal,
                                                                 AddOnTotal,
-                                                                variationTotal
+                                                                variationTotal,
 
                                                               },
                                                             }"
@@ -1274,7 +1196,6 @@
                         tabindex="98"
                       />
                     </div>
-                  </form>
                 </section>
               </div>
             </div>
@@ -1343,11 +1264,14 @@
 import "../frontend/accordion/Accordion";
 import $ from "jquery";
 import { TweenMax, Power1 } from "gsap";
-import CartModal from "../frontend/modals/cart/CartModal";
+// import CartModal from "../frontend/modals/cart/CartModal";
 
 import Description from "../frontend/modals/Description"
 import Addon from "../frontend/modals/Addon"
 import FilterModal from "../frontend/modals/FilterModal";
+
+// import saveState from 'vue-save-state';
+
 
 const FIVE_SECONDS = 5;
 const ONE_MINUTE = 60;
@@ -1358,15 +1282,15 @@ $(function() {
 });
 
 export default {
+  // mixins: [saveState],
   components: {
-    // OrderDetails,
     FilterModal,
-    CartModal,
     Description,
     Addon
   },
   data() {
     return {
+      litreName:'',
       isInitialQty:true,
       disableAddToCart:false,
       checkboxes: false,
@@ -1378,12 +1302,14 @@ export default {
           name: null,
           qty: null,
           price: null,
+          oldPrice:null,
         },
         productAddons: {
-            id:null,
+            id:[],
             name: [],
             qty: [],
             price: [],
+            oldPrice:[],
         },
         product: {
           id: null,
@@ -1393,20 +1319,12 @@ export default {
           price2:null
         },
         cartLitre: {
-          cart:[]
+          cart:[],
+          addon:[],
+
         },
       },
 
-
-      // form3: {
-      //   cartLitre: {
-      //     id: null,
-      //     name: null,
-      //     qty: null,
-      //     price: [],
-      //     price2:null
-      //   },
-      // },
 
       hideColourbar:true,
       toggleDropdown:false,
@@ -1435,7 +1353,8 @@ export default {
       modalShow: true,
       cartTotal:'',
       AddOnTotal:'',
-      variationTotal:''
+      variationTotal:'',
+     
     };
   },
   filters: {
@@ -1445,15 +1364,75 @@ export default {
       return `${seconds}`;
     },
   },
+  computed: {
+
+    // totalQtyOfLitres(){
+    //   let sum = 0;
+    //   this.carts.forEach((cart, i)=>{
+    //     var variaitons = JSON.parse(cart.variations)
+    //     for(let i = 0; i < variaitons.length; i++){
+    //       sum += parseFloat(variaitons[i].qty)
+    //         console.log('TOTAL QTY',sum)
+    //     }
+    //   })
+    //   this.variationTotal = sum
+    //   return sum
+    // },
+    totalVariation(){
+      let sum = 0;
+      this.carts.forEach((cart, ind)=>{
+        var variaitons = JSON.parse(cart.variations)
+        for(let i = 0; i < variaitons.length; i++){
+          sum += parseFloat(variaitons[i].price)
+            console.log('TOTAL',sum)
+            this.form.cartLitre.cart[ind].subtotal[i]= sum
+            // console.log("variationstotalIndex", this.variationsTotal[i])
+
+        }
+      })
+      this.variationTotal = sum
+      return sum
+    },
+
+    totalAddon(){
+      let sum = 0;
+      this.carts.forEach((cart, i)=>{
+        var addons = JSON.parse(cart.addons)
+        for(let i = 0; i < addons.length; i++){
+          if(this.form.productAddons.name[i] != false){
+            sum += parseFloat(addons[i].price)
+          }
+            console.log('ADDON TOTAL',sum)
+        }
+      })
+      this.AddOnTotal = sum
+      return sum
+    },
+    totalPrice(){
+      let sum = 0;
+      for (let i = 0; i < this.carts.length; i++) {
+        sum = parseFloat(this.totalVariation + this.totalAddon).toFixed(2)
+      }
+      this.cartTotal = sum
+      return sum;
+    },
+      
+  },
   methods: {
+    // getSaveStateConfig() {
+    //     return {
+    //         'cacheKey': 'menu',
+            
+    //     };
+    // },
 
 // new
+  filterAddons(addons){
+    return addons.filter(addon => addon.name != null) 
+  },
     
     // new
-    addItem(product){
 
-
-    },
     closeColourBar(){
       this.hideColourbar = false
     },
@@ -1462,6 +1441,7 @@ export default {
       this.loadFilter = false
         axios.get('/api/colour/products/'+this.$route.params.id)
         .then((response) => {
+          // this.cartProducts();
           // JSON responses are automatically parsed.
           this.products = response.data.data;
           this.loading = false;
@@ -1475,6 +1455,7 @@ export default {
               product_image: p.feature_image,
               product_price: p.current_price,
               product_variation: p.variations,
+              product_addons: p.addons,
               product_summary: p.summary,
 
               product_key_info: p.key_info,
@@ -1592,53 +1573,41 @@ export default {
         // .catch((error) => {})
     
     },
+
+
+    clearCartItems() {
+      axios
+        .post("/api/clear-cart/")
+        .then(() => {
+          Fire.$emit("AfterCreated");
+        })
+        .catch();
+    },
         
-    variationsSubtotal() {
-      let sum = 0;
-      if(this.cartVariations){
-        for (let i = 0; i < this.cartVariations.length; i++) {
-          sum +=
-            parseFloat(this.cartVariations[i].qty) *
-            parseFloat(this.cartVariations[i].price);
-        }
-        this.variationTotal = sum
-        return sum;
-      }
-      return sum
-    },
-
-    AddOnSubtotal() {
-      let sum = 0;
-      if(this.cartAddons){
-        for (let i = 0; i < this.cartAddons.length; i++) {
-          sum +=
-            parseFloat(this.cartAddons[i].qty) *
-            parseFloat(this.cartAddons[i].price);
-        }
-        this.AddOnTotal = sum
-
-        return sum;
-      }
-      return sum
-    },
+  
 
     addVariation(product, index, evt) {
       this.form.litres.name = evt.target.value
       this.form.litres.id = product.product_id
-      this.form.litres.price = null
-
+      this.litreName = evt.target.value
       // this.form.product.price[index] = p.current_price;
       this.form.litres.price = this.form.litres.price ? this.form.litres.price : parseFloat(this.local_products[index].product_price)
       this.form.litres.qty = this.form.litres.qty ? this.form.litres.qty :  1
 
       JSON.parse(product.product_variation).forEach((v, i)=>{
         if(v.name == evt.target.value){
-        this.form.product.price[index] = parseFloat(v.price * this.form.litres.qty).toFixed(2)
-        this.form.product.price2 = parseFloat(v.price * this.form.litres.qty).toFixed(2)
+          this.form.product.price[index] = parseFloat(v.price * this.form.litres.qty).toFixed(2)
+          this.form.product.price2 = parseFloat(v.price * this.form.litres.qty).toFixed(2)
+          this.form.litres.price = parseFloat(v.price * this.form.litres.qty).toFixed(2)
           console.log("Litre price", this.form.product.price[index])
+          this.form.litres.oldPrice = v.price
+          // this.form.litres.cart.price2.push()
+          // return 
         }
       })
-      Fire.$emit("AfterCreated");
+
+      this.form.litres.price = null
+      Fire.$emit("AfterCreated")
 
     },
 
@@ -1650,23 +1619,90 @@ export default {
       return this.form.product.id = this.local_products[index].product_id;
     },
 
-  decrementSingleLitreQty(index) {
-      // this.form.litres.qty = this.local_products[index].variation_qty === 1 ? 1 : --this.local_products[index].variation_qty;
+    updateVariation(variation, cart, price, qty){
+      // alert(cart.id)
+      axios
+          .post("/api/update-variation/"+cart.id, {
+            currentVariation : variation,
+            currentVariationQty : qty,
+            currentVariationPrice : price,
 
-      this.isInitialQty =false
-      
-      this.currentVariation.forEach((v, i)=>{
-      this.form.cartLitre.qty[index] = v.qty;
-        this.form.cartLitre.qty[index] = v.qty--;
-        Fire.$emit("AfterCreated");
-      })
-      // this.form.litres.price = this.local_products[index].product_price * this.form.litres.qty;
-      // this.form.product.price[index] = parseFloat(this.local_products[index].product_price * this.form.litres.qty).toFixed(2)
-      // this.form.product.price2 = parseFloat(this.local_products[index].product_price * this.form.litres.qty).toFixed(2)
-  },
-    incrementSingleLitreQty(evt, cartIndex, cart, index, variation) {
+          })
+          .then((response) => { })
+          .catch((error) => {});
+
+    },
+
+
+      updateAddon(addon, cart, price, qty){
+      // alert(cart.id)
+      axios
+          .post("/api/update-addon/"+cart.id, {
+            currentAddon : addon,
+            currentAddonQty : qty,
+            currentAddonPrice : price,
+
+          })
+          .then((response) => { })
+          .catch((error) => {});
+
+    },
+
+ 
+  incrementSingleAddonQty(evt, cartIndex, addon) {
+        this.carts.forEach((cart, index)=>{
+          JSON.parse(cart.addons).forEach(( a , i)=>{
+            console.log('check', cartIndex)
+            // this.form.cartLitre.cart[cartIndex].qty[i] = evt.target.value;
+            if(a.name == addon.name && cartIndex == index){
+              if(this.form.cartLitre.addon[cartIndex].qty[i]){
+                this.form.cartLitre.addon[cartIndex].qty[i] = ++this.form.cartLitre.addon[cartIndex].qty[i]
+                console.log("OLD PRICE", a.oldPrice)
+              }else{
+                this.form.cartLitre.addon[cartIndex].qty[i] =  ++evt.target.value
+                console.log("OLD PRICE", a.oldPrice)
+                console.log('Incrementing', ++evt.target.value)
+              }
+              console.log('LITRE PRICE', 'QTY:',this.form.cartLitre.addon[cartIndex].qty[i], 'PRICE:', a.price)
+              this.form.cartLitre.addon[cartIndex].price[i] = parseFloat(this.form.cartLitre.addon[cartIndex].qty[i] * a.oldPrice).toFixed(2)
+              this.form.cartLitre.addon[cartIndex].id[i] = cart.id
+              this.form.cartLitre.addon[cartIndex].name[i] = a.name
+              this.updateAddon(addon, cart, this.form.cartLitre.addon[cartIndex].price[i], this.form.cartLitre.addon[cartIndex].qty[i])
+
+              // console.log("SUM: {", sumAddon, '}')
+              Fire.$emit("AfterCreated");
+            }
+          })
+        })
+    },
+
+    decrementSingleAddonQty(evt, cartIndex, addon) {
+        this.carts.forEach((cart, index)=>{
+          JSON.parse(cart.addons).forEach(( a , i)=>{
+            console.log('check', cartIndex)
+            // this.form.cartLitre.cart[cartIndex].qty[i] = evt.target.value;
+            if(a.name == addon.name && cartIndex == index){
+              if(this.form.cartLitre.addon[cartIndex].qty[i]){
+                this.form.cartLitre.addon[cartIndex].qty[i] = --this.form.cartLitre.addon[cartIndex].qty[i]
+                console.log("OLD PRICE", a.oldPrice)
+              }else{
+                this.form.cartLitre.addon[cartIndex].qty[i] =  --evt.target.value
+                console.log("OLD PRICE", a.oldPrice)
+                console.log('Incrementing', --evt.target.value)
+              }
+              console.log('LITRE PRICE', 'QTY:',this.form.cartLitre.addon[cartIndex].qty[i], 'PRICE:', a.price)
+              this.form.cartLitre.addon[cartIndex].price[i] = parseFloat(this.form.cartLitre.addon[cartIndex].qty[i] * a.oldPrice).toFixed(2)
+              this.form.cartLitre.addon[cartIndex].id[i] = cart.id
+              this.form.cartLitre.addon[cartIndex].name[i] = a.name
+              this.updateAddon(addon, cart, this.form.cartLitre.addon[cartIndex].price[i], this.form.cartLitre.addon[cartIndex].qty[i])
+
+              Fire.$emit("AfterCreated");
+            }
+          })
+        })
+    },
+    incrementSingleLitreQty(evt, cartIndex, variation) {
       // console.log('check', this.currentVariation)
-      
       console.log("te", this.cartVariations)
         // this.currentCart.forEach((cart, ind)=>{
         this.carts.forEach((cart, index)=>{
@@ -1674,8 +1710,20 @@ export default {
             console.log('check', cartIndex)
             // this.form.cartLitre.cart[cartIndex].qty[i] = evt.target.value;
             if(v.name == variation.name && cartIndex == index){
-              this.form.cartLitre.cart[cartIndex].qty[i] = ++evt.target.value
-              
+              if(this.form.cartLitre.cart[cartIndex].qty[i]){
+                this.form.cartLitre.cart[cartIndex].qty[i] = ++this.form.cartLitre.cart[cartIndex].qty[i]
+                console.log("OLD PRICE", v.oldPrice)
+              }else{
+                this.form.cartLitre.cart[cartIndex].qty[i] =  ++evt.target.value
+                console.log("OLD PRICE", v.oldPrice)
+                console.log('Incrementing', ++evt.target.value)
+              }
+              console.log('LITRE PRICE', 'QTY:',this.form.cartLitre.cart[cartIndex].qty[i], 'PRICE:', v.price)
+              this.form.cartLitre.cart[cartIndex].price[i] = parseFloat(this.form.cartLitre.cart[cartIndex].qty[i] * v.oldPrice).toFixed(2)
+              this.form.cartLitre.cart[cartIndex].id[i] = cart.id
+              this.form.cartLitre.cart[cartIndex].name[i] = v.name
+              this.updateVariation(variation, cart, this.form.cartLitre.cart[cartIndex].price[i], this.form.cartLitre.cart[cartIndex].qty[i])
+
               Fire.$emit("AfterCreated");
             }
           })
@@ -1687,30 +1735,186 @@ export default {
       // this.form.product.price[index] = parseFloat(this.local_products[index].product_price * this.form.litres.qty).toFixed(2)
       // this.form.product.price2 = parseFloat(this.local_products[index].product_price * this.form.litres.qty).toFixed(2)
     },
+     decrementSingleLitreQty(evt, cartIndex, variation) {
+      console.log("te", this.cartVariations)
+        // this.currentCart.forEach((cart, ind)=>{
+        this.carts.forEach((cart, index)=>{
+          JSON.parse(cart.variations).forEach(( v , i)=>{
+            console.log('check', cartIndex)
+            // this.form.cartLitre.cart[cartIndex].qty[i] = evt.target.value;
+            if(v.name == variation.name && cartIndex == index){
+              if ((this.form.cartLitre.cart[cartIndex].qty[i] > 1) || (evt.target.value > 1)){
 
-    decrementLitresQty(index) {
-      this.form.litres.qty = this.local_products[index].variation_qty === 1 ? 1 : --this.local_products[index].variation_qty;
-      this.form.litres.price = this.local_products[index].product_price * this.form.litres.qty;
+                if(this.form.cartLitre.cart[cartIndex].qty[i]){
+                  this.form.cartLitre.cart[cartIndex].qty[i] = --this.form.cartLitre.cart[cartIndex].qty[i]
+                }else{
+                  this.form.cartLitre.cart[cartIndex].qty[i] =  --evt.target.value
+                  console.log('Decrementing', --evt.target.value)
+                }
+                console.log('LITRE PRICE', 'QTY:',this.form.cartLitre.cart[cartIndex].qty[i], 'PRICE:', v.price)
+                this.form.litres.price = parseFloat(v.price * this.form.litres.qty).toFixed(2)
+                this.form.cartLitre.cart[cartIndex].price[i] = parseFloat(this.form.cartLitre.cart[cartIndex].qty[i] * v.oldPrice).toFixed(2)
+                this.form.cartLitre.cart[cartIndex].id[i] = cart.id
+                this.form.cartLitre.cart[cartIndex].name[i] = v.name
+                this.updateVariation(variation, cart, this.form.cartLitre.cart[cartIndex].price[i], this.form.cartLitre.cart[cartIndex].qty[i])
 
-      this.form.product.price[index] = parseFloat(this.local_products[index].product_price * this.form.litres.qty).toFixed(2)
-      this.form.product.price2 = parseFloat(this.local_products[index].product_price * this.form.litres.qty).toFixed(2)
+                Fire.$emit("AfterCreated");
+              }
+            }
+          })
+        })
+      
+  },
+
+    decrementLitresQty(product,index) {
+      // this.form.litres.qty = this.local_products[index].variation_qty === 1 ? 1 : --this.local_products[index].variation_qty;
+      // this.form.litres.price = this.local_products[index].product_price * this.form.litres.qty;
+
+      // this.form.product.price[index] = parseFloat(this.local_products[index].product_price * this.form.litres.qty).toFixed(2)
+      // this.form.product.price2 = parseFloat(this.local_products[index].product_price * this.form.litres.qty).toFixed(2)
+      // this.form.product.price[index] = parseFloat(this.local_products[index].product_price * this.form.litres.qty).toFixed(2)
+
+      if (this.form.litres.qty > 1){
+            this.form.litres.qty= --this.local_products[index].variation_qty;
+            this.form.litres.price= this.local_products[index].product_price * this.form.litres.qty
+
+            JSON.parse(product.product_variation).forEach((v, i)=>{
+              if(v.name == this.litreName){
+                this.form.product.price[index] = parseFloat(v.price * this.form.litres.qty).toFixed(2)
+                this.form.product.price2 = parseFloat(v.price * this.form.litres.qty).toFixed(2)
+                this.form.litres.price = parseFloat(v.price * this.form.litres.qty).toFixed(2)
+                this.variationTotal = this.form.litres.price
+                console.log("Litre price", this.litreName)
+              }
+            })
+      }
   },
     incrementLitresQty(product, index) {
       this.form.litres.qty= ++this.local_products[index].variation_qty;
       this.form.litres.price= this.local_products[index].product_price * this.form.litres.qty
-
-      // this.form.product.price[index] = parseFloat(this.local_products[index].product_price * this.form.litres.qty).toFixed(2)
-      // this.form.product.price2 = parseFloat(this.local_products[index].product_price * this.form.litres.qty).toFixed(2)
+      this.variationTotal = this.form.litres.price
 
       JSON.parse(product.product_variation).forEach((v, i)=>{
-        if(v.name == evt.target.value){
-        this.form.product.price[index] = parseFloat(v.price * this.form.litres.qty).toFixed(2)
-        this.form.product.price2 = parseFloat(v.price * this.form.litres.qty).toFixed(2)
-
-          console.log("Litre price", this.form.product.price[index])
+        if(v.name == this.litreName){
+          this.form.product.price[index] = parseFloat(v.price * this.form.litres.qty).toFixed(2)
+          this.form.product.price2 = parseFloat(v.price * this.form.litres.qty).toFixed(2)
+          this.form.litres.price = parseFloat(v.price * this.form.litres.qty).toFixed(2)
+          this.variationTotal = this.form.litres.price
+          console.log("Litre price", this.litreName, 'qty:', this.form.litres.qty, 'price', v.price)
         }
-      })
+      }) 
     },
+
+  deleteVariation(variation, cart){
+    // console.log(variation.name)
+
+    swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+
+                // will send request to the server
+                if (result.value) {
+                    axios.post("/api/delete-variation/" + cart.id, {
+                      currentVariation: variation.name,
+                      currentPrice: variation.price
+                    }).then((response)=>{
+                      Fire.$emit("AfterCreated");
+                      if(response.data["status_code"] == "AB"){
+                        swal.fire(
+                        'Deleted!',
+                          response.data.message,
+                        'success'
+                        )
+                      }
+                        // Fire.$emit('AfterCreated'); //load all users after creating user
+                    }).catch(()=>{
+                        swal.fire("Failed", "There was something wrong", "warning");
+                    });
+                }
+            })
+
+
+
+    
+    // axios.post("/api/delete-variation/" + cart.id, {
+    //   currentVariation: variation.name
+    // })
+    // .then((response) => {
+    //   Fire.$emit("AfterCreated");
+    //   if(response.data["status_code"] == "AB"){
+    //         console.log(response)
+    //         // this.variations = JSON.parse(response.data.data.variations);
+    //         toast.fire({
+    //           icon: "success",
+    //           title: response.data.message,
+    //         });
+    //       }
+    // })
+    // .catch((error) => {});
+  },
+
+
+  deleteAddon(addon, cart){
+    console.log(addon.name)
+    swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+
+                // will send request to the server
+                if (result.value) {
+                    axios.post("/api/delete-addon/" + cart.id,{
+                      currentAddon: addon.name,
+                      currentPrice: addon.price
+                    }).then((response)=>{
+                        Fire.$emit("AfterCreated");
+                      if(response.data["status_code"] == "AB"){
+                        console.log(response)
+                        // this.variations = JSON.parse(response.data.data.variations);
+                        swal.fire(
+                        'Deleted!',
+                         response.data.message,
+                        'success'
+                        )
+                      }
+                        // Fire.$emit('AfterCreated'); //load all users after creating user
+                    }).catch(()=>{
+                        swal.fire("Failed", "There was something wrong", "warning");
+                    });
+                }
+            })
+
+
+
+
+    
+    // axios.post("/api/delete-addon/" + cart.id, {
+    //   currentAddon: addon.name
+    // })
+    // .then((response) => {
+    //   Fire.$emit("AfterCreated");
+    //   if(response.data["status_code"] == "AB"){
+    //         console.log(response)
+    //         // this.variations = JSON.parse(response.data.data.variations);
+    //         toast.fire({
+    //           icon: "success",
+    //           title: response.data.message,
+    //         });
+    //       }
+    // })
+    // .catch((error) => {});
+  },
 
 
     productVariation(product) {
@@ -1741,16 +1945,12 @@ export default {
       this.timer = FIVE_SECONDS;
     },
 
-      save(product){
-        this.form.productAddons.id = product.id
-        $('#add-on-modal').modal('hide');
-      },
+    save(product, index){
+      $('#add-on-modal').modal('hide');
+    },
     
     showAddOn(product_index,id, product) {
-      this.form.productAddons.id = null
-      this.form.productAddons.name = []
-      this.form.productAddons.price = []
-      this.form.productAddons.qty = []
+      this.emptyAddons()
       axios
         .get("/api/product/" + id)
         // .then(({ data }) => (this.productAddons = JSON.parse(data.addons)))
@@ -1762,9 +1962,9 @@ export default {
           this.currentAddon.forEach((addon, index) => {
             // if(addon.name==name){
             // this.form.productAddons.id[product_index] = id
-            this.form.productAddons.qty[index] = null;
-            this.form.productAddons.name[index] = null;
-            this.form.productAddons.price[index] = null;
+            // this.form.productAddons.qty= [];
+            // this.form.productAddons.name=[];
+            // this.form.productAddons.price = [];
           });
 
         })
@@ -1805,8 +2005,6 @@ export default {
       return {
         "background-image":
           "url(/assets/front/img/product/featured/" + url + ")",
-          // '/assets/front/img/product/featured/' +
-          //                                                   product.product_image
         "background-size": "cover",
         "background-position": "center center",
       };
@@ -1824,44 +2022,7 @@ export default {
         .then(({ data }) => (this.categories = data))
         .catch((error) => {});
     },
-    // listProducts() {
-    //   this.loadFilter = false
-    //   axios
-    //     .get("/api/products-lists/")
-    //     .then((response) => {
-    //       // JSON responses are automatically parsed.
-    //       this.products = response.data;
-    //       this.loading = false;
-    //       this.products.forEach((p, index) => {
-    //         this.form3.product.price[index] = p.current_price;
-    //       // this.form3.product.id[index] = p.current_price;
-
-    //         this.local_products.push({
-    //           product_id: p.id,
-    //           product_name: p.title,
-    //           product_image: p.feature_image,
-    //           product_price: p.current_price,
-    //           product_variation: p.variations,
-
-    //           product_key_info: p.key_info,
-    //           // product_: p.variations,
-    //           // product_variation: p.variations,
-    //           // product_variation: p.variations,
-
-    //           variation_visible:true,
-    //           variation_qty: 1,
-    //           product_qty : 0
-    //         });
-    //         // this.cartItemQty(p.id)
-    //       });
-
-    //     this.listCategories();
-    //     })
-    //     .catch((error) => {
-    //       this.loading = true;
-    //     });
-    // },
-    
+   
     
     cartQty() {
       let sum = 0;
@@ -1871,16 +2032,16 @@ export default {
       }
       return sum;
     },
-    cartSubtotal() {
-      let sum = 0;
-      for (let i = 0; i < this.carts.length; i++) {
-        sum +=
-          parseFloat(this.carts[i].product_quantity) *
-          parseFloat(this.carts[i].product_price) + parseFloat(this.AddOnSubtotal()) + parseFloat(this.variationsSubtotal());
-      }
-      this.cartTotal = sum
-      return sum;
-    },
+    // cartSubtotal() {
+    //   let sum = 0;
+    //   for (let i = 0; i < this.carts.length; i++) {
+    //     sum +=
+    //       parseFloat(this.carts[i].product_quantity) *
+    //       parseFloat(this.carts[i].product_price) + parseFloat(this.AddOnSubtotal()) + parseFloat(this.variationsSubtotal());
+    //   }
+    //   this.cartTotal = sum
+    //   return sum;
+    // },
 
     cartQty() {
       let sum = 0;
@@ -1913,28 +2074,24 @@ export default {
       
       this.disableAddToCart = true
 
-      // console.log("Check", product.variation_qty);
-      // var variations = JSON.parse(product.product_variation);
-      // variations.forEach((v, i)=>{
-      //   this.form.cartLitre.qty[i] = v.qty
-      // })
-
       axios
         .post("/api/add-to-cart/" + id, this.form)
         .then((response) => {
-          if(response.data["status_code"] == "AC"){
+          this.cartProducts()
+          if(response.data["status_code"] == "AC" || response.data["status_code"] == "AD"){
             this.errorMessage(response.data["message"]);
             this.disableAddToCart = false
             return;
           }
-          $('#centralModalSm2').modal('show');
-            setTimeout(function(){
+          setTimeout(function(){
+            $('#centralModalSm2').modal('show');
           }, 2500);
           console.log(response);
           this.loading = false;
           this.cartItemQty(id);
           this.cartAddons
           this.cartVariations
+
           // this.incrementProductQty(id, index)
           // animation
           this.currentProduct = product;
@@ -1942,11 +2099,26 @@ export default {
 
 
           this.form.cartLitre.cart.push({
+            id:[],
             name:[],
             qty:[],
-            price:[]
+            price:[],
+            oldPrice:[],
+            subtotal:[]
           })
 
+          this.form.cartLitre.addon.push({
+            id:[],
+            name:[],
+            qty:[],
+            price:[],
+            oldPrice:[],
+            subtotal:[]
+
+          })
+
+          // 
+          this.emptyAddons()
           this.$nextTick(() => {
             TweenMax.from(".buybox", 1.5, {
               left: $(evt.target).offset().left,
@@ -1966,64 +2138,33 @@ export default {
           this.disableAddToCart = false
         });
       this.startTimer();
+
     },
 
+  emptyAddons(){
+    this.form.productAddons.id = []
+    this.form.productAddons.name = []
+    this.form.productAddons.price = []
+    this.form.productAddons.qty = []
+    this.form.productAddons.oldPrice = []
+  },
     cartProducts() {
       axios
         .get("/api/cart-lists/")
         .then((response) => {
           this.carts = response.data;
+
           this.carts.forEach((cart_addon, index)=>{
             this.cartAddons = JSON.parse(cart_addon.addons);
           })
 
-          // this.carts.forEach((variation)=>{
-            //  this.carts.forEach((v, i)=>{
-            //   this.cartVariations = JSON.parse(v.variations);
-
-            // })
-            
-          // })
-          // JSON.parse(response.data.addons);
+          this.carts.forEach((variation)=>{
+            this.cartVariations = JSON.parse(variation.variations);
+          })
           this.currentCart = response.data;
         })
         .catch((error) => {});
 
-    },
-    incrementQty(id) {
-      axios
-        .get("/api/increment-cart/" + id)
-        .then(() => {
-          // this.form3.product.price2 = this.currentCart.
-          Fire.$emit("AfterCreated");
-        })
-        .catch();
-    },
-
-    decrementQty(id) {
-      axios
-        .get("/api/decrement-cart/" + id)
-        .then(() => {
-          Fire.$emit("AfterCreated");
-        })
-        .catch();
-    },
-
-    removeCartItem(id) {
-      axios
-        .get("/api/remove-cart/" + id)
-        .then(() => {
-          Fire.$emit("AfterCreated");
-        })
-        .catch();
-    },
-    clearCartItems() {
-      axios
-        .post("/api/clear-cart/")
-        .then(() => {
-          Fire.$emit("AfterCreated");
-        })
-        .catch();
     },
   },
   watch: {
@@ -2049,8 +2190,12 @@ export default {
   },
 
   mounted() {
-    // this.cartItemQty()
-          // alert(this.cartTotal )
+    
+    
+    window.onpopstate = function(event) {
+      // alert("location: " + document.location + ", state: " + JSON.stringify(event.state));
+      $('#centralModalSm2').modal('show');
+    };
 
     this.cartQty();
     console.log(this.currentProduct);
@@ -2066,12 +2211,12 @@ export default {
       }, 3000)
    
     // count down modal
-    // setInterval(() => {
-        // this.timer -= 1
-        // if(this.timer == 0){
-        //     $("#centralModalSm2").modal('hide');
-        // }
-        // }, 1500)
+    setInterval(() => {
+        this.timer -= 1
+        if(this.timer == 0){
+            // $("#centralModalSm2").modal('hide');
+        }
+        }, 1500)
 
         if(this.loading == true){
           document.getElementById("overlay").style.display = "block";

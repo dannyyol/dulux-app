@@ -24,6 +24,11 @@ class ProductOrder extends Model
         "shipping_charge",
         "total",
         "method",
+        "date_to_pick",
+        "someone_fname",
+        "someone_lname",
+        "someone_number",
+        
         "currency_code",
         "currency_code_position",
         "currency_symbol",

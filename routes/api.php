@@ -22,6 +22,15 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::post('/product-colour/store',
 'Admin\ProductcolourController@store')->name('admin.productcolour.store');
 
+//delete addon
+Route::post('/delete-addon/{id}/', 'Api\CartController@deleteAddon');
+
+Route::post('/update-variation/{id}', 'Api\CartController@updateVariation');
+
+Route::post('/update-addon/{id}', 'Api\CartController@updateAddon');
+
+Route::post('/delete-variation/{id}/', 'Api\CartController@deleteVariation');
+
 Route::get('colour-stage-1/{paletteId}', 'Api\ProductcolourController@colourStage1');
 Route::get('colour-stage-2/{paletteId}', 'Api\ProductcolourController@colourStage2');
 
@@ -57,7 +66,7 @@ Route::post('/add-product/{id}', 'Api\CartController@addProduct');
 Route::post('/addon/{id}', 'Api\CartController@addAddOn');
 Route::post('/variation/{id}', 'Api\CartController@addVariation');
 
-Route::post('/save-bycash-order/{id}', 'Api\OfflineController@store');
+Route::post('/by-pick-now/{id}', 'Api\OfflineController@store');
 Route::get('/cart/{id}', 'Api\CartController@cartDetail');
 
 Route::post('/save-bydelivery-order', 'Api\PaybydeliveryController@store');

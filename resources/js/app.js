@@ -15,6 +15,16 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import swal from 'sweetalert2';
+
+import { Datetime } from 'vue-datetime'
+// You need a specific loader for CSS files
+import 'vue-datetime/dist/vue-datetime.css'
+ 
+Vue.use(BootstrapVue)
+
+Vue.use(Datetime)
+ 
+Vue.use(Datetime)
 window.swal = swal;
 
 const toast = swal.mixin({

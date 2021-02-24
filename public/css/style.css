@@ -238,12 +238,21 @@ input[type=checkbox]:checked:disabled+label:before {
 
 
 @media (min-width: 350px) {
+
+    /* cart */
+    .cart_image img {
+        width: 70px;
+        /* height:150px; */
+        margin-top: 20px;
+    }
     .total_section{
         background-color: none;
         margin-top: 50px !important;
-
     }
 
+    .enter_detail_total_price {
+        padding-top: 20px;
+    }
     .single_product_width{
         width:100%;
     }
@@ -429,7 +438,10 @@ input[type=checkbox]:checked:disabled+label:before {
          width:100px;
          height:100px;
          display: block;
+	    text-shadow: -1px 1px 0 #000,
      }
+
+ 
      /* .cart_heading_title{
          display: block;
      } */
@@ -867,12 +879,7 @@ button.cart-modal-counterdown {
 }
 
 
-/* cart */
-.cart_image img{
-    width:100px;
-    /* height:150px; */
-    margin-top:20px;
-}
+
 
 .cart_title{
     margin-top:20px;
@@ -1020,8 +1027,16 @@ button.cart__btn{
 
 @media (min-width: 500px) {
 
-    .sm_cart_image img {
-        width: 120px;
+    /* .sm_cart_image img {
+        width: 100px;
+    } */
+
+
+    /* cart */
+    .cart_image img {
+        width: 100px;
+        /* height:150px; */
+        margin-top: 20px;
     }
 
 
@@ -1098,3 +1113,10 @@ button.cart__btn{
 .text-uppercase {
     letter-spacing: 0.1em;
 }
+
+
+    .cart_color p {
+        text-shadow: 1px 1px 1px 1px #fff;
+        color:#000;
+
+    }
